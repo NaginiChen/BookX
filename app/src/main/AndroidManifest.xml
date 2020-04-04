@@ -21,13 +21,17 @@
             android:name="com.google.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:label="Barcode Reader" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ScanBarcodeActivity"
+            android:label="Scan Barcode" />
+
     </application>
 
 </manifest>
