@@ -29,6 +29,10 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
+
+
+
+    // TODO: Will probably move the following code somewhere else
     // Validate that the user entered a valid email and password
     // TODO: Create EditText for email and password
     private boolean validateForm() {

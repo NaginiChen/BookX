@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "***SIGN_IN***";
+
     // Firebase instance variables
     private FirebaseDatabase mDatabase;
     private FirebaseAuth mAuth;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 //        DatabaseReference myRef1 = mDatabase.getReference();
     }
 
+
+    // TODO: Will probably move the below code somewhere else
     @Override
     public void onStart() {
         super.onStart();
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
         }
 
-
+    // TODO: will be called when user clicks sign in
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
 
