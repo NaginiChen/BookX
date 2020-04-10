@@ -1,4 +1,4 @@
-package com.example.bookx;
+package com.example.afinal;
 
 import org.junit.Test;
 
