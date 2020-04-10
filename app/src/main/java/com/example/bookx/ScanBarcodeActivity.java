@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.CameraSource;
@@ -18,6 +19,8 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 
 import androidx.core.app.ActivityCompat;
+//import androidx.annotation.NonNull;
+//import androidx.core.content.ContextCompat;
 
 public class ScanBarcodeActivity extends Activity{
     SurfaceView cameraPreview;
@@ -26,13 +29,12 @@ public class ScanBarcodeActivity extends Activity{
     protected  void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_barcode);
-
         cameraPreview = findViewById(R.id.camera_preview);
+
         createCameraSource();
     }
 
     private void createCameraSource(){
-
         BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(this).build();
         final CameraSource cameraSource = new CameraSource.Builder(this, barcodeDetector)
                 .setAutoFocusEnabled(true)
