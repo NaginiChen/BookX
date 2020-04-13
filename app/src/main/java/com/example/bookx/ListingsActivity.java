@@ -30,13 +30,10 @@ public class ListingsActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // TODO: CREATE LISTINGS UI
-
-        createListing();
-        createListing();
-        createListing();
     }
 
-    // dummy method
+    // dummy method to create a listing
+    // we will have to pull information from the UI
     private void createListing() {
         // for now just have random information
         String uid = mAuth.getUid(); // user id of the current user who is creaitng the listing

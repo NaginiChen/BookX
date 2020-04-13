@@ -1,5 +1,6 @@
 package com.example.bookx;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     // TODO: Proceed to ListingsActivity
                     Log.d(TAG, "Successful sign in.");
 
-                    Intent activity = new Intent(getBaseContext(),AccountsActivity.class); // TODO: change to listings activity
+                    Intent activity = new Intent(getBaseContext(), AccountsActivity.class);
                     startActivity(activity);
 
                 } else { // User has not verified email
