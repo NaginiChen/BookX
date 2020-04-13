@@ -17,6 +17,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:textColor = "#FFFFFF"
+        android:fontFamily = "@font/RasaRegular"
         android:text="BookX" />
 
     <Button
@@ -26,6 +27,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="84dp"
+        android:fontFamily = "@font/RasaRegular"
         android:text="account" />
 
     <Button
@@ -34,5 +36,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:fontFamily = "@font/RasaRegular"
         android:text="pref" />
+
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="com.example.afinal.Home_Fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="314dp" />
+
 </android.widget.RelativeLayout>

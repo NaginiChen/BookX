@@ -19,7 +19,7 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         title_tv = (TextView) findViewById(R.id.title_tv);
-        account_btn = (Button) findViewById(R.id.signhere_btn);
+        account_btn = (Button) findViewById(R.id.account_btn);
         preferences_btn = (Button) findViewById(R.id.preferences_btn);
 
         //when you click login_btn, it will open up the Home page

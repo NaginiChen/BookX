@@ -15,6 +15,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="157dp"
         android:layout_marginEnd="174dp"
+        android:fontFamily = "@font/RasaRegular"
+        android:textColor="#FFFFFF"
         android:text="Jennifer Roh" />
 
     <TextView
@@ -24,6 +26,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="188dp"
+        android:fontFamily = "@font/RasaRegular"
+        android:textColor="#FFFFFF"
         android:text="smroh17@bu.edu" />
 
     <Button
@@ -33,6 +37,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="273dp"
+        android:fontFamily = "@font/RasaRegular"
+        android:textColor="#FFFFFF"
         android:text="change password" />
 
     <TextView
@@ -43,7 +49,9 @@
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="229dp"
+        android:textColor="#FFFFFF"
         android:layout_marginEnd="109dp"
+        android:fontFamily = "@font/RasaRegular"
         android:text="1 University Road, Boston, MA" />
 
     <TextView
@@ -51,6 +59,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:fontFamily = "@font/RasaRegular"
+        android:textColor="#FFFFFF"
         android:text="Your Listings" />
 
     <Button
@@ -61,5 +71,17 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="21dp"
         android:layout_marginEnd="12dp"
+        android:fontFamily = "@font/RasaRegular"
+        android:textColor="#FFFFFF"
         android:text="Log Out" />
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.example.afinal.Listings_Fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="217dp" />
 </android.widget.RelativeLayout>

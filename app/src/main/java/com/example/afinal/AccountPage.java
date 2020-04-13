@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class AccountPage extends AppCompatActivity {
     TextView name_tv3;
-    TextView email_tv2;
+    TextView email_tv3;
     TextView address_tv;
     Button changePW_btn;
     TextView listings_tv;
@@ -21,7 +21,7 @@ public class AccountPage extends AppCompatActivity {
         setContentView(R.layout.activity_account_page);
 
         name_tv3 = (TextView) findViewById(R.id.name_tv3);
-        email_tv2 = (TextView) findViewById(R.id.email_tv2);
+        email_tv3 = (TextView) findViewById(R.id.email_tv3);
         address_tv = (TextView) findViewById(R.id.address_tv);
         changePW_btn = (Button) findViewById(R.id.changePW_btn);
         listings_tv = (TextView) findViewById(R.id.listings_tv);
