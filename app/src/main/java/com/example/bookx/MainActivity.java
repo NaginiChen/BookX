@@ -3,11 +3,15 @@ package com.example.bookx;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.bookx.data.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -15,53 +19,44 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "***SIGN_IN***";
 
     // Firebase instance variables
-    private FirebaseDatabase mDatabase;
     private FirebaseAuth mAuth;
+
+    private EditText etEmail;
+    private EditText etPassword;
+    private Button btnSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize Firebase database and auth
-//        mDatabase = FirebaseDatabase.getInstance();
-//        mAuth = FirebaseAuth.getInstance();
-//
-//        DatabaseReference myRef1 = mDatabase.getReference();
+        // Initialize firebase auth
+        mAuth = FirebaseAuth.getInstance();
+
+        // Initialize views
+        etEmail = (EditText) findViewById(R.id.etEmail);
+        etPassword = (EditText) findViewById(R.id.etPassword);
+        btnSignIn = (Button) findViewById(R.id.btnSignIn);
+
+        // onclick for sign in button
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = etEmail.getText().toString();
+                String password = etPassword.getText().toString();
+
+                signIn(email, password);
+            }
+        });
     }
 
-
-    // TODO: Will probably move the below code somewhere else
-    @Override
-    public void onStart() {
-        super.onStart();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-        // Check if user is signed in (non-null) and update UI accordingly.
-
-//        if (currentUser == null) {
-            // Not signed in, launch the Sign UP activity
-            // TODO: CREATE SignInActivity
-//            startActivity(new Intent(this, SignUpActivity.class));
-
-//            finish();
-//            return;
-//        } else {
-            // User is signed in, proceed to Listings activity
-            // TODO: Proceed to ListingsActivity
-
-            // TODO: Get profile information
-//            mUsername = currentUser.getDisplayName();
-//            if (mFirebaseUser.getPhotoUrl() != null) {
-//                mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
-//            }
-        }
-
-    // TODO: will be called when user clicks sign in
+    // This method calls firebase auth to sign in the user given email and password
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
 
@@ -71,23 +66,29 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onComplete(@NonNull Task< AuthResult > task) {
             if (task.isSuccessful()) {
-                // Sign in success, update UI with the signed-in user's information
-                Log.d(TAG, "Verification email sent. Please verify and procees to " +
-                        "log in.");
+                // Sign in success but still must check if user is verified
                 FirebaseUser user = mAuth.getCurrentUser();
 
-                // User is signed in, proceed to Listings activity
-                // TODO: Proceed to ListingsActivity
-                startActivity(new Intent(getBaseContext(), MainActivity.class));
+                // If user is verified, proceed to Listings activity
+                if (user.isEmailVerified()) {
+                    // TODO: Proceed to ListingsActivity
+                    Log.d(TAG, "Successful sign in.");
+
+                    Intent activity = new Intent(getBaseContext(),AccountsActivity.class); // TODO: change to listings activity
+                    startActivity(activity);
+
+                } else { // User has not verified email
+                    Toast.makeText(getBaseContext(), "Email is not verified. Verify and try again.",
+                            Toast.LENGTH_LONG).show();
+                }
+
             } else {
-                // If sign in fails, display a message to the user.
+                // Sign in has failed, display a message to the user
                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                Toast.makeText(getBaseContext(), "Authentication failed. Please try again.",
+                Toast.makeText(getBaseContext(), "Sign in failed. Please try again.",
                         Toast.LENGTH_SHORT).show();
             }
-
         }
     });
-}
-
+    }
 }

@@ -33,6 +33,5 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="149dp"
         android:layout_marginTop="258dp"
-        android:onClick="createAccount"
         android:text="Sign Up" />
 </RelativeLayout>
