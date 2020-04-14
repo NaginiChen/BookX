@@ -75,13 +75,4 @@
         android:textColor="#FFFFFF"
         android:text="Log Out" />
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.example.afinal.Listings_Fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="217dp" />
 </android.widget.RelativeLayout>

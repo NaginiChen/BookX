@@ -39,13 +39,18 @@
         android:fontFamily = "@font/rasa_regular"
         android:text="pref" />
 
-    <fragment
-        android:id="@+id/fragment2"
-        android:name="com.example.afinal.Home_Fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ListView
+        android:id="@+id/lvListing"
+        android:layout_width="match_parent"
+        android:layout_height="375dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="314dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginTop="353dp"
+        android:layout_marginBottom="3dp">
+
+    </ListView>
 
 </android.widget.RelativeLayout>

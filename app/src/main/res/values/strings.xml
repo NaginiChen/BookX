@@ -3,4 +3,19 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+<!--    <String-array name = "bookTitles">-->
+<!--        <item>book1</item>-->
+<!--        <item>book2</item>-->
+<!--    </String-array>-->
+
+<!--    <String-array name = "sellers">-->
+<!--        <item>seller1</item>-->
+<!--        <item>seller2</item>-->
+<!--    </String-array>-->
+
+<!--    <Double-array name = "prices">-->
+<!--        <item>1</item>-->
+<!--        <item>2</item>-->
+<!--    </Double-array>-->
 </resources>
