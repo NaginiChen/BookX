@@ -57,28 +57,6 @@
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/tvFont"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="66dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_weight="1"
-        android:text="Change Font"
-        android:textSize="24sp" />
-
-    <Spinner
-        android:id="@+id/spFont"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="66dp"
-        android:text="Change Font"
-        android:textSize="24sp"
-        android:layout_weight="1" />
-
-    <TextView
         android:id="@+id/tvNotifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -124,6 +102,17 @@
         android:text="Turn Off Listings"
         android:textSize="24sp" />
 
+    <Switch
+        android:id="@+id/swLocation"
+        android:layout_width="313dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="66dp"
+        android:layout_weight="1"
+        android:text="Share Location"
+        android:textSize="24sp" />
+
     <Button
         android:id="@+id/btnCloseAccount"
         android:layout_width="match_parent"
@@ -134,6 +123,22 @@
         android:layout_weight="2"
         android:background="#196896"
         android:text="CLOSE ACCOUNT"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="2"
+        android:background="#1E3542"
+        android:text="LOG OUT"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="#FFFFFF"
