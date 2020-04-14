@@ -16,7 +16,7 @@
         android:layout_marginLeft="150dp"
         android:layout_marginTop="130dp"
         android:text="Welcome to BookX,"
-        android:fontFamily = "@font/RasaBold"
+        android:fontFamily = "@font/rasa_bold"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="165dp"
         android:text="Log-In/Sign-Up below to use our platform"
-        android:fontFamily = "@font/RasaRegular"
+        android:fontFamily = "@font/rasa_regular"
         android:textColor="#FFFFFF" />
 
     <TextView
@@ -41,7 +41,7 @@
         android:layout_marginStart="174dp"
         android:layout_marginBottom="457dp"
         android:text="Email"
-        android:fontFamily = "@font/RasaRegular"
+        android:fontFamily = "@font/rasa_regular"
         android:textColor="#FFFFFF" />
 
     <EditText
@@ -55,7 +55,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text=""
-        android:fontFamily = "@font/RasaRegular"
+        android:fontFamily = "@font/rasa_regular"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="328dp" />
 
@@ -70,7 +70,7 @@
         android:layout_marginTop="392dp"
         android:text="Password"
         android:textColor="#FFFFFF"
-        android:fontFamily = "@font/RasaRegular"
+        android:fontFamily = "@font/rasa_regular"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="407dp" />
 
@@ -85,7 +85,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text=""
-        android:fontFamily = "@font/RasaRegular"
+        android:fontFamily = "@font/rasa_regular"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="456dp" />
 
@@ -99,7 +99,7 @@
         android:layout_marginStart="148dp"
         android:layout_marginBottom="170dp"
         android:text="Log In"
-        android:fontFamily = "@font/RasaBold"
+        android:fontFamily = "@font/rasa_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="#FFFFFF"
@@ -117,7 +117,7 @@
         android:text="Don't have an account? Sign up "
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        android:fontFamily = "@font/RasaRegular"
+        android:fontFamily = "@font/rasa_regular"
         app:layout_constraintHorizontal_bias="0.357"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="605dp" />
@@ -129,7 +129,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="600dp"
         android:layout_marginEnd="44dp"
-        android:fontFamily = "@font/RasaRegular"
+        android:fontFamily = "@font/rasa_regular"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:textColor="#FFFFFF"
         android:text="HERE" />
