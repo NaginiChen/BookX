@@ -8,19 +8,17 @@ import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-
 import java.io.IOException;
-
 import androidx.core.app.ActivityCompat;
-//import androidx.annotation.NonNull;
-//import androidx.core.content.ContextCompat;
+
+// Source code used: https://www.youtube.com/watch?v=czmEC5akcos
+// Source code used: Lect9RequestPermission2 (lecture code)
 
 public class ScanBarcodeActivity extends Activity{
     SurfaceView cameraPreview;

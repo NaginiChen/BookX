@@ -19,8 +19,11 @@ import android.widget.Toast;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
-public class MainActivity extends AppCompatActivity {
 
+// Source code used: https://www.youtube.com/watch?v=czmEC5akcos
+// Source code used: Lect9RequestPermission2 (lecture code)
+
+public class MainActivity extends AppCompatActivity {
     TextView barcodeResult;
     Button scanBtn;
     private static final int PERMISSION_REQUEST_CODE = 200;
