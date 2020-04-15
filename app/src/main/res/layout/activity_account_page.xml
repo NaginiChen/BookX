@@ -1,58 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
     android:background="#90DBDB"
     tools:context=".AccountPage">
+
+    <Button
+        android:id="@+id/logout_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily = "@font/rasa_regular"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="right"
+        android:text="Log Out" />
 
     <TextView
         android:id="@+id/name_tv3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="157dp"
-        android:layout_marginEnd="174dp"
         android:fontFamily = "@font/rasa_regular"
         android:textColor="#FFFFFF"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:text="Jennifer Roh" />
 
     <TextView
         android:id="@+id/email_tv3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="188dp"
         android:fontFamily = "@font/rasa_regular"
         android:textColor="#FFFFFF"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
         android:text="smroh17@bu.edu" />
-
-    <Button
-        android:id="@+id/changePW_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="273dp"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:text="change password" />
 
     <TextView
         android:id="@+id/address_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="229dp"
         android:textColor="#FFFFFF"
-        android:layout_marginEnd="109dp"
         android:fontFamily = "@font/rasa_regular"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
         android:text="1 University Road, Boston, MA" />
+
+
+
+    <Button
+        android:id="@+id/changePW_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily = "@font/rasa_regular"
+        android:layout_gravity="center"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="20dp"
+        android:text="change password" />
+
+
 
     <TextView
         android:id="@+id/listings_tv"
@@ -60,19 +69,20 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:fontFamily = "@font/rasa_regular"
+        android:layout_gravity="center"
         android:textColor="#FFFFFF"
         android:text="Your Listings" />
 
-    <Button
-        android:id="@+id/logout_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:text="Log Out" />
+    <ListView
+        android:id="@+id/lvAccountListing"
+        android:listSelector="@drawable/listview_shape"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        android:layout_weight="6">
 
-</android.widget.RelativeLayout>
+    </ListView>
+
+</LinearLayout>

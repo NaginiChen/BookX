@@ -20,7 +20,7 @@ public class HomePage extends AppCompatActivity {
     TextView title_tv;
     Button account_btn;
     Button preferences_btn;
-    private List<Post> posts = new ArrayList<>();
+    public static List<Post> posts = new ArrayList<>();
     private ListView lvPosts ;
     private ListAdapter postAdapter ;
     @Override
@@ -65,7 +65,7 @@ public class HomePage extends AppCompatActivity {
 
     }
 
-    public void data(){
+    public static void data(){
         Post post1 = new Post("book1","seller1","course1",1,"This is book1",false) ;
         Post post2 = new Post("book2","seller2","course2",2,"This is book2",false) ;
         Post post3 = new Post("book3","seller3","course3",3,"This is book3",false) ;
