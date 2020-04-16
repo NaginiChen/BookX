@@ -1,18 +1,14 @@
-package com.example.afinal;
+package com.example.bookx;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.afinal.Model.Post;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.bookx.R;
 
 public class AccountPage extends AppCompatActivity {
     TextView name_tv3;

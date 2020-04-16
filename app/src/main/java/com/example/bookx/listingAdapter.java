@@ -1,15 +1,14 @@
-package com.example.afinal;
+package com.example.bookx;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.afinal.Model.Post;
+import com.example.bookx.Model.Post;
+import com.example.bookx.R;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.afinal;
+package com.example.bookx;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.example.bookx.R;
 
 public class ListingPage extends AppCompatActivity {
     TextView listing_tv;

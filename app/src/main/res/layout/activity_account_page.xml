@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:background="#90DBDB"
-    tools:context=".AccountPage">
+    tools:context="com.example.bookx.AccountPage">
 
     <Button
         android:id="@+id/logout_btn"

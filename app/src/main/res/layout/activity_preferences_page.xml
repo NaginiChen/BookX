@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#97CAE8"
     android:orientation="vertical"
-    tools:context=".PreferencesPage" >
+    tools:context="com.example.bookx.PreferencesPage" >
 
     <TextView
         android:id="@+id/tvPreferences"

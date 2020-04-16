@@ -1,8 +1,10 @@
-package com.example.afinal;
+package com.example.bookx;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.bookx.R;
 
 public class PostingPage extends AppCompatActivity {
 

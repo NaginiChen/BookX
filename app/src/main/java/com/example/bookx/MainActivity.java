@@ -1,4 +1,4 @@
-package com.example.afinal;
+package com.example.bookx;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.bookx.R;
 
 
 public class MainActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.afinal;
+package com.example.bookx;
 
 
 import android.os.Bundle;
@@ -9,14 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.bookx.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PostingLocation extends Fragment {
+public class PostingInfo extends Fragment {
 
 
-    public PostingLocation() {
+    public PostingInfo() {
         // Required empty public constructor
     }
 
@@ -25,7 +27,7 @@ public class PostingLocation extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_posting_location, container, false);
+        return inflater.inflate(R.layout.fragment_posting_info, container, false);
     }
 
 }

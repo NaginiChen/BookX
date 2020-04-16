@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#97CAE8"
-    tools:context=".PostingInfo">
+    tools:context="com.example.bookx.PostingInfo">
 
     <TextView
         android:id="@+id/tvName"
@@ -106,7 +106,7 @@
         android:layout_marginStart="67dp"
         android:layout_marginTop="246dp"
         android:text="insert name"
-        android:textSize="18" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvClassDB"
@@ -117,7 +117,7 @@
         android:layout_marginStart="66dp"
         android:layout_marginTop="333dp"
         android:text="insert class"
-        android:textSize="18" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvPriceDB"
