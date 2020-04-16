@@ -1,38 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#90DBDB"
     tools:context=".HomePage">
-
-
-    <TextView
-        android:id="@+id/title_tv"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:textColor = "#FFFFFF"
-        android:text="BookX" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/account_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="84dp"
-        android:text="account" />
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor = "#FFFFFF"
+            android:fontFamily = "@font/rasa_regular"
+            android:textSize="30dp"
+            android:text="BookX" />
 
-    <Button
-        android:id="@+id/preferences_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:text="pref" />
-</android.widget.RelativeLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+        </TextView>
+
+        <Button
+            android:id="@+id/account_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily = "@font/rasa_regular"
+            android:text="account" />
+
+        <Button
+            android:id="@+id/preferences_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:fontFamily = "@font/rasa_regular"
+            android:text="pref" />
+
+
+    </LinearLayout>
+
+    <SearchView
+        android:id="@+id/search_bar"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="@drawable/search_bar_shape">
+
+    </SearchView>
+
+    <ListView
+        android:id="@+id/lvListing"
+        android:listSelector="@drawable/listview_shape"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        android:layout_weight="6">
+
+    </ListView>
+
+</LinearLayout>

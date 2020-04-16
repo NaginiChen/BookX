@@ -17,6 +17,7 @@
         android:layout_marginTop="71dp"
         android:layout_marginEnd="149dp"
         android:text="Sign up for BookX"
+        android:fontFamily = "@font/rasa_bold"
         android:textColor="#FFFFFF" />
 
     <TextView
@@ -27,6 +28,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="109dp"
         android:textColor = "#FFFFFF"
+        android:fontFamily = "@font/rasa_regular"
         android:text="Create a profile, connect with fellow students in your university to join our community!" />
 
     <TextView
@@ -37,6 +39,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="159dp"
         android:textColor = "#FFFFFF"
+        android:fontFamily = "@font/rasa_regular"
         android:text="Name" />
 
     <EditText
@@ -48,6 +51,7 @@
         android:layout_marginTop="204dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:fontFamily = "@font/rasa_regular"
         android:text="" />
 
     <TextView
@@ -58,6 +62,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="268dp"
         android:textColor = "#FFFFFF"
+        android:fontFamily = "@font/rasa_regular"
         android:text="Email" />
 
     <EditText
@@ -69,6 +74,7 @@
         android:layout_marginTop="309dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:fontFamily = "@font/rasa_regular"
         android:text="" />
 
     <TextView
@@ -79,6 +85,7 @@
         android:layout_centerHorizontal="true"
         android:textColor = "#FFFFFF"
         android:layout_marginBottom="328dp"
+        android:fontFamily = "@font/rasa_regular"
         android:text="Password" />
 
     <EditText
@@ -89,6 +96,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="258dp"
         android:ems="10"
+        android:fontFamily = "@font/rasa_regular"
         android:inputType="textPersonName"
         android:text="" />
 
@@ -100,6 +108,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="222dp"
         android:textColor = "#FFFFFF"
+        android:fontFamily = "@font/rasa_regular"
         android:text="Address" />
 
     <EditText
@@ -112,6 +121,7 @@
         android:textColor = "#FFFFFF"
         android:ems="10"
         android:inputType="textPersonName"
+        android:fontFamily = "@font/rasa_regular"
         android:text="" />
 
     <TextView
@@ -121,6 +131,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="92dp"
+        android:fontFamily = "@font/rasa_regular"
         android:textColor = "#FFFFFF"
         android:text="Upload your profile picture!" />
 
@@ -131,6 +142,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="31dp"
+        android:fontFamily = "@font/rasa_regular"
         android:text="Sign Up" />
 
     <Button
@@ -141,6 +153,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="297dp"
         android:layout_marginEnd="33dp"
+        android:fontFamily = "@font/rasa_regular"
         android:text="verify" />
 </android.widget.RelativeLayout>
 
