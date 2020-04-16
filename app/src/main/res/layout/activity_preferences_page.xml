@@ -12,11 +12,8 @@
         android:id="@+id/tvPreferences"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
         android:layout_weight="1"
-        android:text="Preferences"
+        android:text="@string/preferences"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="45sp"
@@ -26,11 +23,9 @@
         android:id="@+id/tvAppearances"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
         android:layout_weight="1"
-        android:text="Appearances"
+        android:text="@string/appearances"
         android:textColor="#FFFFFF"
         android:textSize="30sp" />
 
@@ -39,32 +34,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="66dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_weight="1"
-        android:text="Language"
+        android:text="@string/language"
         android:textSize="24sp" />
 
     <Spinner
         android:id="@+id/spLanguage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="66dp"
         android:layout_weight="1"
-        android:text="Language"
+        android:text="@string/language"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/tvNotifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
         android:layout_weight="1"
-        android:text="Notifications"
+        android:text="@string/notifications"
         android:textColor="#FFFFFF"
         android:textSize="30sp" />
 
@@ -72,22 +61,18 @@
         android:id="@+id/swAlerts"
         android:layout_width="313dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="66dp"
         android:layout_weight="1"
-        android:text="Alerts"
+        android:text="@string/alerts"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/tvAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_weight="1"
-        android:text="Account"
+        android:text="@string/account"
         android:textColor="#FFFFFF"
         android:textSize="30sp" />
 
@@ -95,50 +80,27 @@
         android:id="@+id/swFreezeListings"
         android:layout_width="313dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="66dp"
         android:layout_weight="1"
-        android:text="Turn Off Listings"
+        android:text="@string/turn_off_listings"
         android:textSize="24sp" />
 
     <Switch
         android:id="@+id/swLocation"
         android:layout_width="313dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="66dp"
         android:layout_weight="1"
-        android:text="Share Location"
+        android:text="@string/share_location"
         android:textSize="24sp" />
-
-    <Button
-        android:id="@+id/btnCloseAccount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_weight="2"
-        android:background="#196896"
-        android:text="CLOSE ACCOUNT"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnLogOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_weight="2"
         android:background="#1E3542"
-        android:text="LOG OUT"
+        android:text="@string/log_out"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="#FFFFFF"
