@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#90DBDB"
     tools:context="com.example.bookx.MainActivity">
@@ -10,24 +11,23 @@
     <TextView
         android:id="@+id/welcome_tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="130dp"
-        android:text="Welcome to BookX,"
+        android:layout_marginTop="100sp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:text="Welcome to BookX"
+        android:textSize="40sp"
         android:fontFamily = "@font/rasa_bold"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="193dp" />
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/login_tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="165dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:layout_gravity="center"
+        android:textSize="20sp"
         android:text="Log-In/Sign-Up below to use our platform"
         android:fontFamily = "@font/rasa_regular"
         android:textColor="#FFFFFF" />
@@ -35,11 +35,10 @@
     <TextView
         android:id="@+id/email_tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="174dp"
-        android:layout_marginBottom="457dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:textSize="20sp"
+        android:layout_gravity="center"
         android:text="Email"
         android:fontFamily = "@font/rasa_regular"
         android:textColor="#FFFFFF" />
@@ -47,13 +46,12 @@
     <EditText
         android:id="@+id/email"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="83dp"
-        android:layout_marginTop="301dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:layout_gravity="center"
         android:ems="10"
         android:inputType="textPersonName"
+        android:layout_marginBottom="10sp"
         android:text=""
         android:fontFamily = "@font/rasa_regular"
         tools:layout_editor_absoluteX="84dp"
@@ -62,12 +60,10 @@
     <TextView
         android:id="@+id/password_tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="159dp"
-        android:layout_marginTop="392dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:textSize="20sp"
+        android:layout_gravity="center"
         android:text="Password"
         android:textColor="#FFFFFF"
         android:fontFamily = "@font/rasa_regular"
@@ -77,28 +73,24 @@
     <EditText
         android:id="@+id/password"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="88dp"
-        android:layout_marginBottom="251dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:layout_gravity="center"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:text=""
         android:fontFamily = "@font/rasa_regular"
+        android:layout_marginBottom="20dp"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="456dp" />
 
     <Button
         android:id="@+id/login_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="148dp"
-        android:layout_marginBottom="170dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
         android:text="Log In"
+        android:layout_gravity="center"
         android:fontFamily = "@font/rasa_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,33 +98,40 @@
         android:background="@drawable/button"
         tools:layout_editor_absoluteY="534dp" />
 
-    <TextView
-        android:id="@+id/signhere_tv"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="86dp"
-        android:layout_marginTop="610dp"
-        android:text="Don't have an account? Sign up "
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:fontFamily = "@font/rasa_regular"
-        app:layout_constraintHorizontal_bias="0.357"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="605dp" />
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1">
 
-    <Button
-        android:id="@+id/signhere_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="600dp"
-        android:layout_marginEnd="44dp"
-        android:fontFamily = "@font/rasa_regular"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:textColor="#FFFFFF"
-        android:text="HERE" />
+        <TextView
+            android:id="@+id/signhere_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+
+            android:text="Don't have an account?  "
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily = "@font/rasa_regular"
+            app:layout_constraintHorizontal_bias="0.357"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="605dp" />
+
+        <Button
+            android:id="@+id/signhere_btn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/rasa_regular"
+            android:text="Sign up"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold|italic" />
+
+    </LinearLayout>
 
 
-</android.widget.RelativeLayout>
+
+</LinearLayout>
