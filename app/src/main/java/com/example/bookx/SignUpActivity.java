@@ -65,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
             etEmail.setError("Required."); // throw an error if empty
             Log.d(TAG, "Email required.");
             valid = false;
-        } else if ((!email.substring(email.length() - 4).equals(".edu")) && (!email.equals("littlepurplekelly@yahoo.com"))) {
+        } else if ((!email.substring(email.length() - 4).equals(".edu"))) {
             etEmail.setError(".edu email is required"); // throw an error if not a .edu email
             Log.d(TAG, (email.substring(email.length() - 4)));
             valid = false;
@@ -96,6 +96,8 @@ public class SignUpActivity extends AppCompatActivity {
         if (!validateForm(email, password)) {
             Toast.makeText(getBaseContext(), "Invalid inputs.",
                     Toast.LENGTH_SHORT).show();
+
+            return;
         }
 
         Log.d(TAG, "validated:" + email);
