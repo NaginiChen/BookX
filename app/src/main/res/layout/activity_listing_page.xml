@@ -1,148 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
     android:background="#90DBDB"
-    tools:context="com.example.bookx.ListingPage">
+    tools:context=".ListingPage">
 
-    <TextView
-        android:id="@+id/listing_tv"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="176dp"
-        android:textColor="#FFFFFF"
-        android:fontFamily = "@font/rasa_bold"
-        android:text="New Listing" />
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/cancel_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:fontFamily = "@font/rasa_regular"
-        android:text="Cancel" />
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily = "@font/rasa_bold"
+            android:textColor="#FFFFFF"
+            android:text="CANCEL"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
 
-    <Button
-        android:id="@+id/post_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:fontFamily = "@font/rasa_regular"
-        android:layout_alignParentEnd="true"
-        android:text="Post" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:layout_weight="2">
+        </TextView>
+
+        <TextView
+            android:id="@+id/listing_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor = "#FFFFFF"
+            android:fontFamily = "@font/rasa_bold"
+            android:textSize="25dp"
+            android:text="Create New Listing" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:layout_weight="2">
+        </TextView>
+
+
+        <Button
+            android:id="@+id/post_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:fontFamily = "@font/rasa_bold"
+            android:textColor="#FFFFFF"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:text="POST" />
+
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/bookname_et"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="87dp"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/rasa_regular"
+        android:textAlignment="center"
+        android:text="Book Name"
+        android:inputType="text"
         android:textColor="#FFFFFF"
-        android:fontFamily = "@font/rasa_regular"
-        android:text="Book Name" />
+        android:layout_marginTop = "10dp"/>
 
     <EditText
         android:id="@+id/isbn_et"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="157dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:text="ISBN Number" />
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/rasa_regular"
+        android:textAlignment="center"
+        android:text="ISBN Number"
+        android:inputType="text"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/uploadisbn_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:fontFamily = "@font/rasa_regular"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="11dp"
-        android:text="Upload" />
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:text="Upload ISBN"
+        android:textColor="#FFFFFF"
+        android:fontFamily = "@font/rasa_bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button" />
 
     <EditText
         android:id="@+id/class_et"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="231dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:text="Class Name" />
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/rasa_regular"
+        android:textAlignment="center"
+        android:text="Class Name"
+        android:inputType="text"
+        android:textColor="#FFFFFF" />
 
     <EditText
         android:id="@+id/price_et"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="298dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:text="Price" />
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/rasa_regular"
+        android:textAlignment="center"
+        android:text="Price"
+        android:inputType="text"
+        android:textColor="#FFFFFF" />
 
     <EditText
         android:id="@+id/description_et"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="313dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:text="Description" />
-
-    <TextView
-        android:id="@+id/location_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="250dp"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:text="Show your location?" />
-
-    <Button
-        android:id="@+id/Ylocation_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="96dp"
-        android:fontFamily = "@font/rasa_regular"
-        android:layout_marginBottom="163dp"
-        android:text="Yes" />
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/rasa_regular"
+        android:textAlignment="center"
+        android:text="Description"
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="50dp"/>
 
-    <Button
-        android:id="@+id/Nlocation_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="97dp"
-        android:fontFamily = "@font/rasa_regular"
-        android:layout_marginBottom="163dp"
-        android:text="No" />
-</android.widget.RelativeLayout>
+
+</LinearLayout>

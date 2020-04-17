@@ -1,4 +1,4 @@
-package com.example.bookx.Model;
+package com.example.afinal.Model;
 
 public class Post {
 

@@ -1,4 +1,4 @@
-package com.example.bookx;
+package com.example.afinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.bookx.R;
+import org.w3c.dom.Text;
 
 public class ListingPage extends AppCompatActivity {
     TextView listing_tv;
@@ -21,9 +21,7 @@ public class ListingPage extends AppCompatActivity {
     EditText class_et;
     EditText price_et;
     EditText description_et;
-    TextView location_tv;
-    Button Ylocation_btn;
-    Button Nlocation_btn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +37,6 @@ public class ListingPage extends AppCompatActivity {
         class_et = (EditText) findViewById(R.id.class_et);
         price_et = (EditText) findViewById(R.id.price_et);
         description_et = (EditText) findViewById(R.id.description_et);
-        location_tv = (TextView) findViewById(R.id.location_tv);
-        Ylocation_btn = (Button) findViewById(R.id.Ylocation_btn);
-        Nlocation_btn = (Button) findViewById(R.id.Nlocation_btn);
 
         //when you click cancel_btn, it will go back to the Home page
         cancel_btn.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +52,14 @@ public class ListingPage extends AppCompatActivity {
                 openPostingPage();
             }
         });
+        //when user clicks on this button, it will prompt to open the camera to scan ISBN #
+        uploadisbn_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //connect ISBN API here
+            }
+        });
+
     }
 
     public void openHomePage() {

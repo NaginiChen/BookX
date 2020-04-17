@@ -1,14 +1,19 @@
-package com.example.bookx;
+package com.example.afinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.bookx.R;
+import com.example.afinal.Model.Post;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountPage extends AppCompatActivity {
     TextView name_tv3;
@@ -36,5 +41,21 @@ public class AccountPage extends AppCompatActivity {
         lvAccountPosts.setAdapter(postAdapter);
         lvAccountPosts.setItemsCanFocus(true);
 
+        //when you click logout_btn, the user will be prompted to log out of the account
+        //should we prompt to open MainActivity page maybe?
+        logout_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // log out of app
+            }
+        });
+
+        //when the use clicks on this button, the user will be able to change password
+        changePW_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // chang password prompt
+            }
+        });
     }
 }

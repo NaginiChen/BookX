@@ -1,4 +1,4 @@
-package com.example.bookx;
+package com.example.afinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.bookx.Model.Post;
-import com.example.bookx.R;
+import com.example.afinal.Model.Post;
 
 import java.util.ArrayList;
 import java.util.List;
