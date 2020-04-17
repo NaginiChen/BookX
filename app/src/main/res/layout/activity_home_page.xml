@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#90DBDB"
-    tools:context=".HomePage">
-
+    tools:context="com.example.bookx.HomePage">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,14 +17,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor = "#FFFFFF"
-            android:fontFamily = "@font/rasa_bold"
+            android:fontFamily = "@font/rasa_regular"
             android:textSize="30dp"
             android:text="BookX" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
             android:layout_weight="2">
         </TextView>
 
@@ -34,9 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily = "@font/rasa_regular"
-            android:textColor="#FFFFFF"
-            android:text="account"
-            android:background="@drawable/round_button"/>
+            android:text="account" />
 
         <Button
             android:id="@+id/preferences_btn"
@@ -44,8 +40,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:fontFamily = "@font/rasa_regular"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/round_button"
             android:text="pref" />
 
 
@@ -57,7 +51,6 @@
         android:layout_marginRight="30dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textColor="#FFFFFF"
         android:layout_weight="0.5"
         android:background="@drawable/search_bar_shape">
 
@@ -71,7 +64,6 @@
         android:layout_margin="20dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="10dp"
-        android:textColor="#FFFFFF"
         android:layout_weight="6">
 
     </ListView>

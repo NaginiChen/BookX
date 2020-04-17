@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:background="#90DBDB"
-    tools:context=".AccountPage">
+    tools:context="com.example.bookx.AccountPage">
 
     <Button
         android:id="@+id/logout_btn"
@@ -16,7 +16,6 @@
         android:fontFamily = "@font/rasa_regular"
         android:textColor="#FFFFFF"
         android:layout_gravity="right"
-        android:background="@drawable/round_button"
         android:text="Log Out" />
 
     <TextView
@@ -60,7 +59,6 @@
         android:layout_gravity="center"
         android:textColor="#FFFFFF"
         android:layout_marginBottom="20dp"
-        style="@style/Widget.AppCompat.Button.Borderless"
         android:text="change password" />
 
 
