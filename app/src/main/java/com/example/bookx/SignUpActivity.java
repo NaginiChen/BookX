@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bookx.data.Model.User;
+import com.example.bookx.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,6 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.regex.Pattern;
+
 public class SignUpActivity extends AppCompatActivity {
     private static final String TAG = "***SIGNUP***";
 
@@ -28,7 +30,6 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
-    // Our views
     private EditText etEmail;
     private EditText etPassword;
     private Button btnSignUp;
@@ -65,7 +66,7 @@ public class SignUpActivity extends AppCompatActivity {
             etEmail.setError("Required."); // throw an error if empty
             Log.d(TAG, "Email required.");
             valid = false;
-        } else if ((!email.substring(email.length() - 4).equals(".edu"))) {
+        } else if (!Pattern.matches("(.*)[@]([a-z]*)(.edu)",email)) {
             etEmail.setError(".edu email is required"); // throw an error if not a .edu email
             Log.d(TAG, (email.substring(email.length() - 4)));
             valid = false;
@@ -103,8 +104,9 @@ public class SignUpActivity extends AppCompatActivity {
         Log.d(TAG, "validated:" + email);
 
         // START create_user_with_email using Firebase auth
+        // Referenced https://firebase.google.com/docs/auth/android/manage-users
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -130,6 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     // Send user an email verification link using Firebase auth
+    // Referenced https://firebase.google.com/docs/auth/android/manage-users
     private void sendEmailVerification() {
         final FirebaseUser user = mAuth.getCurrentUser();
 

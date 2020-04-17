@@ -2,15 +2,11 @@ package com.example.bookx;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bookx.data.Model.Listing;
-import com.example.bookx.data.Model.User;
+import com.example.bookx.Model.Listing;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,7 +24,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
-    List<Listing> listings = new ArrayList<Listing>();
+    List<Listing> listings = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +42,6 @@ public class HomeActivity extends AppCompatActivity {
         getListingsData();
     }
 
-    private void getListingInformation() {
-        // Let's just try getting the first listing
-        // For now let's just say that the user can see his/her own listing
-
-    }
-
     // This method gets listings data from the database and listens to changes
     private void getListingsData() {
         // listen for changes for user data
@@ -63,11 +53,12 @@ public class HomeActivity extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Listing listing = postSnapshot.getValue(Listing.class);
 
-                    Log.d(TAG, listing.getName());
-                    listings.add(listing);
+                    if (listing != null) {
+                        Log.d(TAG, listing.getName());
+                        listings.add(listing);
+                    }
                 }
 
-                Log.d(TAG, listings.toString());
                 // TODO: UPDATE UI HERE
             }
 

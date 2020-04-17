@@ -1,8 +1,7 @@
-package com.example.bookx.data;
+package com.example.bookx.Model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +28,7 @@ public class User {
         this.fullName = name;
         this.location = location;
         this.showLocation = false; //user location off by default
-        this.listings = new HashMap<String, Boolean>(); // empty by default
+        this.listings = new HashMap<>(); // empty by default
     }
 
     public void setName(String name) {

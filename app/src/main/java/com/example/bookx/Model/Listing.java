@@ -1,4 +1,4 @@
-package com.example.bookx.data;
+package com.example.bookx.Model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
