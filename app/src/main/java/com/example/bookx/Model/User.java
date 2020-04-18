@@ -1,17 +1,23 @@
 package com.example.bookx.Model;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Data class that captures user information for logged in users
+ */
+@IgnoreExtraProperties
 public class User {
     private String email;
     private String fullName;
     private String location;
-    private Double lat, lng ;
     private boolean showLocation;
 
     // this stores the user's listings where the key is the lid and the boolean is whether the listing is active
-    private Map<String, Boolean> listings;
+    private Map<String, Object> listings;
     // profile_picture?
 
     public User() {
@@ -23,10 +29,10 @@ public class User {
         this.fullName = name;
         this.location = location;
         this.showLocation = false; //user location off by default
-        this.listings = new HashMap<String, Boolean>(); // empty by default
+        this.listings = new HashMap<>(); // empty by default
     }
 
-    public void setName(String name) {
+    public void setFullName(String name) {
         this.fullName = name;
     }
 
@@ -38,7 +44,7 @@ public class User {
         this.showLocation = showLocation;
     }
 
-    public String getName() {
+    public String getFullName() {
         return this.fullName;
     }
 
@@ -54,27 +60,11 @@ public class User {
         return this.showLocation;
     }
 
-    public Map<String, Boolean> getListings() {
+    public Map<String, Object> getListings() {
         return listings;
     }
 
-    public Double getLat() {
-        return lat;
-    }
-
-    public void setLat(Double lat) {
-        this.lat = lat;
-    }
-
-    public Double getLng() {
-        return lng;
-    }
-
-    public void setLng(Double lng) {
-        this.lng = lng;
-    }
-
-    public void setListings(Map<String, Boolean> listings) {
+    public void setListings(Map<String, Object> listings) {
         this.listings = listings;
     }
 }

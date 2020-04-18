@@ -16,7 +16,7 @@
         <activity android:name="com.example.bookx.AccountPage" />
         <activity android:name="com.example.bookx.SignupPage" />
         <activity android:name="com.example.bookx.HomePage" />
-        <activity android:name="com.example.bookx.MainActivity">
+        <activity android:name="com.example.bookx.SignInPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

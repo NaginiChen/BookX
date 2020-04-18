@@ -6,7 +6,7 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#90DBDB"
-    tools:context="com.example.bookx.MainActivity">
+    tools:context="com.example.bookx.SignInPage">
 
     <TextView
         android:id="@+id/welcome_tv"
