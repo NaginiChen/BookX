@@ -6,14 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.example.bookx.Model.Post;
 import com.example.bookx.R;
 
 import java.util.List;
+import java.util.Date;
 
 public class listingAdapter extends BaseAdapter {
-
     private List<Post> posts;
 
     Context context;   //Creating a reference to our context object, so we only have to get it once.  Context enables access to application specific resources.
@@ -66,14 +65,15 @@ public class listingAdapter extends BaseAdapter {
         TextView txtDesc = (TextView) row.findViewById(R.id.txtDesc) ;
         TextView txtCourse = (TextView) row.findViewById(R.id.txtCourse) ;
         TextView txtPrice = (TextView) row.findViewById(R.id.txtPrice) ;
+        TextView txtISBN = (TextView) row.findViewById(R.id.txtISBN) ; // TODO: SHOW ISBN
 
         txtTitle.setText(posts.get(position).getBookTitle());
         txtSeller.setText(posts.get(position).getSeller());
-        txtDate.setText("01/01/2020");
+        String[] date = posts.get(position).getDate().toString().split("\\s"); // get post date and parse for day month year
+        txtDate.setText(date[0] + " " + date[1] + " " + date[2]);
         txtDesc.setText(posts.get(position).getDesc());
         txtCourse.setText(posts.get(position).getCourse());
-        txtPrice.setText(posts.get(position).getPrice()+"");
-
+        txtPrice.setText("$" + String.format("%.2f",posts.get(position).getPrice()));
 
         return row ;
     }

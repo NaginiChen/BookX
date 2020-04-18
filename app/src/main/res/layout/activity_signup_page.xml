@@ -12,7 +12,7 @@
         android:id="@+id/signup_tv"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:layout_marginTop="30sp"
         android:layout_marginBottom="20sp"
         android:textSize="30sp"
@@ -25,12 +25,11 @@
         android:id="@+id/intro_tv"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:textSize="15sp"
         android:textAlignment="center"
         android:layout_gravity="center"
-        android:layout_marginLeft="20sp"
-        android:layout_marginRight="20sp"
+        android:layout_margin="20sp"
         android:textColor = "#FFFFFF"
         android:fontFamily = "@font/rasa_regular"
         android:text="Create a profile, connect with fellow students in your university to join our community!" />
@@ -39,7 +38,7 @@
         android:id="@+id/name_tv"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="0.6"
+        android:layout_weight="0.5"
         android:textSize="20sp"
         android:layout_gravity="center"
         android:textColor = "#FFFFFF"
@@ -50,7 +49,7 @@
         android:id="@+id/name_et"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="0.6"
+        android:layout_weight="0.3"
         android:layout_marginBottom="10sp"
         android:layout_gravity="center"
         android:ems="10"
@@ -62,7 +61,7 @@
         android:id="@+id/email_tv2"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="0.6"
+        android:layout_weight="0.5"
         android:textSize="20sp"
         android:layout_gravity="center"
         android:textColor = "#FFFFFF"
@@ -73,7 +72,7 @@
         android:id="@+id/email_et"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="0.6"
+        android:layout_weight="0.3"
         android:layout_marginBottom="10sp"
         android:layout_gravity="center"
         android:ems="10"
@@ -85,7 +84,7 @@
         android:id="@+id/pw_tv"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="0.6"
+        android:layout_weight="0.5"
         android:textSize="20sp"
         android:layout_gravity="center"
         android:textColor = "#FFFFFF"
@@ -96,7 +95,7 @@
         android:id="@+id/pw_et"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="0.6"
+        android:layout_weight="0.3"
         android:layout_marginBottom="10sp"
         android:layout_gravity="center"
         android:ems="10"
@@ -108,7 +107,7 @@
         android:id="@+id/address_tv"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="0.6"
+        android:layout_weight="0.5"
         android:textSize="20sp"
         android:layout_gravity="center"
         android:textColor = "#FFFFFF"
@@ -119,8 +118,8 @@
         android:id="@+id/address_et"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="0.6"
-        android:layout_marginBottom="10sp"
+        android:layout_weight="0.3"
+        android:layout_marginBottom="20sp"
         android:layout_gravity="center"
         android:textColor = "#FFFFFF"
         android:ems="10"
@@ -128,29 +127,36 @@
         android:fontFamily = "@font/rasa_regular"
         android:text="" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/uploadpic_tv"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="0sp"-->
-<!--        android:layout_weight="1"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:fontFamily = "@font/rasa_regular"-->
-<!--        android:textColor = "#FFFFFF"-->
-<!--        android:text="Upload your profile picture!" />-->
+    <Button
+        android:id="@+id/upload_pic_btn"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10sp"
+        android:background="@android:drawable/stat_sys_upload" />
+
+    <TextView
+        android:id="@+id/uploadpic_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="0sp"
+        android:layout_weight="0.5"
+        android:layout_gravity="center"
+        android:fontFamily = "@font/rasa_regular"
+        android:textColor = "#FFFFFF"
+        android:text="Upload your profile picture!" />
 
     <Button
         android:id="@+id/signup_btn"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
         android:layout_weight="0.5"
-        android:layout_marginBottom="60sp"
-        android:layout_marginTop="10sp"
+        android:layout_marginBottom="50sp"
         android:layout_gravity="center"
         android:background="@drawable/button"
         android:fontFamily = "@font/rasa_regular"
         android:text="Sign Up" />
 
-<!--    <Button-->
+    <!--    <Button-->
 <!--        android:id="@+id/verification_btn"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="0sp"-->

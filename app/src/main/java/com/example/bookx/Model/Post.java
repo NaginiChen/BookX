@@ -1,6 +1,7 @@
 package com.example.bookx.Model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
+import java.util.Date;
 
 /**
  * Data class that captures user information for logged in users
@@ -14,6 +15,7 @@ public class Post {
     private double price ;
     private String desc ;
     private boolean isSold ;
+    private Date date;
 
     public Post(String bookTitle, String seller, String course, double price, String desc, boolean isSold){
         this.bookTitle = bookTitle ;
@@ -22,8 +24,14 @@ public class Post {
         this.price = price ;
         this.desc = desc ;
         this.isSold = isSold ;
+        this.date = new Date();
+
+        // TODO: ADD ISBN
     }
 
+    public Post() {
+        // Default constructor required for calls to DataSnapshot.getValue(Post.class)
+    }
 
     // setter & getter
 
@@ -73,5 +81,13 @@ public class Post {
 
     public void setSold(boolean sold) {
         isSold = sold;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

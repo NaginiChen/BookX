@@ -139,7 +139,7 @@ public class ListingPage extends AppCompatActivity {
 
             // update the user listings to include the new listing
             Map<String, Object> map = new HashMap<>();
-            map.put(lid, true);
+            map.put(lid, newListing.isSold());
             Log.d(TAG, uid);
             mDatabase.child("users").child(uid).child("listings").updateChildren(map);
 
