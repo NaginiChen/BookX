@@ -25,6 +25,9 @@ public class HomePage extends AppCompatActivity {
     public static List<Post> posts = new ArrayList<>();
     private ListView lvPosts ;
     private ListAdapter postAdapter ;
+
+    Button temp_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,14 @@ public class HomePage extends AppCompatActivity {
         account_btn = (Button) findViewById(R.id.account_btn);
         preferences_btn = (Button) findViewById(R.id.preferences_btn);
         upload_btn = (Button) findViewById(R.id.upload_btn);
+
+        temp_btn = findViewById(R.id.tempBtn);
+        temp_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openChat();
+            }
+        });
 
         //when you click account_btn, it will open up account page
         account_btn.setOnClickListener(new View.OnClickListener() {
@@ -89,4 +100,10 @@ public class HomePage extends AppCompatActivity {
         posts.add(post2) ;
         posts.add(post3) ;
     }
+
+    public void openChat(){
+        Intent intent = new Intent(this, ChatMain.class);
+        startActivity(intent);
+    }
+
 }

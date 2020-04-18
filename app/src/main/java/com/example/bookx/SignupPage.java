@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -137,9 +138,24 @@ public class SignupPage extends AppCompatActivity {
                             // Send user verification link
                             sendEmailVerification();
 
-                            // get user from firebase auth and store it in the firebase database
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            // Updates the displayName on Firebase b/c you can't set it from the beginning, dumb
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name)
+                                    .build();
+                            user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d(TAG, "User profile updated.");
+                                    }
+                                }
+                            });
+
+                            // get user from firebase auth and store it in the firebase database
                             User currUser = new User(user.getEmail(), name, address); // TODO: get user name and location when UI is done
+
                             mDatabase.child("users").child(user.getUid()).setValue(currUser);
 
                         } else {

@@ -45,6 +45,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.bookx.Model.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
@@ -62,8 +63,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import android.util.Log;
+
+import java.security.PKCS12Attribute;
 
 public class ChatMain extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -109,6 +113,8 @@ public class ChatMain extends AppCompatActivity implements GoogleApiClient.OnCon
     private DatabaseReference mFirebaseDatabaseReference;
     private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder> mFirebaseAdapter;
 
+    private static final String MyFlag = "myB";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,9 +125,11 @@ public class ChatMain extends AppCompatActivity implements GoogleApiClient.OnCon
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+//        Log.d(MyFlag, "Value is: " + mFirebaseUser.getDisplayName() );
+
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, SignInPage.class));
             finish();
             return;
         } else {
@@ -333,7 +341,7 @@ public class ChatMain extends AppCompatActivity implements GoogleApiClient.OnCon
                 mFirebaseAuth.signOut();
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient);
                 mUsername = ANONYMOUS;
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, SignInPage.class));
                 finish();
                 return true;
             default:
