@@ -21,6 +21,7 @@ public class HomePage extends AppCompatActivity {
     TextView title_tv;
     Button account_btn;
     Button preferences_btn;
+    Button upload_btn;
     public static List<Post> posts = new ArrayList<>();
     private ListView lvPosts ;
     private ListAdapter postAdapter ;
@@ -32,8 +33,9 @@ public class HomePage extends AppCompatActivity {
         title_tv = (TextView) findViewById(R.id.title_tv);
         account_btn = (Button) findViewById(R.id.account_btn);
         preferences_btn = (Button) findViewById(R.id.preferences_btn);
+        upload_btn = (Button) findViewById(R.id.upload_btn);
 
-        //when you click login_btn, it will open up the Home page
+        //when you click account_btn, it will open up account page
         account_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,11 +43,19 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-        //when you click login_btn, it will open up the Home page
+        //when you click preferences_btn, it will open up preferences page
         preferences_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openPreferencesPage();
+            }
+        });
+
+        //when you click upload_btn, it will open up listing page
+        upload_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openListingPage();
             }
         });
 
@@ -64,6 +74,11 @@ public class HomePage extends AppCompatActivity {
         Intent intent = new Intent(this, PreferencesPage.class);
         startActivity(intent);
 
+    }
+
+    public void openListingPage() {
+        Intent intent = new Intent(this, ListingPage.class);
+        startActivity(intent);
     }
 
     public static void data(){

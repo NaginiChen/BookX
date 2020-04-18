@@ -1,5 +1,11 @@
 package com.example.bookx.Model;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+/**
+ * Data class that captures user information for logged in users
+ */
+@IgnoreExtraProperties
 public class Post {
 
     private String bookTitle ;

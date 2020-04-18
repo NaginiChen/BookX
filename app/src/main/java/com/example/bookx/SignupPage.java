@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookx.Model.User;
-import com.example.bookx.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -170,7 +169,7 @@ public class SignupPage extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
 
                             // Return back to sign in
-                            startActivity(new Intent(getBaseContext(), MainActivity.class));
+                            startActivity(new Intent(getBaseContext(), SignInPage.class));
                         } else {
                             // Verification email not sent, let user know to try again
                             Log.e(TAG, "sendEmailVerification", task.getException());

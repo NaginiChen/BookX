@@ -45,10 +45,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="87dp"
         android:ems="10"
+        android:fontFamily="@font/rasa_regular"
+        android:textColorHint="#FFFFFF"
+        android:hint="Book Name"
         android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:fontFamily = "@font/rasa_regular"
-        android:text="Book Name" />
+        android:textColor="#FFFFFF" />
 
     <EditText
         android:id="@+id/isbn_et"
@@ -58,10 +59,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="157dp"
         android:ems="10"
+        android:fontFamily="@font/rasa_regular"
+        android:textColorHint="#FFFFFF"
+        android:hint="ISBN"
         android:inputType="textPersonName"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:text="ISBN Number" />
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/uploadisbn_btn"
@@ -82,10 +84,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="231dp"
         android:ems="10"
+        android:fontFamily="@font/rasa_regular"
+        android:textColorHint="#FFFFFF"
+        android:hint="Class Name"
         android:inputType="textPersonName"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:text="Class Name" />
+        android:textColor="#FFFFFF" />
 
     <EditText
         android:id="@+id/price_et"
@@ -95,10 +98,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="298dp"
         android:ems="10"
+        android:fontFamily="@font/rasa_regular"
+        android:textColorHint="#FFFFFF"
+        android:hint="Price"
         android:inputType="textPersonName"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:text="Price" />
+        android:textColor="#FFFFFF" />
 
     <EditText
         android:id="@+id/description_et"
@@ -108,10 +112,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="313dp"
         android:ems="10"
+        android:textColorHint="#FFFFFF"
+        android:fontFamily="@font/rasa_regular"
+        android:hint="Description"
         android:inputType="textPersonName"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:text="Description" />
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/location_tv"
