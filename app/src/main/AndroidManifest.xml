@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.example.bookx.PostingPage"></activity>
+        <activity android:name="com.example.bookx.ChatMain" />
         <activity android:name="com.example.bookx.ListingPage" />
         <activity android:name="com.example.bookx.PreferencesPage" />
         <activity android:name="com.example.bookx.AccountPage" />
