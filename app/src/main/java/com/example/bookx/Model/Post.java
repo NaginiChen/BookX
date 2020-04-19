@@ -9,6 +9,7 @@ import java.util.Date;
 @IgnoreExtraProperties
 public class Post {
 
+    private String uid;
     private String bookTitle ;
     private String seller ;
     private String course ;
@@ -17,7 +18,8 @@ public class Post {
     private boolean isSold ;
     private Date date;
 
-    public Post(String bookTitle, String seller, String course, double price, String desc, boolean isSold){
+    public Post(String uid, String bookTitle, String seller, String course, double price, String desc, boolean isSold){
+        this.uid = uid;
         this.bookTitle = bookTitle ;
         this.seller = seller ;
         this.course = course ;
@@ -89,5 +91,13 @@ public class Post {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

@@ -1,10 +1,12 @@
 package com.example.bookx;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import com.example.bookx.Model.Post;
 import com.example.bookx.R;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Date;
 
 public class listingAdapter extends BaseAdapter {
+    private static final String TAG = "***LISTING ADAPTER***";
     private List<Post> posts;
 
     Context context;   //Creating a reference to our context object, so we only have to get it once.  Context enables access to application specific resources.
@@ -59,6 +62,9 @@ public class listingAdapter extends BaseAdapter {
             row = convertView;
         }
 
+        Button post_btn = (Button) row.findViewById(R.id.btnSeePost) ;
+
+
         TextView txtTitle = (TextView) row.findViewById(R.id.txtTitle) ;
         TextView txtSeller = (TextView) row.findViewById(R.id.txtSeller) ;
         TextView txtDate = (TextView) row.findViewById(R.id.txtDate) ;
@@ -70,10 +76,10 @@ public class listingAdapter extends BaseAdapter {
         txtTitle.setText(posts.get(position).getBookTitle());
         txtSeller.setText(posts.get(position).getSeller());
         String[] date = posts.get(position).getDate().toString().split("\\s"); // get post date and parse for day month year
-        txtDate.setText(date[0] + " " + date[1] + " " + date[2]);
+        txtDate.setText(String.format("%s %s %s", date[0], date[1], date[2]));
         txtDesc.setText(posts.get(position).getDesc());
         txtCourse.setText(posts.get(position).getCourse());
-        txtPrice.setText("$" + String.format("%.2f",posts.get(position).getPrice()));
+        txtPrice.setText(String.format("$%s", String.format("%.2f",posts.get(position).getPrice())));
 
         return row ;
     }

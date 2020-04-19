@@ -132,7 +132,7 @@ public class ListingPage extends AppCompatActivity {
             String uid = mAuth.getUid(); // user id of the current user who is creaitng the listing
             String seller = currUser.getFullName();
 
-            Post newListing = new Post(name, seller, className, price, description, false);
+            Post newListing = new Post(uid, name, seller, className, price, description, false);
 
             // add listing to the listings table
             mDatabase.child("listings").child(lid).setValue(newListing);

@@ -4,27 +4,44 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bookx.Model.Post;
+import com.example.bookx.Model.User;
 import com.example.bookx.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class HomePage extends AppCompatActivity {
+    private static final String TAG = "***HOME***";
 
     TextView title_tv;
     Button account_btn;
     Button preferences_btn;
     Button upload_btn;
-    public static List<Post> posts = new ArrayList<>();
-    private ListView lvPosts ;
-    private ListAdapter postAdapter ;
+    public static List<Post> posts;
+    private ListView lvPosts;
+    private ListAdapter postAdapter;
+
+    // firebase instance variables
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +51,12 @@ public class HomePage extends AppCompatActivity {
         account_btn = (Button) findViewById(R.id.account_btn);
         preferences_btn = (Button) findViewById(R.id.preferences_btn);
         upload_btn = (Button) findViewById(R.id.upload_btn);
+        posts = new ArrayList<>();
+
+        // define firebase instances
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        listingData(); // read posts and display
 
         //when you click account_btn, it will open up account page
         account_btn.setOnClickListener(new View.OnClickListener() {
@@ -58,22 +81,16 @@ public class HomePage extends AppCompatActivity {
                 openListingPage();
             }
         });
-
-        data();
-        postAdapter = new listingAdapter(this.getBaseContext(),posts) ;
-        lvPosts = (ListView) findViewById(R.id.lvListing) ;
-        lvPosts.setAdapter(postAdapter);
-        lvPosts.setItemsCanFocus(true);
     }
+
     public void openAccountPage() {
         Intent intent = new Intent(this, AccountPage.class);
         startActivity(intent);
-
     }
+
     public void openPreferencesPage() {
         Intent intent = new Intent(this, PreferencesPage.class);
         startActivity(intent);
-
     }
 
     public void openListingPage() {
@@ -81,14 +98,42 @@ public class HomePage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static void data(){
-        // TODO: RETRIEVE ALL LISTINGS IN THE DATA BASE AND ADD TO POSTS
+    // send listing data to adapter to display
+    private void updateUIListings() {
+        postAdapter = new listingAdapter(this.getBaseContext(), posts);
+        lvPosts = (ListView) findViewById(R.id.lvListing);
+        lvPosts.setAdapter(postAdapter);
+        lvPosts.setItemsCanFocus(true);
+    }
 
-        Post post1 = new Post("book1","seller1","course1",1,"This is book1",false) ;
-        Post post2 = new Post("book2","seller2","course2",2,"This is book2",false) ;
-        Post post3 = new Post("book3","seller3","course3",3,"This is book3",false) ;
-        posts.add(post1) ;
-        posts.add(post2) ;
-        posts.add(post3) ;
+    // This method gets user data from the database and listens to changes
+    private void listingData() {
+        // listen for changes for user data
+        mDatabase.child("listings").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Log.d(TAG, "FOUND OTHER USER LISTING!!!");
+                    // handle the post
+                    Post post = postSnapshot.getValue(Post.class);
+
+                    // if not current user's post, add to list so adapter can display
+                    if (!post.getUid().equals(mAuth.getUid())) {
+                        posts.add(post);
+                    }
+                }
+
+                updateUIListings();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting User listing failed, log a message
+                Log.w(TAG, "loadUserListing:onCancelled", databaseError.toException());
+                Toast.makeText(getBaseContext(), "Failed to load your listings. Please try again.",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
+
