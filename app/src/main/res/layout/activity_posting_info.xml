@@ -27,7 +27,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="66dp"
         android:layout_marginBottom="163dp"
-        android:text='"Description"'
+        android:text="Description"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -98,7 +98,7 @@
         android:textColor="#FFFFFF" />
 
     <TextView
-        android:id="@+id/tvNameDB"
+        android:id="@+id/txtPostBookTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -120,7 +120,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/tvPriceDB"
+        android:id="@+id/txtPostPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -131,7 +131,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/tvISBNDB"
+        android:id="@+id/txtPostISBN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -155,7 +155,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvDescriptionDB"
+        android:id="@+id/txtPostDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"

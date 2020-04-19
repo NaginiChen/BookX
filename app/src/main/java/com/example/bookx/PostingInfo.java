@@ -1,33 +1,34 @@
 package com.example.bookx;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
+import com.example.bookx.Model.Post;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+public class PostingInfo extends AppCompatActivity {
 
-import com.example.bookx.R;
-
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class PostingInfo extends Fragment {
-
-
-    public PostingInfo() {
-        // Required empty public constructor
-    }
+    private Post currPost ;
+    private TextView txtBookTitle, txtPrice, txtDesc ;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_posting_info, container, false);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_posting_info);
 
+        Bundle extra = getIntent().getExtras() ;
+        if(extra != null){
+            currPost = (Post) extra.get("post") ;
+        }
+
+        txtBookTitle = (TextView) findViewById(R.id.txtPostBookTitle) ;
+        txtPrice = (TextView) findViewById(R.id.txtPostPrice) ;
+        txtDesc = (TextView) findViewById(R.id.txtPostDesc) ;
+
+        txtBookTitle.setText(currPost.getBookTitle());
+        txtPrice.setText("$" + currPost.getPrice());
+        txtDesc.setText(currPost.getDesc());
+    }
 }
