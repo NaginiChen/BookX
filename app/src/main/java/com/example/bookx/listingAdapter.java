@@ -1,6 +1,7 @@
 package com.example.bookx;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import java.util.Date;
 public class listingAdapter extends BaseAdapter {
     private static final String TAG = "***LISTING ADAPTER***";
     private List<Post> posts;
+    private Button btnSeePost ;
 
     Context context;   //Creating a reference to our context object, so we only have to get it once.  Context enables access to application specific resources.
     // Eg, spawning & receiving intents, locating the various managers.
@@ -47,7 +49,7 @@ public class listingAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         View row;  //this will refer to the row to be inflated or displayed if it's already been displayed. (listview_row.xml)
 //        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //        row = inflater.inflate(R.layout.listview_row, parent, false);  //
@@ -72,6 +74,7 @@ public class listingAdapter extends BaseAdapter {
         TextView txtCourse = (TextView) row.findViewById(R.id.txtCourse) ;
         TextView txtPrice = (TextView) row.findViewById(R.id.txtPrice) ;
         TextView txtISBN = (TextView) row.findViewById(R.id.txtISBN) ; // TODO: SHOW ISBN
+        btnSeePost = (Button) row.findViewById(R.id.btnSeePost) ;
 
         txtTitle.setText(posts.get(position).getBookTitle());
         txtSeller.setText(posts.get(position).getSeller());
@@ -80,6 +83,16 @@ public class listingAdapter extends BaseAdapter {
         txtDesc.setText(posts.get(position).getDesc());
         txtCourse.setText(posts.get(position).getCourse());
         txtPrice.setText(String.format("$%s", String.format("%.2f",posts.get(position).getPrice())));
+
+        btnSeePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Post tempPost = posts.get(position) ;
+                Intent intent = new Intent(parent.getContext(),PostingInfo.class) ;
+                intent.putExtra("post",tempPost) ;
+                parent.getContext().startActivity(intent);
+            }
+        });
 
         return row ;
     }

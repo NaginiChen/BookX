@@ -9,13 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.bookx.PostingPage"></activity>
-        <activity android:name="com.example.bookx.ListingPage" />
-        <activity android:name="com.example.bookx.PreferencesPage" />
-        <activity android:name="com.example.bookx.AccountPage" />
-        <activity android:name="com.example.bookx.SignupPage" />
-        <activity android:name="com.example.bookx.HomePage" />
-        <activity android:name="com.example.bookx.SignInPage">
+        <activity android:name=".PostingInfo"></activity>
+        <activity android:name=".PostingPage" />
+        <activity android:name=".ListingPage" />
+        <activity android:name=".PreferencesPage" />
+        <activity android:name=".AccountPage" />
+        <activity android:name=".SignupPage" />
+        <activity android:name=".HomePage" />
+        <activity android:name=".SignInPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
