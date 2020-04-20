@@ -141,6 +141,7 @@ public class SignupPage extends AppCompatActivity {
 
         Log.d(TAG, "validated:" + email);
 
+        // Referenced https://firebase.google.com/docs/auth/android/password-auth
         // START create_user_with_email using Firebase auth
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
