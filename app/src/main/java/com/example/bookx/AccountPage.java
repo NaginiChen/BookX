@@ -34,6 +34,7 @@ public class AccountPage extends AppCompatActivity {
     Button changePW_btn;
     TextView listings_tv;
     Button logout_btn;
+    User test ;
     private List<Post> currUserposts;
     private ListAdapter postAdapter ;
     private ListView lvAccountPosts ;
@@ -59,6 +60,7 @@ public class AccountPage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         readCurrUserData(); // get user data from the database
+        Log.d(TAG,test.getLocation()) ;
     }
 
     private void updateUI(String name, String email, String location) {
@@ -85,6 +87,7 @@ public class AccountPage extends AppCompatActivity {
                 // Get the current user
                 User currUser = dataSnapshot.getValue(User.class);
 
+                test = currUser ;
                 // update the UI with the retrieved user profile information
                 updateUI(currUser.getFullName(), currUser.getEmail(), currUser.getLocation());
 

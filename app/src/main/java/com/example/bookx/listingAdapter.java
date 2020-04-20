@@ -9,15 +9,30 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import com.example.bookx.Model.Post;
-import com.example.bookx.R;
+import android.widget.Toast;
 
+import com.example.bookx.Model.Post;
+import com.example.bookx.Model.User;
+import com.example.bookx.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
 public class listingAdapter extends BaseAdapter {
     private static final String TAG = "***LISTING ADAPTER***";
     private List<Post> posts;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
+
     private Button btnSeePost ;
 
     Context context;   //Creating a reference to our context object, so we only have to get it once.  Context enables access to application specific resources.
@@ -33,6 +48,7 @@ public class listingAdapter extends BaseAdapter {
         this.posts = posts ;
 
     }
+
     @Override
     public int getCount() {
         return posts.size();
