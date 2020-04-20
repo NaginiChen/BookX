@@ -34,7 +34,7 @@ public class HomePage extends AppCompatActivity {
     Button account_btn;
     Button preferences_btn;
     Button upload_btn;
-    public static List<Post> posts;
+    private List<Post> posts;
     private ListView lvPosts;
     private ListAdapter postAdapter;
 
