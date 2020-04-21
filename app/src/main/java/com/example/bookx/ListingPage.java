@@ -95,7 +95,7 @@ public class ListingPage extends AppCompatActivity {
                             "Try again.", Toast.LENGTH_LONG).show();
                 }
             }
-        }); // TODO: CHANGE TO ANOTHER PAGE
+        });
 
         scanBtn = findViewById(R.id.uploadisbn_btn);
         scanBtn.setOnClickListener(new View.OnClickListener() {

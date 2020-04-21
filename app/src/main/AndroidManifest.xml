@@ -3,18 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.bookx">
 
-<<<<<<< HEAD
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-    <uses-feature
-        android:name="android.hardware.camera2"
-        android:required="true" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-=======
     <uses-permission android:name="android.permission.CAMERA" />
->>>>>>> master
 
     <application
         android:allowBackup="true"
@@ -22,7 +12,6 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-<<<<<<< HEAD
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity">
 
@@ -54,12 +43,16 @@
             android:name=".HomePage"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".SignInPage"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait">
-=======
-        android:theme="@style/AppTheme">
+
+
+        <activity android:name=".ScanBarcodeActivity" />
+        <activity android:name=".SignInPage">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <!-- adds mobile vision dependencies -->
         <meta-data
@@ -68,23 +61,6 @@
         <meta-data
             android:name="com.google.gms.vision.DEPENDENCIES"
             android:value="barcode" />
-
-        <activity android:name=".PostingInfo"></activity>
-        <activity android:name=".PostingPage" />
-        <activity android:name=".ListingPage" />
-        <activity android:name=".PreferencesPage" />
-        <activity android:name=".AccountPage" />
-        <activity android:name=".SignupPage" />
-        <activity android:name=".HomePage" />
-        <activity android:name=".ScanBarcodeActivity" />
-        <activity android:name=".SignInPage">
->>>>>>> master
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key"></meta-data>

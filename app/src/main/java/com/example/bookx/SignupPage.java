@@ -59,10 +59,7 @@ public class SignupPage extends AppCompatActivity {
     TextView txtAddress;
     EditText edtAddress;
     Button btnSignup;
-<<<<<<< HEAD
     Button btnUploadPic;
-=======
->>>>>>> master
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -88,10 +85,7 @@ public class SignupPage extends AppCompatActivity {
         txtAddress = (TextView) findViewById(R.id.address_tv);
         edtAddress = (EditText) findViewById(R.id.address_et);
         btnSignup = (Button) findViewById(R.id.signup_btn);
-<<<<<<< HEAD
         btnUploadPic = (Button) findViewById(R.id.upload_pic_btn);
-=======
->>>>>>> master
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -106,13 +100,13 @@ public class SignupPage extends AppCompatActivity {
             }
         });
 
-//        // when you click upload_pic_btn the camera will open up
-//        btnUploadPic.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                takePicture();
-//            }
-//        });
+        // when you click upload_pic_btn the camera will open up
+        btnUploadPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takePicture();
+            }
+        });
 
     }
 
@@ -125,7 +119,7 @@ public class SignupPage extends AppCompatActivity {
             edtEmail.setError("Required."); // throw an error if empty
             Log.d(TAG, "Email required.");
             valid = false;
-        } else if (!Pattern.matches("(.*)[@]([a-z]*)(.edu)",email)) {
+        } else if (!Pattern.matches("(.*)[@]([a-z]*)(.edu)", email)) {
             edtEmail.setError(".edu email is required"); // throw an error if not a .edu email
             Log.d(TAG, (email.substring(email.length() - 4)));
             valid = false;
@@ -146,14 +140,14 @@ public class SignupPage extends AppCompatActivity {
     }
 
     private void createAccount() {
-        final String name = edtName.getText().toString() ;
+        final String name = edtName.getText().toString();
         String email = edtEmail.getText().toString();
         String password = edtPw.getText().toString();
-        final String address = edtAddress.getText().toString() ;
-        LatLng lng = null ;
-        try{
-            lng = getLocationFromAddress(getApplicationContext(),address) ;
-        }catch (Exception e){
+        final String address = edtAddress.getText().toString();
+        LatLng lng = null;
+        try {
+            lng = getLocationFromAddress(getApplicationContext(), address);
+        } catch (Exception e) {
             Toast.makeText(getBaseContext(), "Please enter a valid address",
                     Toast.LENGTH_LONG).show();
             return;
@@ -192,7 +186,7 @@ public class SignupPage extends AppCompatActivity {
                             User currUser = new User(user.getEmail(), name, address); // TODO: get user name and location when UI is done
 
                             // address to coordinates
-                            LatLng lng = getLocationFromAddress(getApplicationContext(),address) ;
+                            LatLng lng = getLocationFromAddress(getApplicationContext(), address);
                             currUser.setLatitude(latitude);
                             currUser.setLongitude(longitude);
                             mDatabase.child("users").child(user.getUid()).setValue(currUser);
@@ -236,15 +230,12 @@ public class SignupPage extends AppCompatActivity {
                 });
     }
 
-<<<<<<< HEAD
-=======
     public void openSignInPage() {
         Intent intent = new Intent(this, SignInPage.class);
         startActivity(intent);
 
     }
 
->>>>>>> master
     // string address -> latlng coordinates
     public LatLng getLocationFromAddress(Context context, String strAddress) {
 
@@ -260,7 +251,7 @@ public class SignupPage extends AppCompatActivity {
             }
 
             Address location = address.get(0);
-            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
 
         } catch (IOException ex) {
 
@@ -270,37 +261,32 @@ public class SignupPage extends AppCompatActivity {
         return p1;
     }
 
-    private void openSignInPage() {
-        Intent intent = new Intent(this, SignInPage.class);
-        startActivity(intent);
+    //    // TODO: Make a check somewhere
+    boolean isCameraAvailable() {
+        return getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);  //just another friendly neighborhood manager
     }
 
-//    // TODO: Make a check somewhere
-//    boolean isCameraAvailable() {
-//        return getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);  //just another friendly neighborhood manager
-//    }
-//
-//    // This method opens up the camera and allows user to take or upload a profile picture
-////    private void takePicture() {
-////        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-////        if(i.resolveActivity(getPackageManager()) != null){
-////            //Create a file to store the image
-////            File photoFile = null;
-////            try {
-////                photoFile = createImageFile();
-////            } catch (IOException ex) {
-////                // Error occurred while creating the File
-////            ...
-////            }
-////            if (photoFile != null) {
-////                Uri photoURI = FileProvider.getUriForFile(this,                                                                                                    "com.example.android.provider", photoFile);
-////                i.putExtra(MediaStore.EXTRA_OUTPUT,
-////                        photoURI);
-////                startActivityForResult(i,
-////                        REQUEST_CAPTURE_IMAGE);
-////            }
-////        }
-////    }
+    // This method opens up the camera and allows user to take or upload a profile picture
+    private boolean takePicture() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            //Create a file to store the image
+            File photoFile = null;
+
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                Log.d(TAG, "FILE EXCEPTION");
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this, "com.example.android.provider", photoFile);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        photoURI);
+                startActivityForResult(intent, TAKE_PHOTO);
+            }
+        }
+    }
 //
 //    // Callback from startActivityForResult
 //    @Override
@@ -360,22 +346,22 @@ public class SignupPage extends AppCompatActivity {
 //        }
 //    }
 //
-//    // This method generates a random file name with .jpg
-//    // Referenced https://android.jlelse.eu/androids-new-image-capture-from-a-camera-using-file-provider-dd178519a954
-//    private File createImageFile() throws IOException {
-//        String timeStamp =
-//                new SimpleDateFormat("yyyyMMdd_HHmmss",
-//                        Locale.getDefault()).format(new Date());
-//        String imageFileName = "IMG_" + timeStamp + "_";
-//        File storageDir =
-//                getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//        File image = File.createTempFile(
-//                imageFileName,  /* prefix */
-//                ".jpg",         /* suffix */
-//                storageDir      /* directory */
-//        );
-//
-//        imageFilePath = image.getAbsolutePath();
-//        return image;
-//    }
+    // This method generates a random file name with .jpg
+    // Referenced https://android.jlelse.eu/androids-new-image-capture-from-a-camera-using-file-provider-dd178519a954
+    private File createImageFile() throws IOException {
+        String timeStamp =
+                new SimpleDateFormat("yyyyMMdd_HHmmss",
+                        Locale.getDefault()).format(new Date());
+        String imageFileName = "IMG_" + timeStamp + "_";
+        File storageDir =
+                getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        imageFilePath = image.getAbsolutePath();
+        return image;
+    }
 }
