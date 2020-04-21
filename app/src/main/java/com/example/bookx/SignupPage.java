@@ -2,17 +2,17 @@ package com.example.bookx;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -38,12 +38,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class SignupPage extends AppCompatActivity {
@@ -65,8 +62,9 @@ public class SignupPage extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
 
-    private String imageFilePath; // file path to user photo
-    static final int TAKE_PHOTO = 9999;  //just a flag that we will use to track the result of an intent later
+    static final int TAKE_PHOTO = 9999;  //flag that we will use to track the result of taking photo intent
+    static final int GET_PHOTO_GALLERY = 9998; //flag that we will use to track the result of getting photo from gallery intent
+    static final int CHOOSE_UPLOAD_OPTION = 9997; //flag used to track the choose photo intent
 
 
     @Override
@@ -104,7 +102,7 @@ public class SignupPage extends AppCompatActivity {
         btnUploadPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                takePicture();
+                getPhoto();
             }
         });
 
@@ -267,101 +265,82 @@ public class SignupPage extends AppCompatActivity {
     }
 
     // This method opens up the camera and allows user to take or upload a profile picture
-    private boolean takePicture() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            //Create a file to store the image
-            File photoFile = null;
+    private void getPhoto() {
 
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-                Log.d(TAG, "FILE EXCEPTION");
-            }
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this, "com.example.android.provider", photoFile);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        photoURI);
-                startActivityForResult(intent, TAKE_PHOTO);
-            }
+        // Camera.
+        List<Intent> cameraIntents = new ArrayList<Intent>();
+        Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        final Intent galleryIntent = new Intent();
+        galleryIntent.setType("image/*");
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+
+        cameraIntents.add(captureIntent);
+        cameraIntents.add(galleryIntent);
+
+        // Chooser of filesystem options.
+        final Intent chooserIntent = Intent.createChooser(galleryIntent, "Select Source");
+
+        // Add the camera options.
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, cameraIntents.toArray(new Parcelable[]{}));
+
+
+        Log.d(TAG, "HERE");
+        startActivityForResult(chooserIntent, CHOOSE_UPLOAD_OPTION);
+    }
+
+    // Callback from startActivityForResult
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Verify that we got something back that was valid
+        if (!(resultCode == RESULT_OK)) {
+            Toast.makeText(this, "Start Activity for Result Failed.  Does your device support this feature?", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // check our "dye" then check the data
+        switch (requestCode) {
+            case CHOOSE_UPLOAD_OPTION:
+                Intent actual_intent = (Intent) data.getExtras().get(Intent.EXTRA_INITIAL_INTENTS);
+
+                if (actual_intent.getAction() == android.provider.MediaStore.ACTION_IMAGE_CAPTURE) {
+                    startActivityForResult(actual_intent, TAKE_PHOTO);
+                } else {
+                    startActivityForResult(actual_intent, GET_PHOTO_GALLERY);
+                }
+                break;
+
+            default:
+                Bundle bundleData = data.getExtras();           //images are stored in a bundle wrapped within the intent
+                Bitmap photo = (Bitmap) bundleData.get("data");  //the bundle key is "data"
+
+                uploadImgToStorage(photo, "user-photos");
+                break;
         }
     }
-//
-//    // Callback from startActivityForResult
-//    @Override
-////    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-////        // Verify that we got something back that was valid
-////        if (!(resultCode == RESULT_OK)) {
-////            Toast.makeText(getBaseContext(), "Failed to take picture. " +
-////                    "Does your device support this feature?", Toast.LENGTH_LONG).show();
-////            return;
-////        }
-////
-////        // Check our "dye", then check the data
-////        // Although we only have one possibility here, maybe more in the future so keep the switch
-////        switch (requestCode) {
-////            case TAKE_PHOTO:
-////                Bundle bundleData = data.getExtras();           //images are stored in a bundle wrapped within the intent
-////                Bitmap img = (Bitmap) bundleData.get("data");  //the bundle key is "data"
-////
-////                // convert bitmap to uri
-////                Uri imageUri = getImageUri(getBaseContext(), img);
-////                uploadFile(imageUri); // upload to firebase storage
-////                break;
-////
-////        }
-////    }
-//
-//    // This method stores the picture file to firebase storage
-//    // Referenced https://stackoverflow.com/questions/50585334/tasksnapshot-getdownloadurl-method-not-working
-//    private void uploadFile(Uri imagUri) {
-//        if (imagUri != null) {
-//            final StorageReference imageRef = mStorage.child("user-photos") // folder path in firebase storage
-//                    .child(imagUri.getLastPathSegment());
-//
-//            // store image to the storage path and listen for success/failure
-//            imageRef.putFile(imagUri)
-//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {  // upload to firebase storage is successful
-//                            // get resulting Uri to store in user data when user click sign up
-//                            Task<Uri> result = taskSnapshot.getMetadata().getReference().getDownloadUrl();
-//                            result.addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                                @Override
-//                                public void onSuccess(Uri uri) {
-//                                    photoStringLink = uri.toString();
-//                                }
-//                            });
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception exception) {
-//                            // show message on failure
-//                            Log.d(TAG, "uploading to firebase storage failed");
-//                            Toast.makeText(getBaseContext(), "Failed to upload picture. Please try again.", Toast.LENGTH_LONG);
-//                        }
-//                    });
-//        }
-//    }
-//
-    // This method generates a random file name with .jpg
-    // Referenced https://android.jlelse.eu/androids-new-image-capture-from-a-camera-using-file-provider-dd178519a954
-    private File createImageFile() throws IOException {
-        String timeStamp =
-                new SimpleDateFormat("yyyyMMdd_HHmmss",
-                        Locale.getDefault()).format(new Date());
-        String imageFileName = "IMG_" + timeStamp + "_";
-        File storageDir =
-                getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
 
-        imageFilePath = image.getAbsolutePath();
-        return image;
+    private void uploadImgToStorage(Bitmap bitmap, String folder_name) {
+        // Get the data as bytes
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        // upload to our firebase storage reference
+        UploadTask uploadTask = mStorage.child(folder_name).child(mAuth.getUid()).putBytes(data);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                Log.d(TAG, "uploading to firebase storage failed");
+                Toast.makeText(getBaseContext(), "Failed to upload picture. Please try again.", Toast.LENGTH_LONG);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d(TAG, "successfully uploaded picture to firebase storage");
+                Toast.makeText(getBaseContext(), "Successfully uploaded picture. Click sign up to finish registering!", Toast.LENGTH_LONG);
+            }
+        });
     }
 }
