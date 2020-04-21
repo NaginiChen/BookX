@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bookx">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,14 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".MessageActivity"></activity>
-        <activity android:name=".PostingInfo" />
+        <!-- adds mobile vision dependencies -->
+
+        <activity android:name=".PostingInfo"></activity>
+
         <activity android:name=".PostingPage" />
         <activity android:name=".ListingPage" />
         <activity android:name=".PreferencesPage" />
         <activity android:name=".AccountPage" />
         <activity android:name=".SignupPage" />
         <activity android:name=".HomePage" />
+        <activity android:name=".ScanBarcodeActivity" />
         <activity android:name=".SignInPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +35,12 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
     </application>
 
 </manifest>

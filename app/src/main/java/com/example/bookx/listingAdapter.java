@@ -73,7 +73,7 @@ public class listingAdapter extends BaseAdapter {
         TextView txtDesc = (TextView) row.findViewById(R.id.txtDesc) ;
         TextView txtCourse = (TextView) row.findViewById(R.id.txtCourse) ;
         TextView txtPrice = (TextView) row.findViewById(R.id.txtPrice) ;
-        TextView txtISBN = (TextView) row.findViewById(R.id.txtISBN) ; // TODO: SHOW ISBN
+        TextView txtISBN = (TextView) row.findViewById(R.id.txtISBN) ;
         btnSeePost = (Button) row.findViewById(R.id.btnSeePost) ;
 
         txtTitle.setText(posts.get(position).getBookTitle());
@@ -83,6 +83,7 @@ public class listingAdapter extends BaseAdapter {
         txtDesc.setText(posts.get(position).getDesc());
         txtCourse.setText(posts.get(position).getCourse());
         txtPrice.setText(String.format("$%s", String.format("%.2f",posts.get(position).getPrice())));
+        txtISBN.setText(posts.get(position).getIsbn());
 
         btnSeePost.setOnClickListener(new View.OnClickListener() {
             @Override
