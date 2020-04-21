@@ -134,10 +134,10 @@ public class AccountPage extends AppCompatActivity {
                         Uri downloadUri = task.getResult() ;
                         String mUri = downloadUri.toString() ;
 
-                        mDatabase = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid()) ;
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid()) ;
                         HashMap<String, Object> map = new HashMap<>() ;
                         map.put("imageurl",mUri) ;
-                        mDatabase.updateChildren(map) ;
+                        reference.updateChildren(map) ;
 
                     }
                 }
@@ -175,14 +175,17 @@ public class AccountPage extends AppCompatActivity {
     }
 
     private void updateUIListings() {
-        postAdapter = new listingAdapter(this.getBaseContext(), currUserposts) ;
-        lvAccountPosts = (ListView) findViewById(R.id.lvAccountListing) ;
-        lvAccountPosts.setAdapter(postAdapter);
-        lvAccountPosts.setItemsCanFocus(true);
+        if(postAdapter == null){
+            postAdapter = new listingAdapter(this.getBaseContext(), currUserposts) ;
+            lvAccountPosts = (ListView) findViewById(R.id.lvAccountListing) ;
+            lvAccountPosts.setAdapter(postAdapter);
+            lvAccountPosts.setItemsCanFocus(true);
+        }
     }
 
     // This method gets user data from the database and listens to changes
     private void readCurrUserData() {
+        currUserposts.clear();
         // listen for changes for user data
         mDatabase.child("users").child(mAuth.getUid()).addValueEventListener(new ValueEventListener() { // attach listener to our user database reference
 
