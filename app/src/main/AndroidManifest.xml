@@ -45,6 +45,8 @@
             android:screenOrientation="portrait" />
 
 
+        <activity android:name=".MessageList"></activity>
+        <activity android:name=".MessageActivity" /> 
         <activity android:name=".ScanBarcodeActivity" />
         <activity android:name=".SignInPage">
             <intent-filter>
@@ -61,9 +63,10 @@
         <meta-data
             android:name="com.google.gms.vision.DEPENDENCIES"
             android:value="barcode" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/map_key"></meta-data>
+            android:value="@string/map_key" />
     </application>
 
 </manifest>

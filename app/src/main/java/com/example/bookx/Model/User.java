@@ -19,6 +19,7 @@ public class User implements Parcelable {
     private String location;
     private Double latitude;
     private Double longitude;
+    private String imageurl ;
     private boolean showLocation;
 
     // this stores the user's listings where the key is the lid and the boolean is whether the listing is active
@@ -29,11 +30,12 @@ public class User implements Parcelable {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String email, String name, String location) {
+    public User(String email, String name, String location, String imageurl) {
         this.email = email;
         this.fullName = name;
         this.location = location;
         this.showLocation = false; //user location off by default
+        this.imageurl = imageurl ;
         this.listings = new HashMap<>(); // empty by default
     }
 
@@ -119,5 +121,13 @@ public class User implements Parcelable {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getImageurl() {
+        return imageurl;
+    }
+
+    public void setImageurl(String imageurl) {
+        this.imageurl = imageurl;
     }
 }

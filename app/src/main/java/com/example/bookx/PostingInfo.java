@@ -1,13 +1,17 @@
 package com.example.bookx;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,8 +45,9 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
     private DatabaseReference mDatabase;
     private Post currPost ;
     private String location ;
-
+    private Button btnMessage ;
     private TextView txtBookTitle, txtPrice, txtDesc, txtSeller, txtDate , txtCourse, txtAddress, txtISBN;
+
 
 
     @Override
@@ -66,6 +71,8 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
         txtSeller = (TextView) findViewById(R.id.txtPostSeller) ;
         txtDate = (TextView) findViewById(R.id.txtPostDate) ;
         txtCourse = (TextView) findViewById(R.id.txtPostCourse) ;
+
+        btnMessage = (Button) findViewById(R.id.btnInterested) ;
         txtISBN = (TextView) findViewById(R.id.txtPostISBN);
 
 
@@ -78,6 +85,15 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
         txtISBN.setText(currPost.getIsbn());
 
         Log.d(TAG, "ISBN IS" + currPost.getIsbn());
+
+        btnMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(getApplicationContext(),MessageActivity.class) ;
+                intent.putExtra("userid",currPost.getUid()) ;
+                startActivity(intent);
+            }
+        });
 
     }
     // string address -> latlng coordinates
