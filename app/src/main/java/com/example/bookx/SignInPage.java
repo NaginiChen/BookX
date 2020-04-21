@@ -43,10 +43,8 @@ public class SignInPage extends AppCompatActivity {
                             // Sign in success but still must check if user is verified
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            // If user is verified, proceed to Listings activity
+                            // If user is verified, proceed to home activity
                             if (user.isEmailVerified()) {
-                                // TODO: Proceed to ListingsActivity
-
                                 openHomePage();
 
                             } else { // User has not verified email
