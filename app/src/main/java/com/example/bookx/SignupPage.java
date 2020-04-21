@@ -62,10 +62,8 @@ public class SignupPage extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
 
+    private Bitmap photo;
     static final int TAKE_PHOTO = 9999;  //flag that we will use to track the result of taking photo intent
-    static final int GET_PHOTO_GALLERY = 9998; //flag that we will use to track the result of getting photo from gallery intent
-    static final int CHOOSE_UPLOAD_OPTION = 9997; //flag used to track the choose photo intent
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +92,6 @@ public class SignupPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createAccount();
-
             }
         });
 
@@ -189,6 +186,11 @@ public class SignupPage extends AppCompatActivity {
                             currUser.setLongitude(longitude);
                             mDatabase.child("users").child(user.getUid()).setValue(currUser);
 
+                            // upload profile picture
+                            if (photo!=null) {
+                                uploadImgToStorage(photo, user.getUid());
+                            }
+
                         } else {
                             // If sign in fails, display a message to the user
                             Log.d(TAG, "createUserWithEmail:failure", task.getException());
@@ -264,28 +266,10 @@ public class SignupPage extends AppCompatActivity {
         return getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);  //just another friendly neighborhood manager
     }
 
-    // This method opens up the camera and allows user to take or upload a profile picture
+    // This method opens up the camera and allows user to take a picture
     private void getPhoto() {
-
-        // Camera.
-        List<Intent> cameraIntents = new ArrayList<Intent>();
         Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        final Intent galleryIntent = new Intent();
-        galleryIntent.setType("image/*");
-        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-
-        cameraIntents.add(captureIntent);
-        cameraIntents.add(galleryIntent);
-
-        // Chooser of filesystem options.
-        final Intent chooserIntent = Intent.createChooser(galleryIntent, "Select Source");
-
-        // Add the camera options.
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, cameraIntents.toArray(new Parcelable[]{}));
-
-
-        Log.d(TAG, "HERE");
-        startActivityForResult(chooserIntent, CHOOSE_UPLOAD_OPTION);
+        startActivityForResult(captureIntent, TAKE_PHOTO);
     }
 
     // Callback from startActivityForResult
@@ -294,39 +278,27 @@ public class SignupPage extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // Verify that we got something back that was valid
         if (!(resultCode == RESULT_OK)) {
-            Toast.makeText(this, "Start Activity for Result Failed.  Does your device support this feature?", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Failed to get picture", Toast.LENGTH_LONG).show();
             return;
         }
 
         // check our "dye" then check the data
         switch (requestCode) {
-            case CHOOSE_UPLOAD_OPTION:
-                Intent actual_intent = (Intent) data.getExtras().get(Intent.EXTRA_INITIAL_INTENTS);
-
-                if (actual_intent.getAction() == android.provider.MediaStore.ACTION_IMAGE_CAPTURE) {
-                    startActivityForResult(actual_intent, TAKE_PHOTO);
-                } else {
-                    startActivityForResult(actual_intent, GET_PHOTO_GALLERY);
-                }
-                break;
-
-            default:
+            case TAKE_PHOTO:
                 Bundle bundleData = data.getExtras();           //images are stored in a bundle wrapped within the intent
-                Bitmap photo = (Bitmap) bundleData.get("data");  //the bundle key is "data"
-
-                uploadImgToStorage(photo, "user-photos");
+                photo = (Bitmap) bundleData.get("data");  //the bundle key is "data"
                 break;
         }
     }
 
-    private void uploadImgToStorage(Bitmap bitmap, String folder_name) {
+    private void uploadImgToStorage(Bitmap bitmap, String uid) {
         // Get the data as bytes
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
 
         // upload to our firebase storage reference
-        UploadTask uploadTask = mStorage.child(folder_name).child(mAuth.getUid()).putBytes(data);
+        UploadTask uploadTask = mStorage.child("user-photos").child(uid).putBytes(data);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override

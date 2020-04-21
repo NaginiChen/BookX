@@ -19,6 +19,13 @@
         android:layout_gravity="right"
         android:text="Log Out" />
 
+    <ImageView
+        android:id="@+id/userImg"
+        android:layout_width="72dp"
+        android:layout_height="73dp"
+        android:layout_gravity="center"
+        android:layout_weight="0" />
+
     <TextView
         android:id="@+id/name_tv3"
         android:layout_width="wrap_content"

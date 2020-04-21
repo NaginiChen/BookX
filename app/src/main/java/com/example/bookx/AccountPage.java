@@ -1,24 +1,35 @@
 package com.example.bookx;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.bookx.Model.Post;
 import com.example.bookx.Model.User;
 import com.example.bookx.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,6 +45,7 @@ public class AccountPage extends AppCompatActivity {
     Button changePW_btn;
     TextView listings_tv;
     Button logout_btn;
+    ImageView userImg;
     private List<Post> currUserposts;
     private ListAdapter postAdapter ;
     private ListView lvAccountPosts ;
@@ -41,6 +53,7 @@ public class AccountPage extends AppCompatActivity {
     // firebase instance variables
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private StorageReference mStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +66,16 @@ public class AccountPage extends AppCompatActivity {
         changePW_btn = (Button) findViewById(R.id.changePW_btn);
         listings_tv = (TextView) findViewById(R.id.listings_tv);
         logout_btn = (Button) findViewById(R.id.logout_btn);
+        userImg = (ImageView) findViewById(R.id.userImg);
         currUserposts = new ArrayList<>();
 
         // define firebase instances
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mStorage = FirebaseStorage.getInstance().getReference("user-photos/" + mAuth.getUid());
+
         readCurrUserData(); // get user data from the database
+        loadUserPic(); // load user pic from storage
     }
 
     private void updateUI(String name, String email, String location) {
@@ -139,6 +156,31 @@ public class AccountPage extends AppCompatActivity {
                 Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
                 Toast.makeText(getBaseContext(), "Failed to load user information.",
                         Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void loadUserPic() {
+
+        final long ONE_MEGABYTE = 1024 * 1024;
+
+        mStorage.getBytes(ONE_MEGABYTE)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        DisplayMetrics dm = new DisplayMetrics();
+                        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+                        userImg.setMinimumHeight(dm.heightPixels);
+                        userImg.setMinimumWidth(dm.widthPixels);
+                        userImg.setImageBitmap(bm);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                userImg.setBackground(getDrawable(R.drawable.defaultuserpic));
             }
         });
     }
