@@ -1,8 +1,13 @@
 package com.example.bookx;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +30,12 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
+
+// Source code used: https://www.youtube.com/watch?v=czmEC5akcos
+// Source code used: Lect9RequestPermission2 (lecture code)
+
 public class ListingPage extends AppCompatActivity {
     private static final String TAG = "***LISTINGS***";
 
@@ -44,6 +55,10 @@ public class ListingPage extends AppCompatActivity {
     TextView location_tv;
     Button Ylocation_btn;
     Button Nlocation_btn;
+
+    TextView barcodeResult;
+    Button scanBtn;
+    private static final int PERMISSION_REQUEST_CODE = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +84,6 @@ public class ListingPage extends AppCompatActivity {
         Ylocation_btn = (Button) findViewById(R.id.Ylocation_btn); // TODO: CHANGE TO A SWITCH INSTEAD
         Nlocation_btn = (Button) findViewById(R.id.Nlocation_btn);
 
-
-
         //when you click post_btn, it will go to Posting page? Not sure what that is
         // for now go to home page so you can view on listings
         post_btn.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +97,15 @@ public class ListingPage extends AppCompatActivity {
                 }
             }
         }); // TODO: CHANGE TO ANOTHER PAGE
+
+        barcodeResult = findViewById(R.id.isbn_et);
+        scanBtn = findViewById(R.id.uploadisbn_btn);
+        scanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scanBarcode(view);
+            }
+        });
     }
 
     // Returns true if listing is successfully created
@@ -143,6 +165,49 @@ public class ListingPage extends AppCompatActivity {
             return false;
         }
     }
+
+    public void scanBarcode(View v){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            Intent intent = new Intent(this, ScanBarcodeActivity.class);
+            startActivityForResult(intent, 0);
+        }
+        else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},  PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(this, ScanBarcodeActivity.class);
+                startActivityForResult(intent, 0);
+            }
+            else {
+                Toast.makeText(getBaseContext(), "CAMERA DENIED", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 0){
+            if(resultCode == CommonStatusCodes.SUCCESS){
+                if(data != null){
+                    Barcode barcode = data.getParcelableExtra("barcode");
+                    barcodeResult.setText(barcode.displayValue);
+                }
+                else{
+                    barcodeResult.setText("No barcode found");
+                }
+            }
+        }
+        else{
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+
+    }
+
 
     public void openHomePage() {
         Intent intent = new Intent(this, HomePage.class);
