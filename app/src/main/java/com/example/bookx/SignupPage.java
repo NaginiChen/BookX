@@ -3,7 +3,10 @@ package com.example.bookx;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookx.Model.User;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,6 +26,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class SignupPage extends AppCompatActivity {
@@ -86,7 +92,7 @@ public class SignupPage extends AppCompatActivity {
             edtEmail.setError("Required."); // throw an error if empty
             Log.d(TAG, "Email required.");
             valid = false;
-        } else if (!(email.equals("littlepurplekelly@yahoo.com")) && !Pattern.matches("(.*)[@]([a-z]*)(.edu)",email)) {
+        } else if (!Pattern.matches("(.*)[@]([a-z]*)(.edu)",email)) {
             edtEmail.setError(".edu email is required"); // throw an error if not a .edu email
             Log.d(TAG, (email.substring(email.length() - 4)));
             valid = false;
@@ -111,6 +117,16 @@ public class SignupPage extends AppCompatActivity {
         String email = edtEmail.getText().toString();
         String password = edtPw.getText().toString();
         final String address = edtAddress.getText().toString() ;
+        LatLng lng = null ;
+        try{
+            lng = getLocationFromAddress(getApplicationContext(),address) ;
+        }catch (Exception e){
+            Toast.makeText(getBaseContext(), "Please enter a valid address",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        final Double latitude = lng.latitude;
+        final Double longitude = lng.longitude;
 
 
         Log.d(TAG, "createAccount:" + email);
@@ -141,6 +157,11 @@ public class SignupPage extends AppCompatActivity {
                             // get user from firebase auth and store it in the firebase database
                             FirebaseUser user = mAuth.getCurrentUser();
                             User currUser = new User(user.getEmail(), name, address); // TODO: get user name and location when UI is done
+
+                            // address to coordinates
+                            LatLng lng = getLocationFromAddress(getApplicationContext(),address) ;
+                            currUser.setLatitude(latitude);
+                            currUser.setLongitude(longitude);
                             mDatabase.child("users").child(user.getUid()).setValue(currUser);
 
                         } else {
@@ -186,5 +207,30 @@ public class SignupPage extends AppCompatActivity {
         Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
 
+    }
+
+    // string address -> latlng coordinates
+    public LatLng getLocationFromAddress(Context context, String strAddress) {
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+            Address location = address.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
     }
 }
