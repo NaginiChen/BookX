@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center"
-    android:background="#90DBDB"
+    android:background="#1A4973"
     tools:context="com.example.bookx.AccountPage">
 
     <Button
@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:fontFamily = "@font/rasa_regular"
         android:textColor="#FFFFFF"
+        android:background="@drawable/round_button"
         android:layout_gravity="right"
         android:text="Log Out" />
 
@@ -55,10 +56,12 @@
         android:id="@+id/changePW_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily = "@font/rasa_regular"
+        android:fontFamily = "@font/rasa_bold"
         android:layout_gravity="center"
         android:textColor="#FFFFFF"
         android:layout_marginBottom="20dp"
+        android:textStyle="bold|italic"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:text="change password" />
 
 
