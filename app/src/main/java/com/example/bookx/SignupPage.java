@@ -2,15 +2,17 @@ package com.example.bookx;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -36,9 +38,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class SignupPage extends AppCompatActivity {
@@ -60,9 +65,9 @@ public class SignupPage extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
 
-    private String photoStringLink; // link to user photo
-
+    private String imageFilePath; // file path to user photo
     static final int TAKE_PHOTO = 9999;  //just a flag that we will use to track the result of an intent later
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,85 +96,18 @@ public class SignupPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createAccount();
+
             }
         });
 
-        // when you click upload_pic_btn the camera will open up
-        btnUploadPic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takePicture();
-            }
-        });
-    }
+//        // when you click upload_pic_btn the camera will open up
+//        btnUploadPic.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                takePicture();
+//            }
+//        });
 
-    // TODO: Make a check somewhere
-    boolean isCameraAvailable() {
-        return getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);  //just another friendly neighborhood manager
-    }
-
-    // This method opens up the camera and allows user to take or upload a profile picture
-    private void takePicture() {
-        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(i, TAKE_PHOTO);  // TAKE_PHOTO is our dye
-    }
-
-    // Callback from startActivityForResult
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Verify that we got something back that was valid
-        if (!(resultCode == RESULT_OK)) {
-            Toast.makeText(getBaseContext(), "Failed to take picture. " +
-                    "Does your device support this feature?", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        // Check our "dye", then check the data
-        // Although we only have one possibility here, maybe more in the future so keep the switch
-        switch (requestCode) {
-            case TAKE_PHOTO:
-                Bundle bundleData = data.getExtras();           //images are stored in a bundle wrapped within the intent
-                Bitmap img = (Bitmap) bundleData.get("data");  //the bundle key is "data"
-
-                // convert bitmap to uri
-                Uri imageUri = getImageUri(getBaseContext(), img);
-                uploadFile(imageUri); // upload to firebase storage
-                break;
-
-        }
-    }
-
-    // This method stores the picture file to firebase storage
-    // Referenced https://stackoverflow.com/questions/50585334/tasksnapshot-getdownloadurl-method-not-working
-    private void uploadFile(Uri imagUri) {
-        if (imagUri != null) {
-            final StorageReference imageRef = mStorage.child("user-photos") // folder path in firebase storage
-                    .child(imagUri.getLastPathSegment());
-
-            // store image to the storage path and listen for success/failure
-            imageRef.putFile(imagUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {  // upload to firebase storage is successful
-                            // get resulting Uri to store in user data when user click sign up
-                            Task<Uri> result = taskSnapshot.getMetadata().getReference().getDownloadUrl();
-                            result.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    photoStringLink = uri.toString();
-                                }
-                            });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // show message on failure
-                            Log.d(TAG, "uploading to firebase storage failed");
-                            Toast.makeText(getBaseContext(), "Failed to upload picture. Please try again.", Toast.LENGTH_LONG);
-                        }
-                    });
-        }
     }
 
     // This method validates that the user entered a valid email and password
@@ -181,8 +119,6 @@ public class SignupPage extends AppCompatActivity {
             edtEmail.setError("Required."); // throw an error if empty
             Log.d(TAG, "Email required.");
             valid = false;
-        } else if (!(email.equals("littlepurplekelly@yahoo.com")) && !Pattern.matches("(.*)[@]([a-z]*)(.edu)", email)) {
-
         } else if (!Pattern.matches("(.*)[@]([a-z]*)(.edu)",email)) {
             edtEmail.setError(".edu email is required"); // throw an error if not a .edu email
             Log.d(TAG, (email.substring(email.length() - 4)));
@@ -204,12 +140,9 @@ public class SignupPage extends AppCompatActivity {
     }
 
     private void createAccount() {
-        final String name = edtName.getText().toString();
+        final String name = edtName.getText().toString() ;
         String email = edtEmail.getText().toString();
         String password = edtPw.getText().toString();
-
-        final String address = edtAddress.getText().toString();
-
         final String address = edtAddress.getText().toString() ;
         LatLng lng = null ;
         try{
@@ -297,23 +230,6 @@ public class SignupPage extends AppCompatActivity {
                 });
     }
 
-    private void openSignInPage() {
-        Intent intent = new Intent(this, SignInPage.class);
-        startActivity(intent);
-
-    }
-
-
-    // This method converts bitmap to URI
-    // Referenced https://colinyeoh.wordpress.com/2012/05/18/android-getting-image-uri-from-bitmap/
-    private Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
-}
-
     // string address -> latlng coordinates
     public LatLng getLocationFromAddress(Context context, String strAddress) {
 
@@ -338,4 +254,113 @@ public class SignupPage extends AppCompatActivity {
 
         return p1;
     }
+
+    private void openSignInPage() {
+        Intent intent = new Intent(this, SignInPage.class);
+        startActivity(intent);
+    }
+
+//    // TODO: Make a check somewhere
+//    boolean isCameraAvailable() {
+//        return getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);  //just another friendly neighborhood manager
+//    }
+//
+//    // This method opens up the camera and allows user to take or upload a profile picture
+////    private void takePicture() {
+////        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+////        if(i.resolveActivity(getPackageManager()) != null){
+////            //Create a file to store the image
+////            File photoFile = null;
+////            try {
+////                photoFile = createImageFile();
+////            } catch (IOException ex) {
+////                // Error occurred while creating the File
+////            ...
+////            }
+////            if (photoFile != null) {
+////                Uri photoURI = FileProvider.getUriForFile(this,                                                                                                    "com.example.android.provider", photoFile);
+////                i.putExtra(MediaStore.EXTRA_OUTPUT,
+////                        photoURI);
+////                startActivityForResult(i,
+////                        REQUEST_CAPTURE_IMAGE);
+////            }
+////        }
+////    }
+//
+//    // Callback from startActivityForResult
+//    @Override
+////    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+////        // Verify that we got something back that was valid
+////        if (!(resultCode == RESULT_OK)) {
+////            Toast.makeText(getBaseContext(), "Failed to take picture. " +
+////                    "Does your device support this feature?", Toast.LENGTH_LONG).show();
+////            return;
+////        }
+////
+////        // Check our "dye", then check the data
+////        // Although we only have one possibility here, maybe more in the future so keep the switch
+////        switch (requestCode) {
+////            case TAKE_PHOTO:
+////                Bundle bundleData = data.getExtras();           //images are stored in a bundle wrapped within the intent
+////                Bitmap img = (Bitmap) bundleData.get("data");  //the bundle key is "data"
+////
+////                // convert bitmap to uri
+////                Uri imageUri = getImageUri(getBaseContext(), img);
+////                uploadFile(imageUri); // upload to firebase storage
+////                break;
+////
+////        }
+////    }
+//
+//    // This method stores the picture file to firebase storage
+//    // Referenced https://stackoverflow.com/questions/50585334/tasksnapshot-getdownloadurl-method-not-working
+//    private void uploadFile(Uri imagUri) {
+//        if (imagUri != null) {
+//            final StorageReference imageRef = mStorage.child("user-photos") // folder path in firebase storage
+//                    .child(imagUri.getLastPathSegment());
+//
+//            // store image to the storage path and listen for success/failure
+//            imageRef.putFile(imagUri)
+//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {  // upload to firebase storage is successful
+//                            // get resulting Uri to store in user data when user click sign up
+//                            Task<Uri> result = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+//                            result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                @Override
+//                                public void onSuccess(Uri uri) {
+//                                    photoStringLink = uri.toString();
+//                                }
+//                            });
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception exception) {
+//                            // show message on failure
+//                            Log.d(TAG, "uploading to firebase storage failed");
+//                            Toast.makeText(getBaseContext(), "Failed to upload picture. Please try again.", Toast.LENGTH_LONG);
+//                        }
+//                    });
+//        }
+//    }
+//
+//    // This method generates a random file name with .jpg
+//    // Referenced https://android.jlelse.eu/androids-new-image-capture-from-a-camera-using-file-provider-dd178519a954
+//    private File createImageFile() throws IOException {
+//        String timeStamp =
+//                new SimpleDateFormat("yyyyMMdd_HHmmss",
+//                        Locale.getDefault()).format(new Date());
+//        String imageFileName = "IMG_" + timeStamp + "_";
+//        File storageDir =
+//                getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//        File image = File.createTempFile(
+//                imageFileName,  /* prefix */
+//                ".jpg",         /* suffix */
+//                storageDir      /* directory */
+//        );
+//
+//        imageFilePath = image.getAbsolutePath();
+//        return image;
+//    }
 }
