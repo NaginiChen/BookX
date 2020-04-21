@@ -34,7 +34,6 @@ public class ListingPage extends AppCompatActivity {
     private User currUser; // current logged on user
 
     TextView listing_tv;
-    Button cancel_btn;
     Button post_btn;
     EditText bookname_et;
     EditText isbn_et;
@@ -59,7 +58,6 @@ public class ListingPage extends AppCompatActivity {
         getUserData();
 
         listing_tv = (TextView) findViewById(R.id.listing_tv);
-        cancel_btn = (Button) findViewById(R.id.cancel_btn);
         post_btn = (Button) findViewById(R.id.post_btn);
         bookname_et = (EditText) findViewById(R.id.bookname_et);
         isbn_et = (EditText) findViewById(R.id.isbn_et);
@@ -71,13 +69,7 @@ public class ListingPage extends AppCompatActivity {
         Ylocation_btn = (Button) findViewById(R.id.Ylocation_btn); // TODO: CHANGE TO A SWITCH INSTEAD
         Nlocation_btn = (Button) findViewById(R.id.Nlocation_btn);
 
-        //when you click cancel_btn, it will go back to the Home page
-        cancel_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openHomePage();
-            }
-        });
+
 
         //when you click post_btn, it will go to Posting page? Not sure what that is
         // for now go to home page so you can view on listings

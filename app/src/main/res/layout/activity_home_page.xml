@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#90DBDB"
+    android:background="#1A4973"
     tools:context="com.example.bookx.HomePage">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor = "#FFFFFF"
-            android:fontFamily = "@font/rasa_regular"
+            android:fontFamily = "@font/rasa_bold"
+            android:layout_marginTop = "10dp"
+            android:layout_marginLeft = "10dp"
             android:textSize="30dp"
             android:text="BookX" />
 
@@ -28,11 +31,21 @@
         </TextView>
 
         <Button
+            android:id="@+id/chat_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor = "#FFFFFF"
+            android:background="@drawable/ic_message"
+            android:fontFamily = "@font/rasa_regular"
+            />
+
+        <Button
             android:id="@+id/account_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily = "@font/rasa_regular"
-            android:text="account" />
+            android:background="@drawable/ic_account"
+             />
 
         <Button
             android:id="@+id/preferences_btn"
@@ -40,7 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:fontFamily = "@font/rasa_regular"
-            android:text="pref" />
+            android:background="@drawable/ic_prefences"
+            />
 
         <Button
             android:id="@+id/upload_btn"
