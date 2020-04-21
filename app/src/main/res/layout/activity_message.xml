@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6E6E6"
+    tools:context=".MessageActivity">
+
+    <LinearLayout
+        android:id="@+id/llToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark">
+
+            <ImageView
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:id="@+id/profileImage"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtUsername"
+                android:textSize="18sp"
+                android:layout_marginLeft="40sp"
+                android:textColor="#fff"
+                android:text="username"
+                android:textStyle="bold"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rvMessage"
+        android:layout_below="@id/llToolBar"
+        android:layout_above="@id/rlSendMessage"/>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:padding="5sp"
+        android:id="@+id/rlSendMessage"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom">
+
+        <EditText
+            android:id="@+id/edtSendMessage"
+            android:layout_width="match_parent"
+            android:layout_margin="5sp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:hint="Type Message Here"
+            android:layout_toLeftOf="@id/ibtSendMessage"
+            android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:id="@+id/ibtSendMessage"
+            android:layout_width="40sp"
+            android:layout_gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_send_message"
+            android:layout_height="40sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

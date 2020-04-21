@@ -156,7 +156,7 @@ public class SignupPage extends AppCompatActivity {
 
                             // get user from firebase auth and store it in the firebase database
                             FirebaseUser user = mAuth.getCurrentUser();
-                            User currUser = new User(user.getEmail(), name, address); // TODO: get user name and location when UI is done
+                            User currUser = new User(user.getEmail(), name, address, "default"); // TODO: get user name and location when UI is done
 
                             // address to coordinates
                             LatLng lng = getLocationFromAddress(getApplicationContext(),address) ;
