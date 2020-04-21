@@ -19,6 +19,12 @@
         android:layout_gravity="right"
         android:text="Log Out" />
 
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_launcher"/>
     <TextView
         android:id="@+id/name_tv3"
         android:layout_width="wrap_content"
