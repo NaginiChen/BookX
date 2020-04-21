@@ -56,7 +56,6 @@ public class ListingPage extends AppCompatActivity {
     Button Ylocation_btn;
     Button Nlocation_btn;
 
-    TextView barcodeResult;
     Button scanBtn;
     private static final int PERMISSION_REQUEST_CODE = 200;
 
@@ -81,7 +80,7 @@ public class ListingPage extends AppCompatActivity {
         price_et = (EditText) findViewById(R.id.price_et);
         description_et = (EditText) findViewById(R.id.description_et);
         location_tv = (TextView) findViewById(R.id.location_tv);
-        Ylocation_btn = (Button) findViewById(R.id.Ylocation_btn); // TODO: CHANGE TO A SWITCH INSTEAD
+        Ylocation_btn = (Button) findViewById(R.id.Ylocation_btn); // TODO: MOVE TO PREFERENCES AND IT SHOULD BE A SWITCH
         Nlocation_btn = (Button) findViewById(R.id.Nlocation_btn);
 
         //when you click post_btn, it will go to Posting page? Not sure what that is
@@ -98,7 +97,6 @@ public class ListingPage extends AppCompatActivity {
             }
         }); // TODO: CHANGE TO ANOTHER PAGE
 
-        barcodeResult = findViewById(R.id.isbn_et);
         scanBtn = findViewById(R.id.uploadisbn_btn);
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +109,7 @@ public class ListingPage extends AppCompatActivity {
     // Returns true if listing is successfully created
     private boolean createListing() {
         String name = bookname_et.getText().toString();
-        String isbn = isbn_et.getText().toString(); // TODO: INTEGRATE ISBN API
+        String isbn = isbn_et.getText().toString();
         String className = class_et.getText().toString();
         String strPrice = price_et.getText().toString();
         String description = description_et.getText().toString();
@@ -122,6 +120,7 @@ public class ListingPage extends AppCompatActivity {
             price = Double.parseDouble(strPrice);
 
             // write listing to database
+            // if it returned false, it failed and already displayed an error message to user
             if (!writeListing(name, isbn, className, price, description)) {
                 return false;
             }
@@ -146,7 +145,7 @@ public class ListingPage extends AppCompatActivity {
             String uid = mAuth.getUid(); // user id of the current user who is creaitng the listing
             String seller = currUser.getFullName();
 
-            Post newListing = new Post(uid, name, seller, className, price, description, false);
+            Post newListing = new Post(uid, name, seller, className, price, description, false, isbn);
 
             // add listing to the listings table
             mDatabase.child("listings").child(lid).setValue(newListing);
@@ -195,10 +194,10 @@ public class ListingPage extends AppCompatActivity {
             if(resultCode == CommonStatusCodes.SUCCESS){
                 if(data != null){
                     Barcode barcode = data.getParcelableExtra("barcode");
-                    barcodeResult.setText(barcode.displayValue);
+                    isbn_et.setText(barcode.displayValue);
                 }
                 else{
-                    barcodeResult.setText("No barcode found");
+                    isbn_et.setText("");
                 }
             }
         }

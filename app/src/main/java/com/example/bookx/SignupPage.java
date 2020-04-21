@@ -42,9 +42,7 @@ public class SignupPage extends AppCompatActivity {
     EditText edtPw;
     TextView txtAddress;
     EditText edtAddress;
-    TextView uploadpic_tv;
     Button btnSignup;
-    Button verification_btn;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -65,9 +63,7 @@ public class SignupPage extends AppCompatActivity {
         edtPw = (EditText) findViewById(R.id.pw_et);
         txtAddress = (TextView) findViewById(R.id.address_tv);
         edtAddress = (EditText) findViewById(R.id.address_et);
-//        uploadpic_tv = (TextView) findViewById(R.id.uploadpic_tv);
         btnSignup = (Button) findViewById(R.id.signup_btn);
-//        verification_btn = (Button) findViewById(R.id.verification_btn);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -191,7 +187,7 @@ public class SignupPage extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
 
                             // Return back to sign in
-                            startActivity(new Intent(getBaseContext(), SignInPage.class));
+                            openSignInPage();
                         } else {
                             // Verification email not sent, let user know to try again
                             Log.e(TAG, "sendEmailVerification", task.getException());
@@ -203,8 +199,8 @@ public class SignupPage extends AppCompatActivity {
                 });
     }
 
-    public void openHomePage() {
-        Intent intent = new Intent(this, HomePage.class);
+    public void openSignInPage() {
+        Intent intent = new Intent(this, SignInPage.class);
         startActivity(intent);
 
     }
