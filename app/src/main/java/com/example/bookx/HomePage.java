@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -118,6 +119,7 @@ public class HomePage extends AppCompatActivity {
 
     // send listing data to adapter to display
     private void updateUIListings() {
+        Collections.reverse(posts);
         postAdapter = new listingAdapter(this.getBaseContext(), posts);
         lvPosts = (ListView) findViewById(R.id.lvListing);
         lvPosts.setAdapter(postAdapter);

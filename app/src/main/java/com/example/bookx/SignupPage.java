@@ -121,6 +121,7 @@ public class SignupPage extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
             return;
         }
+
         final Double latitude = lng.latitude;
         final Double longitude = lng.longitude;
 
