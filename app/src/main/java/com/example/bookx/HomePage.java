@@ -110,7 +110,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void openChatListPage() {
-        Intent intent = new Intent(this, ChatListPage.class);
+        Intent intent = new Intent(this, MessageList.class);
         startActivity(intent);
 
     }

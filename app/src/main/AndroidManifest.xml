@@ -11,12 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".MessageActivity"></activity>
-        <!-- adds mobile vision dependencies -->
-
-        <activity android:name=".PostingInfo"></activity>
-
+        <activity android:name=".MessageList"></activity>
+        <activity android:name=".MessageActivity" /> <!-- adds mobile vision dependencies -->
+        <activity android:name=".PostingInfo" />
         <activity android:name=".PostingPage" />
         <activity android:name=".ListingPage" />
         <activity android:name=".PreferencesPage" />

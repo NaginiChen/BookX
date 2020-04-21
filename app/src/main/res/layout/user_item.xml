@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10sp">
+
+    <ImageView
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:id="@+id/profileImage"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/txtUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="username"
+        android:layout_toRightOf="@id/profileImage"
+        android:layout_toEndOf="@id/profileImage"
+        android:layout_marginLeft="10sp"
+        android:layout_centerVertical="true"
+        android:textSize="18sp"/>
+
+</RelativeLayout>
