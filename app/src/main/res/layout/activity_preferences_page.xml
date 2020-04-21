@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#97CAE8"
+    android:background="#1A4973"
     android:orientation="vertical"
     tools:context="com.example.bookx.PreferencesPage" >
 
@@ -16,6 +16,7 @@
         android:text="@string/preferences"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
+        android:fontFamily = "@font/rasa_bold"
         android:textSize="45sp"
         android:textStyle="bold" />
 
@@ -26,6 +27,7 @@
         android:layout_marginStart="20dp"
         android:layout_weight="1"
         android:text="@string/appearances"
+        android:fontFamily = "@font/rasa_bold"
         android:textColor="#FFFFFF"
         android:textSize="30sp" />
 
@@ -34,6 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="66dp"
+        android:textColor="#FFFFFF"
+        android:fontFamily = "@font/rasa_regular"
         android:layout_weight="1"
         android:text="@string/language"
         android:textSize="24sp" />
@@ -54,6 +58,7 @@
         android:layout_marginStart="20dp"
         android:layout_weight="1"
         android:text="@string/notifications"
+        android:fontFamily = "@font/rasa_bold"
         android:textColor="#FFFFFF"
         android:textSize="30sp" />
 
@@ -64,6 +69,8 @@
         android:layout_marginStart="66dp"
         android:layout_weight="1"
         android:text="@string/alerts"
+        android:fontFamily = "@font/rasa_regular"
+        android:textColor="#FFFFFF"
         android:textSize="24sp" />
 
     <TextView
@@ -73,6 +80,7 @@
         android:layout_marginStart="20dp"
         android:layout_weight="1"
         android:text="@string/account"
+        android:fontFamily = "@font/rasa_bold"
         android:textColor="#FFFFFF"
         android:textSize="30sp" />
 
@@ -83,6 +91,8 @@
         android:layout_marginStart="66dp"
         android:layout_weight="1"
         android:text="@string/turn_off_listings"
+        android:fontFamily = "@font/rasa_regular"
+        android:textColor="#FFFFFF"
         android:textSize="24sp" />
 
     <Switch
@@ -92,6 +102,8 @@
         android:layout_marginStart="66dp"
         android:layout_weight="1"
         android:text="@string/share_location"
+        android:fontFamily = "@font/rasa_regular"
+        android:textColor="#FFFFFF"
         android:textSize="24sp" />
 
     <Button
@@ -105,5 +117,6 @@
         android:textAllCaps="true"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
+        android:fontFamily = "@font/rasa_regular"
         android:textStyle="bold" />
 </LinearLayout>

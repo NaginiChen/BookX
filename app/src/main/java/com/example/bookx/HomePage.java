@@ -34,6 +34,7 @@ public class HomePage extends AppCompatActivity {
     Button account_btn;
     Button preferences_btn;
     Button upload_btn;
+    Button chat_btn;
     private List<Post> posts;
     private ListView lvPosts;
     private ListAdapter postAdapter;
@@ -50,6 +51,7 @@ public class HomePage extends AppCompatActivity {
         title_tv = (TextView) findViewById(R.id.title_tv);
         account_btn = (Button) findViewById(R.id.account_btn);
         preferences_btn = (Button) findViewById(R.id.preferences_btn);
+        chat_btn = (Button) findViewById(R.id.chat_btn);
         upload_btn = (Button) findViewById(R.id.upload_btn);
         posts = new ArrayList<>();
 
@@ -57,6 +59,15 @@ public class HomePage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         listingData(); // read posts and display
+
+
+        //when you click chat_btn, it will open up the Chat List Page
+        chat_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openChatListPage();
+            }
+        });
 
         //when you click account_btn, it will open up account page
         account_btn.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +108,13 @@ public class HomePage extends AppCompatActivity {
         Intent intent = new Intent(this, ListingPage.class);
         startActivity(intent);
     }
+
+    public void openChatListPage() {
+        Intent intent = new Intent(this, ChatListPage.class);
+        startActivity(intent);
+
+    }
+
 
     // send listing data to adapter to display
     private void updateUIListings() {

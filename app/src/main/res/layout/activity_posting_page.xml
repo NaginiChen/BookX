@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#97CAE8"
+    android:background="#1A4973"
     tools:context="com.example.bookx.PostingPage">
 
     <LinearLayout
@@ -33,4 +33,4 @@
             android:layout_height="wrap_content"
             android:layout_weight="2" />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>
