@@ -1,8 +1,13 @@
 package com.example.bookx;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +30,12 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
+
+// Source code used: https://www.youtube.com/watch?v=czmEC5akcos
+// Source code used: Lect9RequestPermission2 (lecture code)
+
 public class ListingPage extends AppCompatActivity {
     private static final String TAG = "***LISTINGS***";
 
@@ -44,6 +55,9 @@ public class ListingPage extends AppCompatActivity {
     TextView location_tv;
     Button Ylocation_btn;
     Button Nlocation_btn;
+
+    Button scanBtn;
+    private static final int PERMISSION_REQUEST_CODE = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +80,8 @@ public class ListingPage extends AppCompatActivity {
         price_et = (EditText) findViewById(R.id.price_et);
         description_et = (EditText) findViewById(R.id.description_et);
         location_tv = (TextView) findViewById(R.id.location_tv);
-        Ylocation_btn = (Button) findViewById(R.id.Ylocation_btn); // TODO: CHANGE TO A SWITCH INSTEAD
+        Ylocation_btn = (Button) findViewById(R.id.Ylocation_btn); // TODO: MOVE TO PREFERENCES AND IT SHOULD BE A SWITCH
         Nlocation_btn = (Button) findViewById(R.id.Nlocation_btn);
-
-
 
         //when you click post_btn, it will go to Posting page? Not sure what that is
         // for now go to home page so you can view on listings
@@ -84,12 +96,20 @@ public class ListingPage extends AppCompatActivity {
                 }
             }
         }); // TODO: CHANGE TO ANOTHER PAGE
+
+        scanBtn = findViewById(R.id.uploadisbn_btn);
+        scanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scanBarcode(view);
+            }
+        });
     }
 
     // Returns true if listing is successfully created
     private boolean createListing() {
         String name = bookname_et.getText().toString();
-        String isbn = isbn_et.getText().toString(); // TODO: INTEGRATE ISBN API
+        String isbn = isbn_et.getText().toString();
         String className = class_et.getText().toString();
         String strPrice = price_et.getText().toString();
         String description = description_et.getText().toString();
@@ -100,6 +120,7 @@ public class ListingPage extends AppCompatActivity {
             price = Double.parseDouble(strPrice);
 
             // write listing to database
+            // if it returned false, it failed and already displayed an error message to user
             if (!writeListing(name, isbn, className, price, description)) {
                 return false;
             }
@@ -124,7 +145,7 @@ public class ListingPage extends AppCompatActivity {
             String uid = mAuth.getUid(); // user id of the current user who is creaitng the listing
             String seller = currUser.getFullName();
 
-            Post newListing = new Post(uid, name, seller, className, price, description, false);
+            Post newListing = new Post(uid, name, seller, className, price, description, false, isbn);
 
             // add listing to the listings table
             mDatabase.child("listings").child(lid).setValue(newListing);
@@ -143,6 +164,49 @@ public class ListingPage extends AppCompatActivity {
             return false;
         }
     }
+
+    public void scanBarcode(View v){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            Intent intent = new Intent(this, ScanBarcodeActivity.class);
+            startActivityForResult(intent, 0);
+        }
+        else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},  PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(this, ScanBarcodeActivity.class);
+                startActivityForResult(intent, 0);
+            }
+            else {
+                Toast.makeText(getBaseContext(), "CAMERA DENIED", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 0){
+            if(resultCode == CommonStatusCodes.SUCCESS){
+                if(data != null){
+                    Barcode barcode = data.getParcelableExtra("barcode");
+                    isbn_et.setText(barcode.displayValue);
+                }
+                else{
+                    isbn_et.setText("");
+                }
+            }
+        }
+        else{
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+
+    }
+
 
     public void openHomePage() {
         Intent intent = new Intent(this, HomePage.class);

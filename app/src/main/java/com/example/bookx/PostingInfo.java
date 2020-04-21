@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -40,7 +42,7 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
     private Post currPost ;
     private String location ;
 
-    private TextView txtBookTitle, txtPrice, txtDesc, txtSeller, txtDate , txtCourse, txtAddress;
+    private TextView txtBookTitle, txtPrice, txtDesc, txtSeller, txtDate , txtCourse, txtAddress, txtISBN;
 
 
     @Override
@@ -64,6 +66,8 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
         txtSeller = (TextView) findViewById(R.id.txtPostSeller) ;
         txtDate = (TextView) findViewById(R.id.txtPostDate) ;
         txtCourse = (TextView) findViewById(R.id.txtPostCourse) ;
+        txtISBN = (TextView) findViewById(R.id.txtPostISBN);
+
 
         txtSeller.setText(currPost.getSeller());
         txtDate.setText(currPost.getDate().toString());
@@ -71,6 +75,9 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
         txtPrice.setText("$" + currPost.getPrice());
         txtDesc.setText(currPost.getDesc());
         txtCourse.setText(currPost.getCourse());
+        txtISBN.setText(currPost.getIsbn());
+
+        Log.d(TAG, "ISBN IS" + currPost.getIsbn());
 
     }
     // string address -> latlng coordinates

@@ -20,6 +20,7 @@ public class Post implements Parcelable {
     private String desc ;
     private boolean isSold ;
     private Date date;
+    private String isbn;
 
     public static final Creator<Post> CREATOR = new Creator<Post>() {
         @Override
@@ -33,7 +34,7 @@ public class Post implements Parcelable {
         }
     };
 
-    public Post(String uid, String bookTitle, String seller, String course, double price, String desc, boolean isSold){
+    public Post(String uid, String bookTitle, String seller, String course, double price, String desc, boolean isSold, String isbn){
         this.uid = uid;
         this.bookTitle = bookTitle ;
         this.seller = seller ;
@@ -42,8 +43,7 @@ public class Post implements Parcelable {
         this.desc = desc ;
         this.isSold = isSold ;
         this.date = new Date();
-
-        // TODO: ADD ISBN
+        this.isbn = isbn;
     }
 
     public Post() {
@@ -60,6 +60,7 @@ public class Post implements Parcelable {
         this.desc = in.readString() ;
         this.isSold = Boolean.parseBoolean(in.readString()) ;
         this.date = new Date(in.readLong());
+        this.isbn = in.readString();
     }
 
     // setter & getter
@@ -145,6 +146,15 @@ public class Post implements Parcelable {
         dest.writeString(desc);
         dest.writeString(Boolean.toString(isSold));
         dest.writeLong(date.getTime());
+        dest.writeString(isbn);
 
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 }

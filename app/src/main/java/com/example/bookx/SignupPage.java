@@ -59,7 +59,10 @@ public class SignupPage extends AppCompatActivity {
     TextView txtAddress;
     EditText edtAddress;
     Button btnSignup;
+<<<<<<< HEAD
     Button btnUploadPic;
+=======
+>>>>>>> master
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -85,7 +88,10 @@ public class SignupPage extends AppCompatActivity {
         txtAddress = (TextView) findViewById(R.id.address_tv);
         edtAddress = (EditText) findViewById(R.id.address_et);
         btnSignup = (Button) findViewById(R.id.signup_btn);
+<<<<<<< HEAD
         btnUploadPic = (Button) findViewById(R.id.upload_pic_btn);
+=======
+>>>>>>> master
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -230,6 +236,15 @@ public class SignupPage extends AppCompatActivity {
                 });
     }
 
+<<<<<<< HEAD
+=======
+    public void openSignInPage() {
+        Intent intent = new Intent(this, SignInPage.class);
+        startActivity(intent);
+
+    }
+
+>>>>>>> master
     // string address -> latlng coordinates
     public LatLng getLocationFromAddress(Context context, String strAddress) {
 

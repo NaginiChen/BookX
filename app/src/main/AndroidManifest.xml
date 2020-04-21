@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.bookx">
 
+<<<<<<< HEAD
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -11,6 +12,9 @@
         android:required="true" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+=======
+    <uses-permission android:name="android.permission.CAMERA" />
+>>>>>>> master
 
     <application
         android:allowBackup="true"
@@ -18,6 +22,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+<<<<<<< HEAD
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity">
 
@@ -53,6 +58,27 @@
             android:name=".SignInPage"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
+=======
+        android:theme="@style/AppTheme">
+
+        <!-- adds mobile vision dependencies -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <activity android:name=".PostingInfo"></activity>
+        <activity android:name=".PostingPage" />
+        <activity android:name=".ListingPage" />
+        <activity android:name=".PreferencesPage" />
+        <activity android:name=".AccountPage" />
+        <activity android:name=".SignupPage" />
+        <activity android:name=".HomePage" />
+        <activity android:name=".ScanBarcodeActivity" />
+        <activity android:name=".SignInPage">
+>>>>>>> master
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
