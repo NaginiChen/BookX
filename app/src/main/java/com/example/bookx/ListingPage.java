@@ -52,9 +52,7 @@ public class ListingPage extends AppCompatActivity {
     EditText class_et;
     EditText price_et;
     EditText description_et;
-    TextView location_tv;
-    Button Ylocation_btn;
-    Button Nlocation_btn;
+
 
     Button scanBtn;
     private static final int PERMISSION_REQUEST_CODE = 200;
@@ -79,9 +77,7 @@ public class ListingPage extends AppCompatActivity {
         class_et = (EditText) findViewById(R.id.class_et);
         price_et = (EditText) findViewById(R.id.price_et);
         description_et = (EditText) findViewById(R.id.description_et);
-        location_tv = (TextView) findViewById(R.id.location_tv);
-        Ylocation_btn = (Button) findViewById(R.id.Ylocation_btn); // TODO: MOVE TO PREFERENCES AND IT SHOULD BE A SWITCH
-        Nlocation_btn = (Button) findViewById(R.id.Nlocation_btn);
+
 
         //when you click post_btn, it will go to Posting page? Not sure what that is
         // for now go to home page so you can view on listings

@@ -52,6 +52,8 @@
 
     </LinearLayout>
 
+
+
     <EditText
         android:id="@+id/bookname_et"
         android:layout_width="match_parent"
@@ -63,7 +65,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/rasa_regular"
         android:textAlignment="center"
-        android:text="Book Name"
+        android:hint="Book Name"
         android:inputType="text"
         android:textColor="#FFFFFF"
         android:layout_marginTop = "10dp"/>
@@ -79,7 +81,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/rasa_regular"
         android:textAlignment="center"
-        android:text="ISBN Number"
+        android:hint="ISBN Number"
         android:inputType="text"
         android:textColor="#FFFFFF" />
 
@@ -107,7 +109,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/rasa_regular"
         android:textAlignment="center"
-        android:text="Class Name"
+        android:hint="Class Name"
         android:inputType="text"
         android:textColor="#FFFFFF" />
 
@@ -122,7 +124,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/rasa_regular"
         android:textAlignment="center"
-        android:text="Price"
+        android:hint="Price"
         android:inputType="text"
         android:textColor="#FFFFFF" />
 
@@ -137,56 +139,9 @@
         android:layout_weight="1"
         android:fontFamily="@font/rasa_regular"
         android:textAlignment="center"
-        android:text="Description"
+        android:hint="Description"
         android:inputType="text"
         android:textColor="#FFFFFF"
         android:layout_marginBottom="50dp"/>
 
-    <TextView
-        android:id="@+id/location_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="130dp"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:text="Show your location?" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/Ylocation_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="96dp"
-            android:fontFamily = "@font/rasa_regular"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
-            android:layout_marginLeft = "15dp"
-            android:background="@drawable/button"
-            android:textColor="#FFFFFF"
-            android:text="Yes" />
-
-        <Button
-            android:id="@+id/Nlocation_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="96dp"
-            android:fontFamily = "@font/rasa_regular"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
-            android:layout_marginLeft = "20dp"
-            android:background="@drawable/button"
-            android:textColor="#FFFFFF"
-            android:text="No" />
-
-    </LinearLayout>
 </LinearLayout>
