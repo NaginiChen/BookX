@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"
                     android:fontFamily="@font/rasa_bold"
-                    android:text="Person Name"
+                    android:text="@string/person_name"
                     android:textColor="#FFFFFF"
                     android:textSize="25dp" />
 
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
                     android:background="#366083"
-                    android:text="Message"
+                    android:text="@string/messages"
                     android:textColor="#FFFFFF" />
 
             </LinearLayout>
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
                 android:fontFamily="@font/rasa_regular"
-                android:text="Date"
+                android:text="@string/date"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
 
@@ -74,7 +74,7 @@
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="60dp"
                 android:fontFamily="@font/rasa_bold"
-                android:text="Book Title"
+                android:text="@string/book_name"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
@@ -96,7 +96,7 @@
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/rasa_bold"
-                android:text="Course"
+                android:text="@string/class_name"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
@@ -118,7 +118,7 @@
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/rasa_bold"
-                android:text="Price"
+                android:text="@string/price"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
@@ -162,7 +162,7 @@
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/rasa_bold"
-                android:text="Description"
+                android:text="@string/description"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
