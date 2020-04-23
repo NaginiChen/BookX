@@ -31,17 +31,6 @@
         android:textColor="#FFFFFF"
         android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/tvLanguage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="66dp"
-        android:textColor="#FFFFFF"
-        android:fontFamily = "@font/rasa_regular"
-        android:layout_weight="1"
-        android:text="@string/language"
-        android:textSize="24sp" />
-
     <Spinner
         android:id="@+id/spLanguage"
         android:layout_width="match_parent"
@@ -49,7 +38,9 @@
         android:layout_marginStart="66dp"
         android:layout_weight="1"
         android:text="@string/language"
-        android:textSize="24sp" />
+        android:textColor="#FFFFFF"
+        android:entries="@array/languageOptions"
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/tvNotifications"
@@ -85,17 +76,6 @@
         android:textSize="30sp" />
 
     <Switch
-        android:id="@+id/swFreezeListings"
-        android:layout_width="313dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="66dp"
-        android:layout_weight="1"
-        android:text="@string/turn_off_listings"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp" />
-
-    <Switch
         android:id="@+id/swLocation"
         android:layout_width="313dp"
         android:layout_height="wrap_content"
@@ -107,16 +87,14 @@
         android:textSize="24sp" />
 
     <Button
-        android:id="@+id/btnLogOut"
+        android:id="@+id/btnGoHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:background="#1E3542"
-        android:text="@string/log_out"
-        android:textAlignment="center"
-        android:textAllCaps="true"
+        android:layout_weight="1"
+        android:background="#629DCC"
+        android:text="@string/back_to_home_page"
+        android:fontFamily = "@font/rasa_bold"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:fontFamily = "@font/rasa_regular"
-        android:textStyle="bold" />
+        android:textSize="30sp" />
+
 </LinearLayout>

@@ -2,14 +2,61 @@
     <string name="app_name">final</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="share_location">Share Location</string>
-    <string name="turn_off_listings">Turn Off Listings</string>
     <string name="account">Account</string>
     <string name="alerts">Alerts</string>
     <string name="notifications">Notifications</string>
     <string name="language">Language</string>
-    <string name="appearances">Appearances</string>
+    <string name="appearances">Language</string>
     <string name="preferences">Preferences</string>
     <string name="log_out">LOG OUT</string>
+    <string name="your_listings">Your Listings</string>
+    <string name="change_password">change password</string>
+    <string name="new_listing">New Listing</string>
+    <string name="cancel">Cancel</string>
+    <string name="post">Post</string>
+    <string name="book_name">Book Name</string>
+    <string name="upload">Upload</string>
+    <string name="class_name">Class Name</string>
+    <string name="price">Price</string>
+    <string name="show_your_location">Show your location?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="log_in_sign_up_below_to_use_our_platform">Log-In/Sign-Up below to use our platform</string>
+    <string name="welcome_to_bookx">Welcome to BookX</string>
+    <string name="log_in">Log In</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="person_name">Person Name</string>
+    <string name="description">Description</string>
+    <string name="post_name">Post Name</string>
+    <string name="date">Date</string>
+    <string name="interested">Interested?</string>
+    <string name="sign_up_for_bookx">Sign up for BookX</string>
+    <string name="create_a_profile_connect_with_fellow_students_in_your_university_to_join_our_community">Create a profile, connect with fellow students in your university to join our community!</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="address">Address</string>
+    <string name="upload_your_profile_picture">Upload your profile picture!</string>
+    <string name="see_post">See Post</string>
+    <string name="chats">Chats</string>
+    <string name="isbn_number">isbn_number</string>
+    <string name="create_a_profile">Create a profile, connect with fellow students in your university to join our community!</string>
+    <string name="previous_page">Previous Page</string>
+    <string name="back_to_home_page">Back to Home Page</string>
+    <string name="type_message_here">Type Message Here</string>
+    <string name="messages">Messages</string>
+    <string name="choose_a_language">Choose a Language</string>
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
+
+
+    <string-array name="languageOptions">
+        <item>Choose a Language</item>
+        <item>English</item>
+        <item>Spanish</item>
+    </string-array>
+
 </resources>
