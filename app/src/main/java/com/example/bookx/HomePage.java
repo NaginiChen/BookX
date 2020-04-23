@@ -53,6 +53,7 @@ public class HomePage extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
+    Boolean notificationToggle;
     Boolean firstBootUp;
 
     @Override
@@ -105,6 +106,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+        notificationToggle = true;
         firstBootUp = true;
         listenForNewMessages();
     }
@@ -147,7 +149,6 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    Log.d(TAG, "FOUND OTHER USER LISTING!!!");
                     // handle the post
                     Post post = postSnapshot.getValue(Post.class);
 
@@ -183,7 +184,9 @@ public class HomePage extends AppCompatActivity {
                         for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                             User user = snapshot.getValue(User.class) ;
                             if( snapshot.getKey().equals(chatVal.getSender()) && chatVal.getReceiver().equals(mAuth.getUid()) ){
+                                if(notificationToggle){
                                     sendNotification(chatVal.getMessage(), user.getFullName() );
+                                }
                             }
                         }
                     }
