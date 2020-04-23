@@ -76,6 +76,8 @@ public class ListingPage extends AppCompatActivity {
     private static final int IMAGE_REQUEST = 1 ;
     String listingPic; // to pass into new post
 
+    private boolean isImgUploaded = false; // used to ensure user uploaded an image for the listing
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,11 +103,17 @@ public class ListingPage extends AppCompatActivity {
         btnUploadPic = (Button) findViewById(R.id.upload_listing_pic_btn);
         tvUploadPic = (TextView) findViewById(R.id.upload_listing_pic_tv);
 
-        //when you click post_btn, it will go to Posting page? Not sure what that is
-        // for now go to home page so you can view on listings
+        // when post button is clicked, a listing is created and user is returned to the home page
         post_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // user must have uploaded an image for the listing
+                if (!isImgUploaded) {
+                    Toast.makeText(getBaseContext(), "Please upload an image for your listing.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                // successfully created listing, return to home page
                 if (createListing()) {
                     openHomePage();
                 } else {
@@ -307,6 +315,8 @@ public class ListingPage extends AppCompatActivity {
 
                         Toast.makeText(getApplicationContext(),"Successfully uploaded image. Click post to finish.",Toast.LENGTH_LONG).show();
                         Log.d(TAG, "LISTING URL IS" + listingPic);
+
+                        isImgUploaded = true;
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {

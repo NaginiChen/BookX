@@ -185,7 +185,6 @@ public class AccountPage extends AppCompatActivity {
 
     // This method gets user data from the database and listens to changes
     private void readCurrUserData() {
-        currUserposts.clear();
         // listen for changes for user data
         mDatabase.child("users").child(mAuth.getUid()).addValueEventListener(new ValueEventListener() { // attach listener to our user database reference
 

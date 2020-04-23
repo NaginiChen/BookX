@@ -64,10 +64,12 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
         if(extra != null){
             currPost = (Post) extra.get("post") ;
         }
+
+        Log.d(TAG, "GOT THE POST SUCCESSFULLY");
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.fragMap) ;
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragMap);
         mapFragment.getMapAsync(this);
 
         txtBookTitle = (TextView) findViewById(R.id.txtPostBookTitle) ;
@@ -145,10 +147,14 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mapAPI = googleMap ;
-        LatLng add = new LatLng(currPost.getLatitude(),currPost.getLongitude()) ;
-        mapAPI.addMarker(new MarkerOptions().position(add).title("ADDRESS")) ;
-        mapAPI.moveCamera(CameraUpdateFactory.newLatLngZoom(add,15)) ;
+        try {
+            mapAPI = googleMap;
+            LatLng add = new LatLng(currPost.getLatitude(), currPost.getLongitude());
+            mapAPI.addMarker(new MarkerOptions().position(add).title("ADDRESS"));
+            mapAPI.moveCamera(CameraUpdateFactory.newLatLngZoom(add, 15));
+        } catch (Exception e) {
+            Log.d(TAG, "MAP FAILED" + e);
+        }
 
     }
 }
