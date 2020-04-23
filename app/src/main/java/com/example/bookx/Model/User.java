@@ -43,6 +43,9 @@ public class User implements Parcelable {
         email = in.readString();
         fullName = in.readString();
         location = in.readString();
+        latitude = in.readDouble() ;
+        longitude = in.readDouble() ;
+        imageurl = in.readString() ;
         showLocation = in.readByte() != 0;
     }
 
@@ -51,6 +54,9 @@ public class User implements Parcelable {
         dest.writeString(email);
         dest.writeString(fullName);
         dest.writeString(location);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeString(imageurl);
         dest.writeByte((byte) (showLocation ? 1 : 0));
     }
 

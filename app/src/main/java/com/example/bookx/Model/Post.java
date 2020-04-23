@@ -22,6 +22,7 @@ public class Post implements Parcelable {
     private Date date;
     private String isbn;
     private String imageurl ;
+    private double latitude, longitude ;
 
     public static final Creator<Post> CREATOR = new Creator<Post>() {
         @Override
@@ -35,7 +36,7 @@ public class Post implements Parcelable {
         }
     };
 
-    public Post(String uid, String bookTitle, String seller, String course, double price, String desc, boolean isSold, String isbn, String imageurl){
+    public Post(String uid, String bookTitle, String seller, String course, double price, String desc, boolean isSold, String isbn, String imageurl, double latitude, double longitude){
         this.uid = uid;
         this.bookTitle = bookTitle ;
         this.seller = seller ;
@@ -46,6 +47,8 @@ public class Post implements Parcelable {
         this.date = new Date();
         this.isbn = isbn;
         this.imageurl = imageurl ;
+        this.latitude = latitude ;
+        this.longitude = longitude ;
     }
 
     public Post() {
@@ -64,6 +67,8 @@ public class Post implements Parcelable {
         this.date = new Date(in.readLong());
         this.isbn = in.readString();
         this.imageurl = in.readString();
+        this.latitude = in.readDouble() ;
+        this.longitude = in.readDouble() ;
     }
 
     // setter & getter
@@ -151,6 +156,8 @@ public class Post implements Parcelable {
         dest.writeLong(date.getTime());
         dest.writeString(isbn);
         dest.writeString(imageurl);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
 
     }
 
@@ -168,5 +175,21 @@ public class Post implements Parcelable {
 
     public void setImageurl(String imageurl) {
         this.imageurl = imageurl;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

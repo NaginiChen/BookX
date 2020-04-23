@@ -51,6 +51,16 @@
     <string name="choose_a_language">Choose a Language</string>
     <string name="english">English</string>
     <string name="spanish">Spanish</string>
+    <string name="search_book">Search By Book Title</string>
+    <string name="search_seller">Search By Seller</string>
+    <string name="search_course">Search By Course</string>
+    <string name="search_desc">Search By Description</string>
+    <string name="filter_time_h2l">Time (Most Recent to Least Recent)</string>
+    <string name="filter_time_l2h">Time (Least Recent to Most Recent to )</string>
+    <string name="filter_price_h2l">Price (Highest to Lowest)</string>
+    <string name="filter_price_l2h">Price (Lowest to Highest)</string>
+    <string name="filter_distance_l2h">Distance (Nearest to Furthest)</string>
+
 
 
     <string-array name="languageOptions">

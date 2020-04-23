@@ -146,30 +146,9 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mapAPI = googleMap ;
-        mDatabase.child("users").child(currPost.getUid()).addValueEventListener(new ValueEventListener() { // attach listener to our user database reference
-
-            @Override
-            // This method is called when user data changes
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get the current user
-                User seller = dataSnapshot.getValue(User.class);
-                Log.d(TAG,seller.getLocation()) ;
-                Double lat = dataSnapshot.child("latitude").getValue(Double.class) ;
-                Double lng = dataSnapshot.child("longitude").getValue(Double.class) ;
-                LatLng add = new LatLng(lat,lng) ;
-                mapAPI.addMarker(new MarkerOptions().position(add).title(seller.getLocation())) ;
-                mapAPI.moveCamera(CameraUpdateFactory.newLatLngZoom(add,15)) ;
-            }
-
-            @Override
-            // This method is called when we fail to get user from the database
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting User failed, log a message
-                Log.w(TAG, "loadUserListing:onCancelled", databaseError.toException());
-                Toast.makeText(getBaseContext(), "Failed to load user information.",
-                        Toast.LENGTH_LONG).show();
-            }
-        });
+        LatLng add = new LatLng(currPost.getLatitude(),currPost.getLongitude()) ;
+        mapAPI.addMarker(new MarkerOptions().position(add).title("ADDRESS")) ;
+        mapAPI.moveCamera(CameraUpdateFactory.newLatLngZoom(add,15)) ;
 
     }
 }
