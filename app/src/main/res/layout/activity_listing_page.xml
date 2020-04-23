@@ -146,6 +146,7 @@
         android:hint="@string/description"
         android:inputType="text"
         android:textColor="#FFFFFF"
+        android:textAlignment="center"
         android:textColorHint="#DDFFFFFF" />
 
     <Button

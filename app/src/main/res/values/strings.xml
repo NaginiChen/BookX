@@ -16,7 +16,7 @@
     <string name="new_listing">New Listing</string>
     <string name="cancel">Cancel</string>
     <string name="post">Post</string>
-    <string name="book_name">Book Name</string>
+    <string name="book_name">Listing Name</string>
     <string name="upload">Upload</string>
     <string name="class_name">Class Name</string>
     <string name="price">Price</string>
