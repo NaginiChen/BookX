@@ -65,9 +65,10 @@
         android:layout_weight="1"
         android:fontFamily="@font/rasa_regular"
         android:textAlignment="center"
-        android:hint="Book Name"
+        android:hint="Listing Name"
         android:inputType="text"
         android:textColor="#FFFFFF"
+        android:textColorHint="#DDFFFFFF"
         android:layout_marginTop = "10dp"/>
 
     <EditText
@@ -83,7 +84,8 @@
         android:textAlignment="center"
         android:hint="ISBN Number"
         android:inputType="text"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textColorHint="#DDFFFFFF" />
 
     <Button
         android:id="@+id/uploadisbn_btn"
@@ -111,7 +113,8 @@
         android:textAlignment="center"
         android:hint="Class Name"
         android:inputType="text"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textColorHint="#DDFFFFFF" />
 
     <EditText
         android:id="@+id/price_et"
@@ -126,7 +129,8 @@
         android:textAlignment="center"
         android:hint="Price"
         android:inputType="text"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textColorHint="#DDFFFFFF" />
 
     <EditText
         android:id="@+id/description_et"
@@ -142,6 +146,25 @@
         android:hint="Description"
         android:inputType="text"
         android:textColor="#FFFFFF"
-        android:layout_marginBottom="50dp"/>
+        android:textColorHint="#DDFFFFFF" />
+
+    <Button
+        android:id="@+id/upload_listing_pic_btn"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10sp"
+        android:background="@android:drawable/stat_sys_upload" />
+
+    <TextView
+        android:id="@+id/upload_listing_pic_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="0sp"
+        android:layout_weight="0.5"
+        android:layout_gravity="center"
+        android:fontFamily = "@font/rasa_regular"
+        android:textColor = "#FFFFFF"
+        android:layout_marginBottom="30dp"
+        android:text="Upload a picture for your listing!" />
 
 </LinearLayout>

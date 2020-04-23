@@ -6,11 +6,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,6 +23,11 @@ import android.widget.Toast;
 import com.example.bookx.Model.Post;
 import com.example.bookx.Model.User;
 import com.example.bookx.R;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,12 +35,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
 // Source code used: https://www.youtube.com/watch?v=czmEC5akcos
 // Source code used: Lect9RequestPermission2 (lecture code)
@@ -42,7 +56,9 @@ public class ListingPage extends AppCompatActivity {
     // Firebase instance variables
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private StorageReference mStorage;
     private User currUser; // current logged on user
+    private String lid; // will be used to store listing photo to Firebase
 
     TextView listing_tv;
     Button post_btn;
@@ -52,19 +68,24 @@ public class ListingPage extends AppCompatActivity {
     EditText class_et;
     EditText price_et;
     EditText description_et;
-
-
+    Button btnUploadPic;
     Button scanBtn;
+    TextView tvUploadPic;
+
     private static final int PERMISSION_REQUEST_CODE = 200;
+    private static final int IMAGE_REQUEST = 1 ;
+    String listingPic; // to pass into new post
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_page);
 
-        // Initialize firebase auth and datebase
+        // Initialize firebase auth, datebase, storage
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mStorage = FirebaseStorage.getInstance().getReference("listing-photos");
+        lid = mDatabase.child("listings").push().getKey();   // generates a new unique id to be the listing id
 
         // read user data in order to create new listing
         getUserData();
@@ -77,7 +98,8 @@ public class ListingPage extends AppCompatActivity {
         class_et = (EditText) findViewById(R.id.class_et);
         price_et = (EditText) findViewById(R.id.price_et);
         description_et = (EditText) findViewById(R.id.description_et);
-
+        btnUploadPic = (Button) findViewById(R.id.upload_listing_pic_btn);
+        tvUploadPic = (TextView) findViewById(R.id.upload_listing_pic_tv);
 
         //when you click post_btn, it will go to Posting page? Not sure what that is
         // for now go to home page so you can view on listings
@@ -91,7 +113,15 @@ public class ListingPage extends AppCompatActivity {
                             "Try again.", Toast.LENGTH_LONG).show();
                 }
             }
-        }); // TODO: CHANGE TO ANOTHER PAGE
+        });
+
+        // when you click upload_listing_pic_btn user will be asked to upload pic from gallery
+        btnUploadPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openImage();
+            }
+        });
 
         scanBtn = findViewById(R.id.uploadisbn_btn);
         scanBtn.setOnClickListener(new View.OnClickListener() {
@@ -134,14 +164,12 @@ public class ListingPage extends AppCompatActivity {
 
     // this method creates a new listing and writes it to the database
     private boolean writeListing(String name, String isbn, String className, double price, String description) {
-        String lid = mDatabase.child("listings").push().getKey();   // generates a new unique id to be the listing id
-
         // create listing object and write to database
         try {
             String uid = mAuth.getUid(); // user id of the current user who is creaitng the listing
             String seller = currUser.getFullName();
 
-            Post newListing = new Post(uid, name, seller, className, price, description, false, isbn);
+            Post newListing = new Post(uid, name, seller, className, price, description, false, isbn, listingPic);
 
             // add listing to the listings table
             mDatabase.child("listings").child(lid).setValue(newListing);
@@ -186,6 +214,7 @@ public class ListingPage extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // isbn camera request
         if (requestCode == 0){
             if(resultCode == CommonStatusCodes.SUCCESS){
                 if(data != null){
@@ -196,6 +225,10 @@ public class ListingPage extends AppCompatActivity {
                     isbn_et.setText("");
                 }
             }
+            // upload imaage from gallery for listing request
+        } else if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+            Uri imageUrl = data.getData(); // store path to image and upload to storage
+            uploadImage(imageUrl);
         }
         else{
             super.onActivityResult(requestCode, resultCode, data);
@@ -203,19 +236,11 @@ public class ListingPage extends AppCompatActivity {
 
     }
 
-
     public void openHomePage() {
         Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
 
     }
-
-    public void openPostingPage() {
-        Intent intent = new Intent(this, PostingPage.class);
-        startActivity(intent);
-
-    }
-
 
     // This method returns the current user's name
     private void getUserData() {
@@ -238,4 +263,61 @@ public class ListingPage extends AppCompatActivity {
         };
         mDatabase.child("users").child(mAuth.getUid()).addValueEventListener(userListener); // attach listener to our user database reference
     }
+
+    // Create an intent to allow user to upload pictures from gallery
+    private void openImage(){
+        Intent intent = new Intent() ;
+        intent.setType("image/*") ;
+        intent.setAction(Intent.ACTION_GET_CONTENT) ;
+        startActivityForResult(intent,IMAGE_REQUEST);
+    }
+
+    // get uri for a file
+    private String getFileExtension(Uri uri){
+        ContentResolver contentResolver = getApplicationContext().getContentResolver() ;
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton() ;
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
+    }
+
+    // this method uploads an image to firebase storage given image path
+    private void uploadImage(Uri uri){
+
+        if(uri != null){
+            // get file reference and put in storage upload task
+            final StorageReference fileReference = mStorage.child(System.currentTimeMillis() + "." + getFileExtension(uri));
+            StorageTask uploadTask = fileReference.putFile(uri) ; // create an upload object with the file
+
+            Toast.makeText(getApplicationContext(),"Uploading image... Please wait until successful.",Toast.LENGTH_SHORT).show();
+
+            // create callbacks for the upload task
+            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task task) throws Exception {
+                    if(!task.isSuccessful()){
+                        throw task.getException() ;
+                    }
+                    return fileReference.getDownloadUrl() ; // get the url to the file
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if(task.isSuccessful()){
+                        Uri downloadUri = task.getResult() ;
+                        listingPic = downloadUri.toString() ; // store the url so we can write to post in the databse
+
+                        Toast.makeText(getApplicationContext(),"Successfully uploaded image. Click post to finish.",Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "LISTING URL IS" + listingPic);
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            });
+        }else{
+            Toast.makeText(getApplicationContext(),"No image selected", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

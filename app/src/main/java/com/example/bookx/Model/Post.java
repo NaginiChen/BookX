@@ -21,6 +21,7 @@ public class Post implements Parcelable {
     private boolean isSold ;
     private Date date;
     private String isbn;
+    private String imageurl ;
 
     public static final Creator<Post> CREATOR = new Creator<Post>() {
         @Override
@@ -34,7 +35,7 @@ public class Post implements Parcelable {
         }
     };
 
-    public Post(String uid, String bookTitle, String seller, String course, double price, String desc, boolean isSold, String isbn){
+    public Post(String uid, String bookTitle, String seller, String course, double price, String desc, boolean isSold, String isbn, String imageurl){
         this.uid = uid;
         this.bookTitle = bookTitle ;
         this.seller = seller ;
@@ -44,6 +45,7 @@ public class Post implements Parcelable {
         this.isSold = isSold ;
         this.date = new Date();
         this.isbn = isbn;
+        this.imageurl = imageurl ;
     }
 
     public Post() {
@@ -61,6 +63,7 @@ public class Post implements Parcelable {
         this.isSold = Boolean.parseBoolean(in.readString()) ;
         this.date = new Date(in.readLong());
         this.isbn = in.readString();
+        this.imageurl = in.readString();
     }
 
     // setter & getter
@@ -147,6 +150,7 @@ public class Post implements Parcelable {
         dest.writeString(Boolean.toString(isSold));
         dest.writeLong(date.getTime());
         dest.writeString(isbn);
+        dest.writeString(imageurl);
 
     }
 
@@ -156,5 +160,13 @@ public class Post implements Parcelable {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public String getImageurl() {
+        return imageurl;
+    }
+
+    public void setImageurl(String imageurl) {
+        this.imageurl = imageurl;
     }
 }
