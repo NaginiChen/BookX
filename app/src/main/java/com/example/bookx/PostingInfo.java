@@ -150,8 +150,8 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
         try {
             mapAPI = googleMap;
             LatLng add = new LatLng(currPost.getLatitude(), currPost.getLongitude());
-            mapAPI.addMarker(new MarkerOptions().position(add).title("ADDRESS"));
-            mapAPI.moveCamera(CameraUpdateFactory.newLatLngZoom(add, 15));
+            mapAPI.addMarker(new MarkerOptions().position(add));
+            mapAPI.moveCamera(CameraUpdateFactory.newLatLngZoom(add, 13));
         } catch (Exception e) {
             Log.d(TAG, "MAP FAILED" + e);
         }

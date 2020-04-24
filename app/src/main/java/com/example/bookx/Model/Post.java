@@ -3,6 +3,8 @@ package com.example.bookx.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 import java.util.Date;
 
@@ -191,5 +193,12 @@ public class Post implements Parcelable {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        String postInfo = bookTitle + " " + course + " " + seller + " " + desc + " " + isbn ;
+        return postInfo.toLowerCase() ;
     }
 }
