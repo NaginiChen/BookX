@@ -22,6 +22,15 @@
             android:layout_marginLeft = "4dp"
             android:background="@drawable/ic_message"
             />
+        <TextView
+            android:id="@+id/txtUnread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            />
 
         <Button
             android:id="@+id/upload_btn"
@@ -54,15 +63,7 @@
         </TextView>
 
 
-        <TextView
-            android:id="@+id/txtUnread"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="18sp"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            />
+
 
         <Button
             android:id="@+id/account_btn"
