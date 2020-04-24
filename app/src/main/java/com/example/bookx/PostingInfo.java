@@ -145,16 +145,41 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
         return p1;
     }
 
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        try {
-            mapAPI = googleMap;
-            LatLng add = new LatLng(currPost.getLatitude(), currPost.getLongitude());
-            mapAPI.addMarker(new MarkerOptions().position(add));
-            mapAPI.moveCamera(CameraUpdateFactory.newLatLngZoom(add, 13));
-        } catch (Exception e) {
-            Log.d(TAG, "MAP FAILED" + e);
-        }
+        mapAPI = googleMap ;
+        mDatabase.child("users").child(currPost.getUid()).addValueEventListener(new ValueEventListener() { // attach listener to our user database reference
+
+            @Override
+            // This method is called when user data changes
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get the current user
+                User seller = dataSnapshot.getValue(User.class);
+                Log.d(TAG,seller.getLocation()) ;
+                if(seller.getShowLocation()){
+                    Double lat = dataSnapshot.child("latitude").getValue(Double.class) ;
+                    Double lng = dataSnapshot.child("longitude").getValue(Double.class) ;
+                    LatLng add = new LatLng(lat,lng) ;
+                    mapAPI.addMarker(new MarkerOptions().position(add).title(seller.getLocation())) ;
+                    mapAPI.moveCamera(CameraUpdateFactory.newLatLngZoom(add,14)) ;
+                }else{
+                    LatLng add = new LatLng(0,0) ;
+                    mapAPI.addMarker(new MarkerOptions().position(add).title("Seller doesn't allow location sharing")) ;
+                    mapAPI.moveCamera(CameraUpdateFactory.newLatLngZoom(add,14)) ;
+                }
+
+            }
+
+            @Override
+            // This method is called when we fail to get user from the database
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting User failed, log a message
+                Log.w(TAG, "loadUserListing:onCancelled", databaseError.toException());
+                Toast.makeText(getBaseContext(), "Failed to load user information.",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 }
