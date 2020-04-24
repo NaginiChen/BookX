@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -34,6 +35,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class HomePage extends AppCompatActivity {
     private static final String TAG = "***HOME***";
@@ -45,8 +47,9 @@ public class HomePage extends AppCompatActivity {
     Button upload_btn;
     Button chat_btn;
     ImageButton ibtSearch, ibtFilter;
+    EditText edtSearch ;
 //    ImageButton btSearchOption ;
-    private List<Post> posts;
+    private List<Post> posts, allPosts;
     private ListView lvPosts;
     private ListAdapter postAdapter;
 
@@ -115,9 +118,11 @@ public class HomePage extends AppCompatActivity {
         upload_btn = (Button) findViewById(R.id.upload_btn);
         ibtSearch = findViewById(R.id.ibtSearch) ;
         ibtFilter = findViewById(R.id.ibtFilter) ;
+        edtSearch = findViewById(R.id.edtSearch) ;
 
 //        ibtSearchOption = findViewById(R.id.ibtSearchOption) ;
         posts = new ArrayList<>();
+        allPosts = new ArrayList<>() ;
 
         // define firebase instances
         mAuth = FirebaseAuth.getInstance();
@@ -154,6 +159,23 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openListingPage();
+            }
+        });
+
+        ibtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                posts.clear();
+                String keyword = edtSearch.getText().toString().toLowerCase() ;
+                if(Pattern.matches("\\s+",keyword)){
+                    posts.addAll(allPosts) ;
+                }else{
+                    for(Post post : allPosts){
+                        String postInfo = post.toString() ;
+                        if(postInfo.contains(keyword)) posts.add(post) ;
+                    }
+                }
+                updateUIListings();
             }
         });
 
@@ -250,9 +272,11 @@ public class HomePage extends AppCompatActivity {
                     // if not current user's post, add to list so adapter can display
                     if (!post.getUid().equals(mAuth.getUid())) {
                         posts.add(post);
+
                     }
                 }
                 Collections.reverse(posts);
+                allPosts.addAll(posts) ;
                 updateUIListings();
             }
 
