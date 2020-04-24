@@ -56,12 +56,6 @@
             android:background="@drawable/ic_prefences"
             />
 
-        <Button
-            android:id="@+id/upload_btn"
-            android:layout_height="wrap_content"
-            android:layout_width="50dp"
-            android:background="@android:drawable/ic_menu_upload" />
-
 
     </LinearLayout>
 
@@ -101,8 +95,13 @@
 <!--            android:background="@drawable/ic_search_option"-->
 <!--            android:layout_height="50sp"/>-->
 
-
+        <Button
+            android:id="@+id/upload_btn"
+            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:background="@android:drawable/ic_menu_upload" />
     </LinearLayout>
+
 
     <ListView
         android:id="@+id/lvListing"

@@ -51,7 +51,6 @@ public class AccountPage extends AppCompatActivity {
     TextView name_tv3;
     TextView email_tv3;
     TextView address_tv;
-    Button changePW_btn;
     TextView listings_tv;
     Button logout_btn;
     ImageView imgProfile ;
@@ -78,7 +77,6 @@ public class AccountPage extends AppCompatActivity {
         name_tv3 = (TextView) findViewById(R.id.name_tv3);
         email_tv3 = (TextView) findViewById(R.id.email_tv3);
         address_tv = (TextView) findViewById(R.id.address_tv);
-        changePW_btn = (Button) findViewById(R.id.changePW_btn);
         listings_tv = (TextView) findViewById(R.id.listings_tv);
         logout_btn = (Button) findViewById(R.id.logout_btn);
         imgProfile = (ImageView) findViewById(R.id.profileImage) ;

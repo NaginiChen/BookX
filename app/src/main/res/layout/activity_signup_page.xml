@@ -47,14 +47,15 @@
 
     <EditText
         android:id="@+id/name_et"
-        android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="0.5"
-        android:layout_marginBottom="10sp"
+        android:layout_weight="0.7"
+        android:layout_width="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
         android:inputType="textPersonName"
         android:fontFamily = "@font/rasa_regular"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="10dp"
         android:text="" />
 
     <TextView
@@ -72,11 +73,12 @@
         android:id="@+id/email_et"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="0.5"
-        android:layout_marginBottom="10sp"
+        android:layout_weight="0.7"
         android:layout_gravity="center"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="10dp"
         android:fontFamily = "@font/rasa_regular"
         android:text="" />
 
@@ -95,12 +97,13 @@
         android:id="@+id/pw_et"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="0.5"
-        android:layout_marginBottom="10sp"
+        android:layout_weight="0.7"
         android:layout_gravity="center"
         android:ems="10"
+        android:layout_marginBottom="10dp"
         android:fontFamily = "@font/rasa_regular"
         android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
         android:text="" />
 
     <TextView
@@ -118,11 +121,10 @@
         android:id="@+id/address_et"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
-        android:layout_weight="0.5"
-        android:layout_marginBottom="20sp"
+        android:layout_weight="0.7"
         android:layout_gravity="center"
-        android:textColor = "#FFFFFF"
         android:ems="10"
+        android:textColor = "#FFFFFF"
         android:inputType="textPersonName"
         android:fontFamily = "@font/rasa_regular"
         android:text="" />
@@ -132,7 +134,8 @@
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="10sp"
+        android:layout_marginTop="20dp"
+        android:layout_margin="8sp"
         android:background="@android:drawable/stat_sys_upload" />
 
     <TextView
@@ -140,6 +143,8 @@
         android:layout_width="wrap_content"
         android:layout_height="0sp"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_weight="0.5"
         android:fontFamily="@font/rasa_regular"
         android:text="@string/upload_your_profile_picture"
@@ -157,12 +162,12 @@
         android:text="@string/sign_up" />
 
     <!--    <Button-->
-<!--        android:id="@+id/verification_btn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="0sp"-->
-<!--        android:layout_weight="1"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:fontFamily = "@font/rasa_regular"-->
-<!--        android:text="verify" />-->
+    <!--        android:id="@+id/verification_btn"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="0sp"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:fontFamily = "@font/rasa_regular"-->
+    <!--        android:text="verify" />-->
 </LinearLayout>
 

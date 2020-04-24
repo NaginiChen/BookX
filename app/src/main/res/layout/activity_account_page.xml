@@ -11,12 +11,13 @@
 
     <Button
         android:id="@+id/logout_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:background="@drawable/round_button"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="30dp"
+        android:layout_height = "30dp"
+        android:background="@drawable/ic_logout"
         android:fontFamily="@font/rasa_regular"
-        android:text="@string/log_out"
         android:textColor="#FFFFFF" />
 
     <ImageView
@@ -29,11 +30,12 @@
         android:id="@+id/name_tv3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily = "@font/rasa_regular"
+        android:fontFamily = "@font/rasa_semi_bold"
         android:textColor="#FFFFFF"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
+        android:textSize = "19dp"
         android:text="Jennifer Roh" />
 
     <TextView
@@ -44,6 +46,7 @@
         android:textColor="#FFFFFF"
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
+        android:textSize = "15dp"
         android:text="smroh17@bu.edu" />
 
     <TextView
@@ -54,20 +57,8 @@
         android:fontFamily = "@font/rasa_regular"
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
+        android:textSize = "15dp"
         android:text="1 University Road, Boston, MA" />
-
-
-    <Button
-        android:id="@+id/changePW_btn"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:fontFamily="@font/rasa_bold"
-        android:text="@string/change_password"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold|italic" />
 
 
     <TextView
@@ -76,8 +67,9 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:fontFamily="@font/rasa_regular"
+        android:fontFamily="@font/rasa_bold"
         android:text="@string/your_listings"
+        android:textSize = "20dp"
         android:textColor="#FFFFFF" />
 
     <ListView
