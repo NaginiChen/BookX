@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/rasa_bold"
+            android:layout_marginRight = "20dp"
             android:text="@string/new_listing"
             android:textColor="#FFFFFF"
             android:textSize="25dp" />
@@ -41,12 +42,13 @@
 
         <Button
             android:id="@+id/post_btn"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:height = "10dp"
             android:layout_gravity="right"
-            android:fontFamily="@font/rasa_bold"
-            android:text="@string/post"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="50dp"
+            android:layout_width="30dp"
+            android:layout_height = "30dp"
+            android:background="@drawable/ic_post"
             android:textColor="#FFFFFF" />
 
 
@@ -67,7 +69,6 @@
         android:inputType="text"
         android:textColor="#FFFFFF"
         android:textColorHint="#DDFFFFFF"
-        android:layout_marginTop = "10dp"
         android:hint="@string/book_name" />
 
     <EditText
@@ -140,7 +141,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:layout_weight="1"
         android:fontFamily="@font/rasa_regular"
         android:hint="@string/description"
@@ -164,6 +165,7 @@
         android:layout_weight="0.5"
         android:layout_gravity="center"
         android:fontFamily = "@font/rasa_regular"
+        android:layout_marginTop = "10dp"
         android:layout_marginBottom="30dp"
         android:text="Upload a picture for your listing!"
         android:textAlignment="center"

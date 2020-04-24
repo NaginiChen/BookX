@@ -79,7 +79,7 @@ public class PreferencesPage extends AppCompatActivity {
         btnGoHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openHomePage();
+                finish();
             }
         });
     }
@@ -107,10 +107,6 @@ public class PreferencesPage extends AppCompatActivity {
 
     }
 
-    public void openHomePage() {
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
-    }
 
     @Override
     public void recreate() {

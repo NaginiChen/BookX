@@ -8,93 +8,117 @@
     android:orientation="vertical"
     tools:context="com.example.bookx.PreferencesPage" >
 
-    <TextView
-        android:id="@+id/tvPreferences"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/preferences"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:fontFamily = "@font/rasa_bold"
-        android:textSize="45sp"
-        android:textStyle="bold" />
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnGoHome"
+            android:layout_gravity="right"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="60dp"
+            android:layout_width="30dp"
+            android:layout_height = "30dp"
+            android:background="@drawable/ic_back"
+            android:height = "15dp"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvPreferences"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rasa_bold"
+            android:layout_marginRight="25dp"
+            android:text="@string/preferences"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:layout_weight="2">
+        </TextView>
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvAppearances"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_weight="1"
+        android:layout_marginStart="25dp"
         android:text="@string/appearances"
         android:fontFamily = "@font/rasa_bold"
         android:textColor="#FFFFFF"
-        android:textSize="30sp" />
+        android:textSize="25sp"
+        android:layout_marginBottom="20dp"/>
 
     <Spinner
         android:id="@+id/spLanguage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="66dp"
-        android:layout_weight="1"
+        android:layout_marginStart="25dp"
+        android:fontFamily = "@font/rasa_regular"
         android:text="@string/language"
         android:textColor="#FFFFFF"
         android:entries="@array/languageOptions"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:layout_marginBottom="30dp"/>
 
     <TextView
         android:id="@+id/tvNotifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_weight="1"
         android:text="@string/notifications"
         android:fontFamily = "@font/rasa_bold"
         android:textColor="#FFFFFF"
-        android:textSize="30sp" />
+        android:textSize="25sp"
+        android:layout_marginBottom="20dp"/>
 
     <Switch
         android:id="@+id/swAlerts"
         android:layout_width="313dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="66dp"
-        android:layout_weight="1"
         android:text="@string/alerts"
         android:fontFamily = "@font/rasa_regular"
         android:textColor="#FFFFFF"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:layout_marginBottom="30dp"/>
 
     <TextView
         android:id="@+id/tvAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_weight="1"
         android:text="@string/account"
         android:fontFamily = "@font/rasa_bold"
         android:textColor="#FFFFFF"
-        android:textSize="30sp" />
+        android:textSize="25sp"
+        android:layout_marginBottom="20dp"/>
 
     <Switch
         android:id="@+id/swLocation"
         android:layout_width="313dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="66dp"
-        android:layout_weight="1"
         android:text="@string/share_location"
         android:fontFamily = "@font/rasa_regular"
         android:textColor="#FFFFFF"
         android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/btnGoHome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#629DCC"
-        android:text="@string/back_to_home_page"
-        android:fontFamily = "@font/rasa_bold"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp" />
+
 
 </LinearLayout>

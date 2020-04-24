@@ -28,6 +28,15 @@
             android:textSize="18sp"
             android:padding="8sp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtRead"
+            android:layout_below="@id/txtShowMessage"
+            android:layout_alignParentRight="true"
+            android:text="read"/>
+
+
     </RelativeLayout>
 
 
