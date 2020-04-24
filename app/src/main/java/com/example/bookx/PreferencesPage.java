@@ -3,7 +3,9 @@ package com.example.bookx;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import com.example.bookx.R;
 import java.util.Locale;
 
 public class PreferencesPage extends AppCompatActivity {
+    private static final String TAG = "myB";
 
     TextView tvPreferences;
     TextView tvLanguage;
@@ -35,6 +38,8 @@ public class PreferencesPage extends AppCompatActivity {
     Locale myLocale;
     String currentLanguage = "en", currentLang;
     Button btnGoHome;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +47,35 @@ public class PreferencesPage extends AppCompatActivity {
         setContentView(R.layout.activity_preferences_page);
         currentLanguage = getIntent().getStringExtra(currentLang);
 
+        pref = getSharedPreferences("com.example.bookx.notification", Context.MODE_PRIVATE);
+        editor = pref.edit();
+
+        if(pref.getBoolean("notificationIsOn", false) != pref.getBoolean("notificationIsOn", true) ){
+            editor.putBoolean("notificationIsOn", true);
+            editor.apply();
+        }
+
         tvPreferences = (TextView) findViewById(R.id.tvPreferences);
         tvLanguage = (TextView) findViewById(R.id.tvPreferences);
         tvAppearances = (TextView) findViewById(R.id.tvPreferences);
         tvNotifications = (TextView) findViewById(R.id.tvPreferences);
         tvAccount = (TextView) findViewById(R.id.tvPreferences);
         spLanguage = (Spinner) findViewById(R.id.spLanguage);
+        swAlerts = (Switch) findViewById(R.id.swAlerts);
+        swLocation = (Switch) findViewById(R.id.swLocation);
+        btnGoHome = (Button) findViewById(R.id.btnGoHome);
+        btnGoHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         //changeLanguage("Spanish");
+
+        if(pref.getBoolean("notificationIsOn", false)){
+            swAlerts.setChecked(true);
+        }
+
         spLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -73,17 +100,24 @@ public class PreferencesPage extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-        swAlerts = (Switch) findViewById(R.id.swAlerts);
-        swLocation = (Switch) findViewById(R.id.swLocation);
-        btnGoHome = (Button) findViewById(R.id.btnGoHome);
-        btnGoHome.setOnClickListener(new View.OnClickListener() {
+
+        swAlerts.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                finish();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    editor.putBoolean("notificationIsOn", true);
+                    editor.apply();
+                }
+                else{
+                    editor.putBoolean("notificationIsOn", false);
+                    editor.apply();
+                }
+                Log.d(TAG, "check status: " + pref.getBoolean("notificationIsOn", true) );
+                Log.d(TAG, "check status: " + pref.getBoolean("notificationIsOn", false) );
             }
         });
-    }
 
+    }
 
     // Changes language
     // Credit: https://stackoverflow.com/questions/2900023/change-app-language-programmatically-in-android

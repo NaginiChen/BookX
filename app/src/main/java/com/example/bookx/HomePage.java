@@ -8,7 +8,9 @@ import androidx.core.app.NotificationManagerCompat;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.graphics.Color;
 import android.net.Uri;
@@ -66,6 +68,7 @@ public class HomePage extends AppCompatActivity {
     // firebase instance variables
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    SharedPreferences pref;
 
     Boolean firstBootUp;
     Comparator<Post> price_l2h = new Comparator<Post>() {
@@ -134,6 +137,7 @@ public class HomePage extends AppCompatActivity {
 
         getUnreadNum() ;
 
+        pref = getSharedPreferences("com.example.bookx.notification", Context.MODE_PRIVATE);
 
 //        ibtSearchOption = findViewById(R.id.ibtSearchOption) ;
         posts = new ArrayList<>();
@@ -363,7 +367,10 @@ public class HomePage extends AppCompatActivity {
                                 HashMap<String , Object> map = new HashMap<>();
                                 map.put("sent", true);
                                 dataSnapshot.getRef().updateChildren(map);
-                                sendNotification(chatVal.getMessage(), user.getFullName() );
+
+                                if(pref.getBoolean("notificationIsOn", false)){
+                                    sendNotification(chatVal.getMessage(), user.getFullName() );
+                                }
                             }
                         }
                     }
@@ -392,7 +399,7 @@ public class HomePage extends AppCompatActivity {
         Intent intent = new Intent(this, MessageList.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel_1")
                 .setSmallIcon(R.drawable.notification_icon)
                 .setContentTitle("Message from " + sender)
                 .setContentText(message)
@@ -406,6 +413,7 @@ public class HomePage extends AppCompatActivity {
         notificationManager.notify(notificationId, builder.build());
     }
 
+    // Source: https://developer.android.com/training/notify-user/channels
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -413,7 +421,7 @@ public class HomePage extends AppCompatActivity {
             CharSequence name = "Messages";
             String description = "Messages from other users";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("1", name, importance);
+            NotificationChannel channel = new NotificationChannel("channel_1", name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
