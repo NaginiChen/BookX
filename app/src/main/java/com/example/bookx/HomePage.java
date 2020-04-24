@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookx.Model.Chat;
 import com.example.bookx.Model.Post;
 import com.example.bookx.Model.User;
 import com.example.bookx.R;
@@ -41,7 +43,7 @@ public class HomePage extends AppCompatActivity {
     private static final String TAG = "***HOME***";
 
     private User user ;
-    TextView title_tv;
+    TextView title_tv, txtUnread;
     Button account_btn;
     Button preferences_btn;
     Button upload_btn;
@@ -119,6 +121,10 @@ public class HomePage extends AppCompatActivity {
         ibtSearch = findViewById(R.id.ibtSearch) ;
         ibtFilter = findViewById(R.id.ibtFilter) ;
         edtSearch = findViewById(R.id.edtSearch) ;
+        txtUnread = findViewById(R.id.txtUnread) ;
+
+        getUnreadNum() ;
+
 
 //        ibtSearchOption = findViewById(R.id.ibtSearchOption) ;
         posts = new ArrayList<>();
@@ -303,6 +309,31 @@ public class HomePage extends AppCompatActivity {
 
             return dist;
         }
+    }
+
+    void getUnreadNum(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("chats") ;
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int count = 0 ;
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class) ;
+                    if(chat.getReceiver().equals(firebaseUser.getUid()) && !chat.isRead())
+                        count++ ;
+                }
+                txtUnread.setText("( " + count + " )");
+                if(count == 0) txtUnread.setTextColor(Color.WHITE);
+                else txtUnread.setTextColor(Color.RED);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }) ;
+
     }
 }
 
