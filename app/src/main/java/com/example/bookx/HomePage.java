@@ -41,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,6 @@ public class HomePage extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
-    Boolean notificationToggle;
     Boolean firstBootUp;
     Comparator<Post> price_l2h = new Comparator<Post>() {
         @Override
@@ -177,7 +177,6 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-        notificationToggle = true;
         firstBootUp = true;
         listenForNewMessages();
 
@@ -352,18 +351,19 @@ public class HomePage extends AppCompatActivity {
     private void listenForNewMessages(){
         mDatabase.child("chats").addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+            public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, String prevChildKey) {
                 final Chat chatVal = dataSnapshot.getValue(Chat.class);
 
                 mDatabase.child("users").addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshotUser) {
+                        for(DataSnapshot snapshot : dataSnapshotUser.getChildren()){
                             User user = snapshot.getValue(User.class) ;
-                            if( snapshot.getKey().equals(chatVal.getSender()) && chatVal.getReceiver().equals(mAuth.getUid()) ){
-                                if(notificationToggle){
-                                    sendNotification(chatVal.getMessage(), user.getFullName() );
-                                }
+                            if( snapshot.getKey().equals(chatVal.getSender()) && chatVal.getReceiver().equals(mAuth.getUid()) && !chatVal.isSent() ){
+                                HashMap<String , Object> map = new HashMap<>();
+                                map.put("sent", true);
+                                dataSnapshot.getRef().updateChildren(map);
+                                sendNotification(chatVal.getMessage(), user.getFullName() );
                             }
                         }
                     }

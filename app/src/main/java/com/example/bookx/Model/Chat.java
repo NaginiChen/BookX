@@ -2,13 +2,14 @@ package com.example.bookx.Model;
 
 public class Chat {
     private String sender, receiver, message ;
-    private boolean isRead ;
+    private boolean isRead, isSent;
 
-    public Chat(String sender, String receiver, String message, boolean isRead) {
+    public Chat(String sender, String receiver, String message, boolean isRead, boolean isSent) {
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
-        this.isRead = isRead ;
+        this.isRead = isRead;
+        this.isSent = isSent;
     }
 
     public Chat(){
@@ -46,4 +47,9 @@ public class Chat {
     public void setRead(boolean read) {
         isRead = read;
     }
+
+    public boolean isSent(){ return isSent; }
+
+    public void setSent(boolean sent){ isSent = sent; }
+
 }
