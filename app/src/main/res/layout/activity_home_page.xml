@@ -13,15 +13,38 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/chat_btn"
+            android:layout_width="50dp"
+            android:layout_height = "47dp"
+            android:textColor = "#FFFFFF"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft = "4dp"
+            android:background="@drawable/ic_message"
+            />
+
+        <Button
+            android:id="@+id/upload_btn"
+            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:drawable/ic_menu_upload"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+        </TextView>
+
         <TextView
             android:id="@+id/title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor = "#FFFFFF"
-            android:fontFamily = "@font/rasa_bold"
+            android:fontFamily = "@font/rasa_semi_bold"
             android:layout_marginTop = "10dp"
-            android:layout_marginLeft = "15dp"
-            android:textSize="30dp"
+            android:textSize="33dp"
             android:text="BookX" />
 
         <TextView
@@ -30,15 +53,6 @@
             android:layout_weight="2">
         </TextView>
 
-        <Button
-            android:id="@+id/chat_btn"
-            android:layout_width="50dp"
-            android:layout_height = "47dp"
-            android:textColor = "#FFFFFF"
-            android:layout_marginTop="6dp"
-            android:layout_marginRight = "2dp"
-            android:background="@drawable/ic_message"
-            />
 
         <TextView
             android:id="@+id/txtUnread"
@@ -60,7 +74,6 @@
 
         <Button
             android:id="@+id/preferences_btn"
-            android:layout_gravity="right"
             android:layout_width="50dp"
             android:layout_height = "50dp"
             android:fontFamily = "@font/rasa_regular"
@@ -107,11 +120,6 @@
 <!--            android:background="@drawable/ic_search_option"-->
 <!--            android:layout_height="50sp"/>-->
 
-        <Button
-            android:id="@+id/upload_btn"
-            android:layout_height="wrap_content"
-            android:layout_width="50dp"
-            android:background="@android:drawable/ic_menu_upload" />
     </LinearLayout>
 
 
