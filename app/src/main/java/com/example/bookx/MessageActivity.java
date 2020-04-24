@@ -130,7 +130,7 @@ public class MessageActivity extends AppCompatActivity {
                     Chat chat = snapshot.getValue(Chat.class) ;
                     if(chat.getReceiver().equals(mUser.getUid()) && chat.getSender().equals(userid)){
                         HashMap<String , Object> map = new HashMap<>() ;
-                        map.put("seen",true) ;
+                        map.put("read",true) ;
                         snapshot.getRef().updateChildren(map) ;
                     }
                 }
@@ -151,7 +151,7 @@ public class MessageActivity extends AppCompatActivity {
         messageMap.put("sender",sender) ;
         messageMap.put("receiver", receiver) ;
         messageMap.put("message",message) ;
-        messageMap.put("seen",false) ;
+        messageMap.put("read",false) ;
         messageMap.put("sent",false) ;
 
         reference.child("chats").push().setValue(messageMap) ;
