@@ -35,6 +35,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     FirebaseUser fUser ;
     DatabaseReference reference  ;
 
+    private String lastMsg ;
+
     public UserAdapter(Context context, List<User> mUser){
         this.mContext = context ;
         this.mUsers = mUser ;
@@ -47,7 +49,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final UserAdapter.ViewHolder holder, int position) {
         final User user = mUsers.get(position) ;
 
         holder.txtUsername.setText(user.getFullName());
@@ -57,6 +59,24 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }else{
             Glide.with(mContext).load(user.getImageurl()).into(holder.imgProfile) ;
         }
+        reference = FirebaseDatabase.getInstance().getReference("users") ;
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String userid = snapshot.getKey() ;
+                    User temp = snapshot.getValue(User.class) ;
+                    if(temp.getEmail().equals(user.getEmail())){
+                        lastMessage(userid,holder.txtLastMsg);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }) ;
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +121,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         public TextView txtUsername ;
         public ImageView imgProfile ;
+        public TextView txtLastMsg ;
 
 
         public ViewHolder(View itemView) {
@@ -108,6 +129,43 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
             txtUsername = itemView.findViewById(R.id.txtUsername) ;
             imgProfile = itemView.findViewById(R.id.profileImage) ;
+            txtLastMsg = itemView.findViewById(R.id.txtLastMsg) ;
         }
+    }
+
+    private void lastMessage(final String userid, final TextView txtLastMsg){
+        lastMsg = "default" ;
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("chats") ;
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class) ;
+                    if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) || chat.getSender().equals(firebaseUser.getUid()) && chat.getReceiver().equals(userid)){
+                        lastMsg = chat.getMessage() ;
+                    }
+                }
+
+                switch (lastMsg){
+                    case "default":
+                        txtLastMsg.setText("");
+                        break;
+                    default:
+                        txtLastMsg.setText(lastMsg);
+                        break;
+                }
+
+                lastMsg = "default" ;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }) ;
+
+
     }
 }

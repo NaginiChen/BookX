@@ -48,6 +48,7 @@ public class MessageActivity extends AppCompatActivity {
     DatabaseReference mReference ;
 
     Intent intent ;
+    ValueEventListener readListener ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class MessageActivity extends AppCompatActivity {
                 if(!msg.equals("")){
                     sendMessage(mUser.getUid(), userid, msg);
                 }else {
-                    Toast.makeText(MessageActivity.this, "You can't send empty message", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "You can't send empty message", Toast.LENGTH_LONG).show();
                 }
                  edtMessage.setText("");
             }
@@ -105,7 +106,7 @@ public class MessageActivity extends AppCompatActivity {
                 if(user.getImageurl().equals("default")){
                     imgProfile.setImageResource(R.mipmap.ic_launcher);
                 }else{
-                    Glide.with(MessageActivity.this).load(user.getImageurl()).into(imgProfile) ;
+                    Glide.with(getApplicationContext()).load(user.getImageurl()).into(imgProfile) ;
                 }
 
                 readMessage(mUser.getUid(),userid,user.getImageurl());
@@ -116,6 +117,31 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         }) ;
+
+        readMessage(userid);
+    }
+
+    private void readMessage(final String userid){
+        mReference = FirebaseDatabase.getInstance().getReference("chats") ;
+        readListener = mReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class) ;
+                    if(chat.getReceiver().equals(mUser.getUid()) && chat.getSender().equals(userid)){
+                        HashMap<String , Object> map = new HashMap<>() ;
+                        map.put("read",true) ;
+                        snapshot.getRef().updateChildren(map) ;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }) ;
+
     }
 
     private void sendMessage(String sender, String receiver, String message){
@@ -125,6 +151,7 @@ public class MessageActivity extends AppCompatActivity {
         messageMap.put("sender",sender) ;
         messageMap.put("receiver", receiver) ;
         messageMap.put("message",message) ;
+        messageMap.put("seen",false) ;
 
         reference.child("chats").push().setValue(messageMap) ;
     }
@@ -153,5 +180,11 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         }) ;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mReference.removeEventListener(readListener);
     }
 }
