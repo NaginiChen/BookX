@@ -20,7 +20,7 @@
             android:textColor = "#FFFFFF"
             android:fontFamily = "@font/rasa_bold"
             android:layout_marginTop = "10dp"
-            android:layout_marginLeft = "10dp"
+            android:layout_marginLeft = "15dp"
             android:textSize="30dp"
             android:text="BookX" />
 
@@ -32,17 +32,18 @@
 
         <Button
             android:id="@+id/chat_btn"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height = "47dp"
             android:textColor = "#FFFFFF"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight = "2dp"
             android:background="@drawable/ic_message"
-            android:fontFamily = "@font/rasa_regular"
             />
 
         <Button
             android:id="@+id/account_btn"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height = "50dp"
             android:fontFamily = "@font/rasa_regular"
             android:background="@drawable/ic_account"
             />
@@ -51,9 +52,10 @@
             android:id="@+id/preferences_btn"
             android:layout_gravity="right"
             android:layout_width="50dp"
-            android:layout_height = "wrap_content"
+            android:layout_height = "50dp"
             android:fontFamily = "@font/rasa_regular"
             android:background="@drawable/ic_prefences"
+            android:layout_marginRight="3dp"
             />
 
 
