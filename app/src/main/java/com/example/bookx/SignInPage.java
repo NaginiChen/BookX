@@ -12,12 +12,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookx.Model.User;
 import com.example.bookx.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class SignInPage extends AppCompatActivity {
@@ -47,7 +53,22 @@ public class SignInPage extends AppCompatActivity {
                             if (user.isEmailVerified()) {
                                 // TODO: Proceed to ListingsActivity
 
-                                openHomePage();
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference() ;
+                                reference.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        User user = dataSnapshot.getValue(User.class) ;
+                                        Intent intent = new Intent(getApplicationContext(), HomePage.class);
+                                        intent.putExtra("user",user) ;
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                }) ;
+
 
                             } else { // User has not verified email
                                 Toast.makeText(getBaseContext(), "Email is not verified. Verify and try again.",
@@ -99,11 +120,6 @@ public class SignInPage extends AppCompatActivity {
         });
 
 
-
-    }
-    public void openHomePage() {
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
 
     }
 

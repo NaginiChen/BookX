@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,10 +10,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivListing"
+                android:layout_width="match_parent"
+                android:layout_height="279dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/common_google_signin_btn_icon_light_normal_background" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -24,18 +34,17 @@
                     android:id="@+id/txtPostSeller"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor = "#FFFFFF"
-                    android:fontFamily = "@font/rasa_bold"
-                    android:textSize="25dp"
-                    android:layout_marginLeft = "35dp"
-                    android:text="Person Name" />
+                    android:layout_marginLeft="35dp"
+                    android:fontFamily="@font/rasa_bold"
+                    android:text="@string/person_name"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25dp" />
 
                 <TextView
                     android:layout_width="440dp"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:layout_weight="2">
-                </TextView>
+                    android:layout_weight="2"
+                    android:textColor="#FFFFFF"></TextView>
 
                 <Button
                     android:id="@+id/btnInterested"
@@ -43,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
                     android:background="#366083"
-                    android:text="Message"
+                    android:text="@string/messages"
                     android:textColor="#FFFFFF" />
 
             </LinearLayout>
@@ -52,130 +61,121 @@
                 android:id="@+id/txtPostDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor = "#FFFFFF"
-                android:text = "Date"
-                android:fontFamily = "@font/rasa_regular"
                 android:layout_marginLeft="35dp"
-                android:textSize="20sp"
-                />
+                android:fontFamily="@font/rasa_regular"
+                android:text="@string/date"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvPostName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor = "#FFFFFF"
-                android:text="Book Title"
-                android:textSize="18sp"
                 android:layout_marginLeft="35dp"
-                android:fontFamily = "@font/rasa_bold"
                 android:layout_marginTop="60dp"
-                />
+                android:fontFamily="@font/rasa_bold"
+                android:text="@string/book_name"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/txtPostBookTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor = "#FFFFFF"
-                android:text="insert name"
-                android:fontFamily = "@font/rasa_regular"
                 android:layout_marginLeft="35dp"
-                android:layout_marginTop = "15dp"
-                android:textSize="18sp"
-                />
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/rasa_regular"
+                android:text="insert name"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tvClass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor = "#FFFFFF"
-                android:layout_marginTop="20dp"
-                android:text="Course"
                 android:layout_marginLeft="35dp"
-                android:textSize="18sp"
-                android:fontFamily = "@font/rasa_bold"
-                />
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/rasa_bold"
+                android:text="@string/class_name"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/txtPostCourse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor = "#FFFFFF"
-                android:layout_marginTop="20dp"
-                android:text="insert class"
-                android:fontFamily = "@font/rasa_regular"
                 android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/rasa_regular"
+                android:text="insert class"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor = "#FFFFFF"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="35dp"
-                android:text="Price"
-                android:fontFamily = "@font/rasa_bold"
-                android:textSize="18sp"
-                />
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/rasa_bold"
+                android:text="@string/price"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/txtPostPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor = "#FFFFFF"
-                android:layout_marginTop="20dp"
-                android:fontFamily = "@font/rasa_regular"
                 android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/rasa_regular"
                 android:text="insert price"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tvISBN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor = "#FFFFFF"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/rasa_bold"
                 android:text="ISBN"
-                android:fontFamily = "@font/rasa_bold"
-                android:textSize="18sp"
-                />
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/txtPostISBN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor = "#FFFFFF"
-                android:layout_marginTop="20dp"
-                android:fontFamily = "@font/rasa_regular"
                 android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/rasa_regular"
                 android:text="insert ISBN"
-                android:textSize="18sp"
-                />
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tvDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor = "#FFFFFF"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="35dp"
-                android:text="Description"
-                android:fontFamily = "@font/rasa_bold"
-                android:textSize="18sp"
-                />
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/rasa_bold"
+                android:text="@string/description"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/txtPostDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor = "#FFFFFF"
-                android:layout_marginTop="20dp"
-                android:fontFamily = "@font/rasa_regular"
                 android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/rasa_regular"
                 android:text="insert description"
-                android:textSize="18sp"
-                />
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
 
             <fragment
                 android:id="@+id/fragMap"

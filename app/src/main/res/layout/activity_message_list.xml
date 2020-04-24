@@ -24,9 +24,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/txtUsername"
                 android:textSize="18sp"
-                android:layout_marginLeft="40sp"
+                android:layout_marginStart="40sp"
                 android:textColor="#fff"
-                android:text="Messages"
+                android:text="@string/messages"
                 android:textStyle="bold"/>
 
         </androidx.appcompat.widget.Toolbar>

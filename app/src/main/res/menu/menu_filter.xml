@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_time_h2l"
+        android:title="@string/filter_time_h2l"/>
+    <item
+        android:id="@+id/menu_time_l2h"
+        android:title="@string/filter_time_l2h"/>
+    <item
+        android:id="@+id/menu_price_h2l"
+        android:title="@string/filter_price_h2l"/>
+    <item
+        android:id="@+id/menu_price_l2h"
+        android:title="@string/filter_price_l2h"/>
+    <item
+        android:id="@+id/menu_distance"
+        android:title="@string/filter_distance_l2h"/>
+</menu>

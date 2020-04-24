@@ -13,11 +13,11 @@
         android:id="@+id/logout_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily = "@font/rasa_regular"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/round_button"
         android:layout_gravity="right"
-        android:text="Log Out" />
+        android:background="@drawable/round_button"
+        android:fontFamily="@font/rasa_regular"
+        android:text="@string/log_out"
+        android:textColor="#FFFFFF" />
 
     <ImageView
         android:id="@+id/profileImage"
@@ -57,19 +57,17 @@
         android:text="1 University Road, Boston, MA" />
 
 
-
     <Button
         android:id="@+id/changePW_btn"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily = "@font/rasa_bold"
         android:layout_gravity="center"
-        android:textColor="#FFFFFF"
         android:layout_marginBottom="20dp"
-        android:textStyle="bold|italic"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:text="change password" />
-
+        android:fontFamily="@font/rasa_bold"
+        android:text="@string/change_password"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold|italic" />
 
 
     <TextView
@@ -77,10 +75,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:fontFamily = "@font/rasa_regular"
         android:layout_gravity="center"
-        android:textColor="#FFFFFF"
-        android:text="Your Listings" />
+        android:fontFamily="@font/rasa_regular"
+        android:text="@string/your_listings"
+        android:textColor="#FFFFFF" />
 
     <ListView
         android:id="@+id/lvAccountListing"

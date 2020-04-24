@@ -12,11 +12,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.bookx.Model.Post;
 import com.example.bookx.Model.User;
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,6 +32,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
 
@@ -43,12 +48,12 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
     private SupportMapFragment mapFragment ;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private FirebaseStorage mStorage;
     private Post currPost ;
     private String location ;
     private Button btnMessage ;
+    private ImageView imgListing;
     private TextView txtBookTitle, txtPrice, txtDesc, txtSeller, txtDate , txtCourse, txtAddress, txtISBN;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +64,12 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
         if(extra != null){
             currPost = (Post) extra.get("post") ;
         }
+
+        Log.d(TAG, "GOT THE POST SUCCESSFULLY");
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.fragMap) ;
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragMap);
         mapFragment.getMapAsync(this);
 
         txtBookTitle = (TextView) findViewById(R.id.txtPostBookTitle) ;
@@ -74,8 +81,10 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
 
         btnMessage = (Button) findViewById(R.id.btnInterested) ;
         txtISBN = (TextView) findViewById(R.id.txtPostISBN);
+        imgListing = (ImageView) findViewById(R.id.ivListing);
 
 
+        loadPicture();
         txtSeller.setText(currPost.getSeller());
         txtDate.setText(currPost.getDate().toString());
         txtBookTitle.setText(currPost.getBookTitle());
@@ -96,6 +105,21 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
         });
 
     }
+
+    // loads picture into the image view for current listing
+    private void loadPicture() {
+        Log.d(TAG, "TRYING TO LOAD PICTURE iN POSTING INFO");
+        try {
+            if (currPost.getImageurl() == null) {
+                imgListing.setVisibility(View.GONE); // hide image view if no picture for this listing
+            } else {
+                Glide.with(getBaseContext()).load(currPost.getImageurl()).into(imgListing); // get the url and load into view with Glide
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "FAILED TO LOAD LISTING PICTURE");
+        }
+    }
+
     // string address -> latlng coordinates
     public LatLng getLocationFromAddress(Context context, String strAddress) {
 
@@ -123,31 +147,14 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mapAPI = googleMap ;
-        mDatabase.child("users").child(currPost.getUid()).addValueEventListener(new ValueEventListener() { // attach listener to our user database reference
-
-            @Override
-            // This method is called when user data changes
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get the current user
-                User seller = dataSnapshot.getValue(User.class);
-                Log.d(TAG,seller.getLocation()) ;
-                Double lat = dataSnapshot.child("latitude").getValue(Double.class) ;
-                Double lng = dataSnapshot.child("longitude").getValue(Double.class) ;
-                LatLng add = new LatLng(lat,lng) ;
-                mapAPI.addMarker(new MarkerOptions().position(add).title(seller.getLocation())) ;
-                mapAPI.moveCamera(CameraUpdateFactory.newLatLngZoom(add,15)) ;
-            }
-
-            @Override
-            // This method is called when we fail to get user from the database
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting User failed, log a message
-                Log.w(TAG, "loadUserListing:onCancelled", databaseError.toException());
-                Toast.makeText(getBaseContext(), "Failed to load user information.",
-                        Toast.LENGTH_LONG).show();
-            }
-        });
+        try {
+            mapAPI = googleMap;
+            LatLng add = new LatLng(currPost.getLatitude(), currPost.getLongitude());
+            mapAPI.addMarker(new MarkerOptions().position(add).title("ADDRESS"));
+            mapAPI.moveCamera(CameraUpdateFactory.newLatLngZoom(add, 15));
+        } catch (Exception e) {
+            Log.d(TAG, "MAP FAILED" + e);
+        }
 
     }
 }

@@ -26,10 +26,10 @@
             android:id="@+id/listing_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor = "#FFFFFF"
-            android:fontFamily = "@font/rasa_bold"
-            android:textSize="25dp"
-            android:text="Create New Listing" />
+            android:fontFamily="@font/rasa_bold"
+            android:text="@string/new_listing"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp" />
 
         <TextView
             android:layout_width="0dp"
@@ -41,17 +41,16 @@
 
         <Button
             android:id="@+id/post_btn"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:fontFamily = "@font/rasa_bold"
-            android:textColor="#FFFFFF"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:text="POST" />
+            android:fontFamily="@font/rasa_bold"
+            android:text="@string/post"
+            android:textColor="#FFFFFF" />
 
 
     </LinearLayout>
-
 
 
     <EditText
@@ -65,10 +64,11 @@
         android:layout_weight="1"
         android:fontFamily="@font/rasa_regular"
         android:textAlignment="center"
-        android:hint="Book Name"
         android:inputType="text"
         android:textColor="#FFFFFF"
-        android:layout_marginTop = "10dp"/>
+        android:textColorHint="#DDFFFFFF"
+        android:layout_marginTop = "10dp"
+        android:hint="@string/book_name" />
 
     <EditText
         android:id="@+id/isbn_et"
@@ -80,9 +80,10 @@
         android:layout_marginEnd="60dp"
         android:layout_weight="1"
         android:fontFamily="@font/rasa_regular"
-        android:textAlignment="center"
-        android:hint="ISBN Number"
+        android:hint="@string/isbn_number"
         android:inputType="text"
+        android:textColorHint="#DDFFFFFF"
+        android:textAlignment="center"
         android:textColor="#FFFFFF" />
 
     <Button
@@ -90,13 +91,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginEnd="100dp"
-        android:text="Upload ISBN"
-        android:textColor="#FFFFFF"
-        android:fontFamily = "@font/rasa_bold"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="100dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/button" />
+        android:background="@drawable/button"
+        android:fontFamily="@font/rasa_bold"
+        android:text="@string/upload"
+        android:textColor="#FFFFFF" />
 
     <EditText
         android:id="@+id/class_et"
@@ -108,9 +109,10 @@
         android:layout_marginEnd="60dp"
         android:layout_weight="1"
         android:fontFamily="@font/rasa_regular"
-        android:textAlignment="center"
-        android:hint="Class Name"
+        android:hint="@string/class_name"
         android:inputType="text"
+        android:textColorHint="#DDFFFFFF"
+        android:textAlignment="center"
         android:textColor="#FFFFFF" />
 
     <EditText
@@ -123,10 +125,12 @@
         android:layout_marginEnd="60dp"
         android:layout_weight="1"
         android:fontFamily="@font/rasa_regular"
-        android:textAlignment="center"
-        android:hint="Price"
+        android:hint="@string/price"
         android:inputType="text"
+        android:textColorHint="#DDFFFFFF"
+        android:textAlignment="center"
         android:textColor="#FFFFFF" />
+
 
     <EditText
         android:id="@+id/description_et"
@@ -136,12 +140,33 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
+        android:layout_marginBottom="50dp"
         android:layout_weight="1"
         android:fontFamily="@font/rasa_regular"
-        android:textAlignment="center"
-        android:hint="Description"
+        android:hint="@string/description"
         android:inputType="text"
         android:textColor="#FFFFFF"
-        android:layout_marginBottom="50dp"/>
+        android:textAlignment="center"
+        android:textColorHint="#DDFFFFFF" />
+
+    <Button
+        android:id="@+id/upload_listing_pic_btn"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10sp"
+        android:background="@android:drawable/stat_sys_upload" />
+
+    <TextView
+        android:id="@+id/upload_listing_pic_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="0sp"
+        android:layout_weight="0.5"
+        android:layout_gravity="center"
+        android:fontFamily = "@font/rasa_regular"
+        android:layout_marginBottom="30dp"
+        android:text="Upload a picture for your listing!"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>
