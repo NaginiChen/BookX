@@ -126,7 +126,7 @@ public class EditProfile extends AppCompatActivity {
                     reference.updateChildren(map);
                     toastMsg += "Name and/or address is updated! ";
                 }
-                if(password.getText().toString().equals(passwordRetype.getText().toString())){
+                if(password.getText().toString().equals(passwordRetype.getText().toString()) && !password.getText().toString().equals("")){
                     fUser.updatePassword(password.getText().toString());
                     toastMsg += "Password is updated. ";
                 }
