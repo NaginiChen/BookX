@@ -131,7 +131,7 @@ public class EditProfile extends AppCompatActivity {
                     toastMsg += "Password is updated. ";
                 }
                 else{
-                    toastMsg += "Passwords do not match. ";
+                    toastMsg += "Passwords do not match or are invalid. ";
                 }
 
 
@@ -208,9 +208,5 @@ public class EditProfile extends AppCompatActivity {
             }
         }
     }
-
-
-
-
 
 }
