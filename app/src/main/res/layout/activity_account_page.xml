@@ -20,7 +20,7 @@
         android:fontFamily="@font/rasa_regular"
         android:textColor="#FFFFFF" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImage"
         android:layout_width="100sp"
         android:layout_height="100sp"

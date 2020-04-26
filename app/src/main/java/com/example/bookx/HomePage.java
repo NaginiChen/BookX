@@ -53,6 +53,7 @@ public class HomePage extends AppCompatActivity {
     private static final String TAG = "myB";
 
     private User user ;
+    private String userid ;
     TextView title_tv, txtUnread;
     Button account_btn;
     Button preferences_btn;
@@ -123,6 +124,7 @@ public class HomePage extends AppCompatActivity {
         Bundle extra = intent.getExtras() ;
         if(extra != null){
             this.user = (User) extra.get("user") ;
+            this.userid = extra.getString("userid") ;
         }
 
         title_tv = (TextView) findViewById(R.id.title_tv);
@@ -257,6 +259,8 @@ public class HomePage extends AppCompatActivity {
 
     public void openPreferencesPage() {
         Intent intent = new Intent(this, PreferencesPage.class);
+        intent.putExtra("userid", this.userid) ;
+        intent.putExtra("user", this.user) ;
         startActivity(intent);
     }
 

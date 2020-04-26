@@ -11,6 +11,7 @@
     <string name="appearances">Language</string>
     <string name="preferences">Preferences</string>
     <string name="log_out">LOG OUT</string>
+    <string name="loged_out">YOU HAVE LOGGED OUT</string>
     <string name="your_listings">Your Listings</string>
     <string name="change_password">change password</string>
     <string name="new_listing">New Listing</string>

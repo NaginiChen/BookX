@@ -1,5 +1,6 @@
 package com.example.bookx;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -20,13 +21,24 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.bookx.R;
 
+import com.example.bookx.Model.User;
+import com.example.bookx.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 import java.util.Locale;
 
 public class PreferencesPage extends AppCompatActivity {
     private static final String TAG = "myB";
 
+
+    private String userid ;
+    private User user ;
     TextView tvPreferences;
     TextView tvLanguage;
     TextView tvAppearances;
@@ -45,6 +57,14 @@ public class PreferencesPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences_page);
+
+        Bundle extra = getIntent().getExtras() ;
+        if(extra != null){
+            this.userid = extra.getString("userid") ;
+            this.user = (User) extra.get("user") ;
+        }
+
+
         currentLanguage = getIntent().getStringExtra(currentLang);
 
         pref = getSharedPreferences("com.example.bookx.notification", Context.MODE_PRIVATE);
@@ -75,6 +95,8 @@ public class PreferencesPage extends AppCompatActivity {
         if(pref.getBoolean("notificationIsOn", false)){
             swAlerts.setChecked(true);
         }
+
+        swLocation.setChecked(user.getShowLocation());
 
         spLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -117,6 +139,12 @@ public class PreferencesPage extends AppCompatActivity {
             }
         });
 
+        swLocation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                user.setShowLocation(isChecked);
+            }
+        });
     }
 
     // Changes language
@@ -141,6 +169,16 @@ public class PreferencesPage extends AppCompatActivity {
 
     }
 
+    void updateUser(){
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(userid).child("showLocation") ;
+        reference.setValue(user.getShowLocation()) ;
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        updateUser();
+    }
 
     @Override
     public void recreate() {

@@ -47,19 +47,20 @@ public class SignInPage extends AppCompatActivity {
                     public void onComplete(@NonNull Task< AuthResult > task) {
                         if (task.isSuccessful()) {
                             // Sign in success but still must check if user is verified
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseUser fuser = mAuth.getCurrentUser();
 
                             // If user is verified, proceed to Listings activity
-                            if (user.isEmailVerified()) {
+                            if (fuser.isEmailVerified()) {
                                 // TODO: Proceed to ListingsActivity
-
+                                final String userid = fuser.getUid() ;
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference() ;
-                                reference.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                                reference.child("users").child(fuser.getUid()).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         User user = dataSnapshot.getValue(User.class) ;
                                         Intent intent = new Intent(getApplicationContext(), HomePage.class);
                                         intent.putExtra("user",user) ;
+                                        intent.putExtra("userid",userid) ;
                                         startActivity(intent);
                                     }
 

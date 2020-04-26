@@ -97,6 +97,18 @@ public class AccountPage extends AppCompatActivity {
                 openImage() ;
             }
         });
+
+        logout_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent intent = new Intent(getApplicationContext(),SignInPage.class) ;
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                Toast.makeText(getApplicationContext(),R.string.loged_out,Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void openImage(){
