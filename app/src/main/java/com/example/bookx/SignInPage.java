@@ -107,6 +107,7 @@ public class SignInPage extends AppCompatActivity {
         btnSignUp = (Button) findViewById(R.id.signhere_btn);
 
 
+
         mAuth = FirebaseAuth.getInstance();
         //when you click login_btn, it will open up the Home page
         btnLogin.setOnClickListener(new View.OnClickListener() {

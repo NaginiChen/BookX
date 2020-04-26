@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -113,6 +114,27 @@ public class ListingPage extends AppCompatActivity {
                     return;
                 }
 
+                // If empty book name throw an error
+                 if (TextUtils.isEmpty(bookname_et.getText().toString())) {
+                    bookname_et.setError("Please Enter Book Name.");
+                }
+                // If empty ISBN  throw an error
+                 if (TextUtils.isEmpty(isbn_et.getText().toString())) {
+                    isbn_et.setError("Please Enter ISBN number.");
+                }
+                // If empty class name  throw an error
+                 if (TextUtils.isEmpty(class_et.getText().toString())) {
+                    class_et.setError("Please Enter ISBN number.");
+                }
+                // If empty price  throw an error
+                 if (TextUtils.isEmpty(price_et.getText().toString())) {
+                    price_et.setError("Please Enter ISBN number.");
+                }
+                // If empty description  throw an error
+                 if (TextUtils.isEmpty(description_et.getText().toString())) {
+                    description_et.setError("Please Enter ISBN number.");
+                }
+
                 // successfully created listing, return to home page
                 if (createListing()) {
                     openHomePage();
@@ -120,6 +142,7 @@ public class ListingPage extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Failed to create new listing. " +
                             "Try again.", Toast.LENGTH_LONG).show();
                 }
+                return;
             }
         });
 

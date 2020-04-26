@@ -82,8 +82,27 @@ public class SignupPage extends AppCompatActivity {
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // If non empty email and non empty password, try login
+                if (!TextUtils.isEmpty(edtName.getText().toString()) && !TextUtils.isEmpty(edtEmail.getText().toString()) && !TextUtils.isEmpty(edtPw.getText().toString()) && !TextUtils.isEmpty(edtAddress.getText().toString())) {
                 createAccount();
-
+                }
+                // If empty name throw an error
+                if (TextUtils.isEmpty(edtName.getText().toString())) {
+                    edtName.setError("Please enter your Name.");
+                }
+                // If empty email throw an error
+                if (TextUtils.isEmpty(edtEmail.getText().toString())) {
+                    edtEmail.setError("Please enter your Email.");
+                }
+                // If empty password throw an error
+                if (TextUtils.isEmpty(edtPw.getText().toString())) {
+                    edtPw.setError("Please enter your Password.");
+                }
+                // If empty address throw an error
+                if (TextUtils.isEmpty(edtAddress.getText().toString())) {
+                    edtAddress.setError("Please enter your Address.");
+                }
+                return;
             }
         });
 
