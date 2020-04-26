@@ -117,6 +117,12 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp" />
 
-
+    <Button
+        android:id="@+id/btnApplyChanges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100sp"
+        android:text="@string/apply_changes"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

@@ -49,7 +49,7 @@ public class PreferencesPage extends AppCompatActivity {
     Switch swLocation;
     Locale myLocale;
     String currentLanguage = "en", currentLang;
-    Button btnGoHome;
+    Button btnGoHome, btnApplyChanges;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
@@ -84,6 +84,7 @@ public class PreferencesPage extends AppCompatActivity {
         swAlerts = (Switch) findViewById(R.id.swAlerts);
         swLocation = (Switch) findViewById(R.id.swLocation);
         btnGoHome = (Button) findViewById(R.id.btnGoHome);
+        btnApplyChanges = (Button) findViewById(R.id.btnApplyChanges) ;
         btnGoHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,6 +96,20 @@ public class PreferencesPage extends AppCompatActivity {
         if(pref.getBoolean("notificationIsOn", false)){
             swAlerts.setChecked(true);
         }
+        btnApplyChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomePage.class) ;
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);;
+
+                intent.putExtra("user",user) ;
+                intent.putExtra("userid",userid) ;
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         swLocation.setChecked(user.getShowLocation());
 
@@ -159,10 +174,7 @@ public class PreferencesPage extends AppCompatActivity {
             Configuration conf = res.getConfiguration();
             conf.locale = myLocale;
             res.updateConfiguration(conf, dm);
-            Intent refresh = new Intent(this, PreferencesPage.class);
-            refresh.putExtra(currentLang, newLang);
-            startActivity(refresh);
-            //recreate();
+            onConfigurationChanged(conf);
         } else {
             Toast.makeText(PreferencesPage.this, "Language selected!", Toast.LENGTH_SHORT).show();
         }
@@ -178,6 +190,7 @@ public class PreferencesPage extends AppCompatActivity {
     public void onPause(){
         super.onPause();
         updateUser();
+        onConfigurationChanged(getResources().getConfiguration());
     }
 
     @Override

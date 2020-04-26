@@ -61,6 +61,7 @@
     <string name="filter_price_h2l">Price (Highest to Lowest)</string>
     <string name="filter_price_l2h">Price (Lowest to Highest)</string>
     <string name="filter_distance_l2h">Distance (Nearest to Furthest)</string>
+    <string name="apply_changes">Apply Changes</string>
 
 
 
