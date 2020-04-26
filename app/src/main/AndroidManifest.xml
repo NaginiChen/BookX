@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bookx">
+    package="com.example.bookx"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -13,19 +14,57 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MessageList"></activity>
-        <activity android:name=".MessageActivity" /> <!-- adds mobile vision dependencies -->
-        <activity android:name=".PostingInfo" />
-        <activity android:name=".PostingPage" />
-        <activity android:name=".ListingPage" />
-        <activity android:name=".EditProfile" />
-        <activity android:name=".PreferencesPage" />
-        <activity android:name=".AccountPage" />
-        <activity android:name=".SignupPage" />
-        <activity android:name=".HomePage" />
-        <activity android:name=".ScanBarcodeActivity" />
-        <activity android:name=".SignInPage">
+        android:theme="@style/AppTheme"
+        tools:ignore="LockedOrientationActivity" >
+
+        <activity android:name=".MessageList"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+
+        <activity android:name=".MessageActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden" />
+
+        <activity android:name=".PostingInfo"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+
+        <activity android:name=".PostingPage"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+
+        <activity android:name=".ListingPage"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+
+        <activity android:name=".EditProfile"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+
+        <activity android:name=".PreferencesPage"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+
+        <activity android:name=".AccountPage"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+
+        <activity android:name=".SignupPage"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+
+        <activity android:name=".HomePage"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+
+        <activity android:name=".ScanBarcodeActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+
+        <activity android:name=".SignInPage"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

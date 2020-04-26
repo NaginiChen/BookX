@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="Listing Name"
+            android:text="@string/book_name"
             android:textSize="15sp"
             android:textStyle="bold">
 
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="Price"
+            android:text="@string/price"
             android:textSize="15sp">
 
         </TextView>

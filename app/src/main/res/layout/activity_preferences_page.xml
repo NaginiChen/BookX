@@ -66,15 +66,13 @@
 
     <Spinner
         android:id="@+id/spLanguage"
-        android:layout_width="match_parent"
+        android:layout_width="351dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:fontFamily = "@font/rasa_regular"
-        android:text="@string/language"
-        android:textColor="#FFFFFF"
+        android:layout_marginStart="35dp"
+        android:layout_marginBottom="30dp"
         android:entries="@array/languageOptions"
-        android:textSize="30sp"
-        android:layout_marginBottom="30dp"/>
+        android:text="@string/language"
+        android:theme="@style/spinnerTheme" />
 
     <TextView
         android:id="@+id/tvNotifications"

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class SignInPage extends AppCompatActivity {
+    private static final String TAG = "***SIGNIN***";
     TextView txtWelcome;
     TextView txtLogin;
     TextView txtEmail;
@@ -51,12 +53,14 @@ public class SignInPage extends AppCompatActivity {
 
                             // If user is verified, proceed to Listings activity
                             if (fuser.isEmailVerified()) {
-                                // TODO: Proceed to ListingsActivity
+
+                                // get the user id from firebase auth and add user to firebase database
                                 final String userid = fuser.getUid() ;
-                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference() ;
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference() ; // path of where user is stored in database
                                 reference.child("users").child(fuser.getUid()).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        // get the user data and pass it to next homepage activity in bundle
                                         User user = dataSnapshot.getValue(User.class) ;
                                         Intent intent = new Intent(getApplicationContext(), HomePage.class);
                                         intent.putExtra("user",user) ;
@@ -64,9 +68,11 @@ public class SignInPage extends AppCompatActivity {
                                         startActivity(intent);
                                     }
 
+                                    // failed to get user data after sign in, throw message
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                        Toast.makeText(getBaseContext(), "Failed to get user information. Please try again.", Toast.LENGTH_LONG);
+                                        Log.d(TAG, "cannot get user data in sign in");
                                     }
                                 }) ;
 
@@ -106,13 +112,27 @@ public class SignInPage extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = edtEmail.getText().toString() ;
-                String pw = edtPassword.getText().toString() ;
-                logIn(username,pw);
+                // If non empty email and non empty password, try login
+                if (!TextUtils.isEmpty(edtEmail.getText().toString()) && !TextUtils.isEmpty(edtPassword.getText().toString())) {
+                    String username = edtEmail.getText().toString() ;
+                    String pw = edtPassword.getText().toString() ;
+                    logIn(username,pw);
+                }
 
+                // If empty email throw an error
+                if (TextUtils.isEmpty(edtEmail.getText().toString())) {
+                    edtEmail.setError("Please enter your email.");
+                }
+
+                // If empty password, throw an error
+                if (TextUtils.isEmpty(edtPassword.getText().toString())) {
+                    edtPassword.setError("Please enter your password.");
+                }
+
+                return;
             }
         });
-        //when you click on signhere_btn, it will open up the signup page
+        //when you click on singup_btn, it will open up the signup page
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
