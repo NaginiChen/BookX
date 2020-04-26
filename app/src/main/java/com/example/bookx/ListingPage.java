@@ -230,6 +230,7 @@ public class ListingPage extends AppCompatActivity {
         }
     }
 
+    // callback for requesting permissions
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PERMISSION_REQUEST_CODE) {

@@ -61,6 +61,18 @@
         android:text="1 University Road, Boston, MA" />
 
 
+    <Button
+        android:id="@+id/editProfileBtn"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:background="@drawable/button"
+        android:layout_marginBottom="10dp"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:fontFamily="@font/rasa_bold"
+        android:layout_gravity="center"
+        android:text="Edit Profile" />
+
     <TextView
         android:id="@+id/listings_tv"
         android:layout_width="wrap_content"
@@ -83,11 +95,5 @@
         android:layout_weight="6">
 
     </ListView>
-
-    <Button
-        android:id="@+id/editProfileBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Edit Profile" />
 
 </LinearLayout>

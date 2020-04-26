@@ -63,4 +63,11 @@
     <string name="filter_price_h2l">Precio (de mayor a menor)</string>
     <string name="filter_price_l2h">Precie (de menor a mayor)</string>
     <string name="filter_distance_l2h">Distancia (más cercana a la más lejana)</string>
+
+    <string name="upload_image_for_listing">Cargue una imagen para su listado!</string>
+    <string name="save">Salvar</string>
+    <string name="retype_password">Reescribe tu contraseña</string>
+    <string name="new_address">nueva direccion</string>
+    <string name="new_password">nueva contraseña</string>
+    <string name="upload_new_pro_pic">Subir nueva foto de perfil</string>
 </resources>

@@ -12,18 +12,18 @@
         android:layout_gravity="center"
         android:layout_marginStart="0dp"
         android:layout_marginTop="50dp"
-        android:hint="Name"
+        android:hint="@string/name"
         android:textColor="#FFF"
-        android:textColorHint="#808080" />
+        android:textColorHint="#DDFFFFFF" />
 
     <EditText
         android:id="@+id/addressField"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="New Address"
+        android:hint="@string/new_address"
         android:textColor="#FFF"
-        android:textColorHint="#808080"
+        android:textColorHint="#DDFFFFFF"
         android:layout_gravity="center"/>
 
     <EditText
@@ -31,10 +31,10 @@
         android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="New Password"
+        android:hint="@string/new_password"
         android:inputType="textPassword"
         android:textColor="#FFF"
-        android:textColorHint="#808080"
+        android:textColorHint="#DDFFFFFF"
         android:layout_gravity="center" />
 
     <EditText
@@ -42,26 +42,33 @@
         android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Re-type New Password"
+        android:hint="@string/retype_password"
         android:inputType="textPassword"
         android:textColor="#FFF"
-        android:textColorHint="#808080"
+        android:textColorHint="#DDFFFFFF"
         android:layout_gravity="center" />
 
     <Button
         android:id="@+id/saveBtn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_marginTop="20dp"
-        android:text="Save"
+        android:text="@string/save"
+        android:fontFamily="@font/rasa_bold"
+        android:background="@drawable/button"
+        android:textColor="#FFFFFF"
         android:layout_gravity="center" />
 
     <Button
         android:id="@+id/uploadBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
         android:layout_marginTop="20dp"
-        android:text="Upload new profile picture"
+        android:background="@drawable/button"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:fontFamily="@font/rasa_bold"
+        android:text="@string/upload_new_pro_pic"
         android:layout_gravity="center" />
 
 

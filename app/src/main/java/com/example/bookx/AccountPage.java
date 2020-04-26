@@ -134,15 +134,17 @@ public class AccountPage extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
     }
 
+    // Upload user image to database
     private void uploadImage(){
 
         if(imageUrl != null){
+            // reference to firebase storage
             final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUrl));
-            uploadTask = fileReference.putFile(imageUrl) ;
+            uploadTask = fileReference.putFile(imageUrl) ; // put image file into storage at given reference
             uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task task) throws Exception {
-                    if(!task.isSuccessful()){
+                    if(!task.isSuccessful()){   // successfully uploaded image, return the url
                         throw task.getException() ;
                     }
                     return fileReference.getDownloadUrl() ;
@@ -151,10 +153,13 @@ public class AccountPage extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     if(task.isSuccessful()){
-                        Uri downloadUri = task.getResult() ;
+                        Uri downloadUri = task.getResult() ;    // store storage url to the database so user attributes will contain path to image
                         String mUri = downloadUri.toString() ;
 
+                        // get reference to this user in the database
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid()) ;
+
+                        // rewrite user information with image url
                         HashMap<String, Object> map = new HashMap<>() ;
                         map.put("imageurl",mUri) ;
                         reference.updateChildren(map) ;
@@ -172,12 +177,14 @@ public class AccountPage extends AppCompatActivity {
         }
     }
 
+    // callback for startActivityForResult
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
 
+        // user uploaded a picture successfully
         if(requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
-            imageUrl = data.getData() ;
+            imageUrl = data.getData() ; // get url of image to upload to firebase
 
             if(uploadTask != null && uploadTask.isInProgress()){
                 Toast.makeText(getApplicationContext(),"Upload in progress", Toast.LENGTH_LONG).show();
@@ -187,6 +194,7 @@ public class AccountPage extends AppCompatActivity {
         }
     }
 
+    // displays user information
     private void updateUI(String name, String email, String location, String imgurl) {
         name_tv3.setText(name);
         email_tv3.setText(email);
@@ -194,6 +202,7 @@ public class AccountPage extends AppCompatActivity {
         Glide.with(getApplicationContext()).load(imgurl).into(imgProfile) ;
     }
 
+    // displays ueser listings using listin adapater
     private void updateUIListings() {
         if(postAdapter == null){
             postAdapter = new listingAdapter(this.getBaseContext(), currUserposts) ;

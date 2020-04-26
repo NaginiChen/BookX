@@ -137,14 +137,16 @@ public class SignupPage extends AppCompatActivity {
         return valid;
     }
 
+    // This method creates an account and adds it to the database
     private void createAccount() {
+        // get all user inputs
         final String name = edtName.getText().toString() ;
         String email = edtEmail.getText().toString();
         String password = edtPw.getText().toString();
         final String address = edtAddress.getText().toString() ;
         LatLng lng = null ;
         try{
-            lng = getLocationFromAddress(getApplicationContext(),address) ;
+            lng = getLocationFromAddress(getApplicationContext(),address) ; // check if valid address
         }catch (Exception e){
             Toast.makeText(getBaseContext(), "Please enter a valid address",
                     Toast.LENGTH_LONG).show();
@@ -153,7 +155,6 @@ public class SignupPage extends AppCompatActivity {
 
         final Double latitude = lng.latitude;
         final Double longitude = lng.longitude;
-
 
         Log.d(TAG, "createAccount:" + email);
 
@@ -229,6 +230,7 @@ public class SignupPage extends AppCompatActivity {
                 });
     }
 
+    // This method starts sign up page activity
     public void openSignInPage() {
         Intent intent = new Intent(this, SignInPage.class);
         startActivity(intent);

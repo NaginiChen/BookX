@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:fontFamily = "@font/rasa_bold"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:text="POST"
+            android:text="@string/post"
             android:textColor="#FFFFFF" />
 
 
@@ -167,7 +167,7 @@
         android:fontFamily = "@font/rasa_regular"
         android:layout_marginTop = "10dp"
         android:layout_marginBottom="30dp"
-        android:text="Upload a picture for your listing!"
+        android:text="@string/upload_image_for_listing"
         android:textAlignment="center"
         android:textColor="#FFFFFF" />
 
