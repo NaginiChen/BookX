@@ -38,7 +38,7 @@
                     android:fontFamily="@font/rasa_bold"
                     android:text="@string/person_name"
                     android:textColor="#FFFFFF"
-                    android:textSize="25dp" />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="440dp"
@@ -51,7 +51,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:background="#366083"
+                    android:fontFamily="@font/rasa_regular"
+                    android:background="@drawable/button"
                     android:text="@string/messages"
                     android:textColor="#FFFFFF" />
 
@@ -65,7 +66,7 @@
                 android:fontFamily="@font/rasa_regular"
                 android:text="@string/date"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tvPostName"
@@ -175,6 +176,7 @@
                 android:fontFamily="@font/rasa_regular"
                 android:text="insert description"
                 android:textColor="#FFFFFF"
+                android:layout_marginBottom="20dp"
                 android:textSize="18sp" />
 
             <fragment

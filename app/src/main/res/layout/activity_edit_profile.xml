@@ -54,6 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Save"
+        android:background="@drawable/button"
+        android:textColor="#FFF"
         android:layout_gravity="center" />
 
     <Button
@@ -62,6 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Upload new profile picture"
+        android:textColor="#FFF"
+        android:background="@drawable/button"
         android:layout_gravity="center" />
 
 
