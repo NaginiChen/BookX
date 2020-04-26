@@ -30,10 +30,6 @@
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"/>
 
-        <activity android:name=".PostingPage"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
-
         <activity android:name=".ListingPage"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"/>
