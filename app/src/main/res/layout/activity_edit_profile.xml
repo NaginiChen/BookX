@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1A4973"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/nameField"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="50dp"
+        android:hint="Name"
+        android:textColor="#FFF"
+        android:textColorHint="#808080" />
+
+    <EditText
+        android:id="@+id/addressField"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="New Address"
+        android:textColor="#FFF"
+        android:textColorHint="#808080"
+        android:layout_gravity="center"/>
+
+    <EditText
+        android:id="@+id/passwordField"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="New Password"
+        android:inputType="textPassword"
+        android:textColor="#FFF"
+        android:textColorHint="#808080"
+        android:layout_gravity="center" />
+
+    <EditText
+        android:id="@+id/passwordFieldRetype"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Re-type New Password"
+        android:inputType="textPassword"
+        android:textColor="#FFF"
+        android:textColorHint="#808080"
+        android:layout_gravity="center" />
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Save"
+        android:layout_gravity="center" />
+
+    <Button
+        android:id="@+id/uploadBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Upload new profile picture"
+        android:layout_gravity="center" />
+
+
+</LinearLayout>

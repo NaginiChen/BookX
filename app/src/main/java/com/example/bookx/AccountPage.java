@@ -54,6 +54,7 @@ public class AccountPage extends AppCompatActivity {
     TextView listings_tv;
     Button logout_btn;
     ImageView imgProfile ;
+    Button editProfileBtn;
 
     private List<Post> currUserposts;
     private ListAdapter postAdapter ;
@@ -80,6 +81,7 @@ public class AccountPage extends AppCompatActivity {
         listings_tv = (TextView) findViewById(R.id.listings_tv);
         logout_btn = (Button) findViewById(R.id.logout_btn);
         imgProfile = (ImageView) findViewById(R.id.profileImage) ;
+        editProfileBtn = (Button) findViewById(R.id.editProfileBtn);
         currUserposts = new ArrayList<>();
 
         storageReference = FirebaseStorage.getInstance().getReference("uploads") ;
@@ -98,6 +100,7 @@ public class AccountPage extends AppCompatActivity {
             }
         });
 
+
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +110,13 @@ public class AccountPage extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 Toast.makeText(getApplicationContext(),R.string.loged_out,Toast.LENGTH_LONG).show();
+            }
+        });
+
+        editProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openEditProfile();
             }
         });
     }
@@ -191,6 +201,11 @@ public class AccountPage extends AppCompatActivity {
             lvAccountPosts.setAdapter(postAdapter);
             lvAccountPosts.setItemsCanFocus(true);
         }
+    }
+
+    private void openEditProfile(){
+        Intent intent = new Intent(this, EditProfile.class);
+        startActivity(intent);
     }
 
     // This method gets user data from the database and listens to changes

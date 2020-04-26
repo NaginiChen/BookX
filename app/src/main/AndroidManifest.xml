@@ -19,6 +19,7 @@
         <activity android:name=".PostingInfo" />
         <activity android:name=".PostingPage" />
         <activity android:name=".ListingPage" />
+        <activity android:name=".EditProfile" />
         <activity android:name=".PreferencesPage" />
         <activity android:name=".AccountPage" />
         <activity android:name=".SignupPage" />
