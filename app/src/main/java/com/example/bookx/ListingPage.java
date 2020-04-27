@@ -362,6 +362,8 @@ public class ListingPage extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"No image selected", Toast.LENGTH_LONG).show();
         }
     }
+
+    // forbidding back button
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             return true;

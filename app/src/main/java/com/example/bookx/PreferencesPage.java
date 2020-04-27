@@ -208,6 +208,7 @@ public class PreferencesPage extends AppCompatActivity {
         }
     }
 
+    // forbidding back button
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
