@@ -139,7 +139,7 @@ public class ListingPage extends AppCompatActivity {
 
                 // successfully created listing, return to home page
                 if (createListing()) {
-                    openHomePage();
+                    finish();
                 } else {
                     Toast.makeText(getBaseContext(), "Failed to create new listing. " +
                             "Try again.", Toast.LENGTH_LONG).show();

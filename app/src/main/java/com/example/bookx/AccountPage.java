@@ -227,12 +227,11 @@ public class AccountPage extends AppCompatActivity {
 
     // displays ueser listings using listin adapater
     private void updateUIListings() {
-        if(postAdapter == null){
-            postAdapter = new listingAdapter(this.getBaseContext(), currUserposts) ;
-            lvAccountPosts = (ListView) findViewById(R.id.lvAccountListing) ;
-            lvAccountPosts.setAdapter(postAdapter);
-            lvAccountPosts.setItemsCanFocus(true);
-        }
+        postAdapter = new listingAdapter(this.getBaseContext(), currUserposts) ;
+        lvAccountPosts = (ListView) findViewById(R.id.lvAccountListing) ;
+        lvAccountPosts.setAdapter(postAdapter);
+        lvAccountPosts.setItemsCanFocus(true);
+
     }
 
     private void openEditProfile(){
@@ -248,6 +247,8 @@ public class AccountPage extends AppCompatActivity {
             @Override
             // This method is called when user data changes
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                currUserposts.clear() ;
                 // Get the current user
                 User currUser = dataSnapshot.getValue(User.class);
 

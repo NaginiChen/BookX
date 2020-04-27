@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +40,8 @@ public class SignInPage extends AppCompatActivity {
     TextView txtSignUp;
     Button btnSignUp;
     private FirebaseAuth mAuth;
+    User user ;
+    String userid ;
 
     private void logIn(String email, String password) {
 
@@ -55,17 +58,14 @@ public class SignInPage extends AppCompatActivity {
                             if (fuser.isEmailVerified()) {
 
                                 // get the user id from firebase auth and add user to firebase database
-                                final String userid = fuser.getUid() ;
+                                userid = fuser.getUid() ;
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference() ; // path of where user is stored in database
                                 reference.child("users").child(fuser.getUid()).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         // get the user data and pass it to next homepage activity in bundle
-                                        User user = dataSnapshot.getValue(User.class) ;
-                                        Intent intent = new Intent(getApplicationContext(), HomePage.class);
-                                        intent.putExtra("user",user) ;
-                                        intent.putExtra("userid",userid) ;
-                                        startActivity(intent);
+                                        user = dataSnapshot.getValue(User.class) ;
+
                                     }
 
                                     // failed to get user data after sign in, throw message
@@ -89,7 +89,24 @@ public class SignInPage extends AppCompatActivity {
                         }
                     }
                 });
+        Handler handler = new Handler();
+
+        int delay = 1000; //milliseconds
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), HomePage.class);
+                intent.putExtra("user",user) ;
+                intent.putExtra("userid",userid) ;
+                startActivity(intent);
+                finish();
+            }
+        },delay) ;
+
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +146,6 @@ public class SignInPage extends AppCompatActivity {
                 if (TextUtils.isEmpty(edtPassword.getText().toString())) {
                     edtPassword.setError("Please enter your password.");
                 }
-
                 return;
             }
         });

@@ -224,6 +224,7 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
             @Override
             public void onClick(View v) {
                 deletePost() ;
+                finish();
             }
         });
     }
