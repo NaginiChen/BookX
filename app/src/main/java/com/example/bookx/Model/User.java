@@ -34,7 +34,7 @@ public class User implements Parcelable {
         this.email = email;
         this.fullName = name;
         this.location = location;
-        this.showLocation = false; //user location off by default
+        this.showLocation = true; //user location off by default
         this.imageurl = imageurl ;
         this.listings = new HashMap<>(); // empty by default
     }

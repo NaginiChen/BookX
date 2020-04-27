@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.bookx.Adapter.UserAdapter;
 import com.example.bookx.Model.Chat;
@@ -30,6 +33,8 @@ public class MessageList extends AppCompatActivity {
     private UserAdapter userAdapter ;
     private Set<User> mUsers ;
 
+    Button btnBack ;
+
     FirebaseUser fUser ;
     DatabaseReference reference ;
 
@@ -42,6 +47,8 @@ public class MessageList extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvMessageList) ;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        btnBack = (Button) findViewById(R.id.btnBack) ;
 
         fUser = FirebaseAuth.getInstance().getCurrentUser() ;
         userList = new ArrayList<>() ;
@@ -71,6 +78,13 @@ public class MessageList extends AppCompatActivity {
 
             }
         }) ;
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void readChats(){

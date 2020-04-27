@@ -50,6 +50,7 @@
     <string name="english">Inglés</string>
     <string name="spanish">Español</string>
     <string name="apply_changes">Aplicar cambios</string>
+    <string name="delete_post">Eliminar</string>
 
 
     <string name="search_book">Search By Book Title</string>

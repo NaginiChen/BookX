@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -88,6 +89,10 @@ public class PreferencesPage extends AppCompatActivity {
         btnGoHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), HomePage.class) ;
+                intent.putExtra("user",user) ;
+                intent.putExtra("userid",userid) ;
+                startActivity(intent);
                 finish();
             }
         });
@@ -201,6 +206,15 @@ public class PreferencesPage extends AppCompatActivity {
             startActivity(getIntent());
             finish();
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }
 

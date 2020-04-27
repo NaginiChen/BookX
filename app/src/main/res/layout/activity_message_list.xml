@@ -17,7 +17,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#1A4973">
-
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="10sp"
+                android:background="@drawable/ic_back"
+                android:textColor="#FFFFFF" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -70,7 +71,7 @@ public class ListingPage extends AppCompatActivity {
     EditText price_et;
     EditText description_et;
     Button btnUploadPic;
-    Button scanBtn;
+    Button scanBtn, btnBack;
     TextView tvUploadPic;
 
     private static final int PERMISSION_REQUEST_CODE = 200;
@@ -103,6 +104,7 @@ public class ListingPage extends AppCompatActivity {
         description_et = (EditText) findViewById(R.id.description_et);
         btnUploadPic = (Button) findViewById(R.id.upload_listing_pic_btn);
         tvUploadPic = (TextView) findViewById(R.id.upload_listing_pic_tv);
+        btnBack = (Button) findViewById(R.id.btnBack) ;
 
         // when post button is clicked, a listing is created and user is returned to the home page
         post_btn.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +161,13 @@ public class ListingPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 scanBarcode(view);
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -353,5 +362,11 @@ public class ListingPage extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"No image selected", Toast.LENGTH_LONG).show();
         }
     }
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true;
+        }
 
+        return super.onKeyDown(keyCode, event);
+    }
 }

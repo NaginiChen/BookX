@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -254,7 +255,10 @@ public class HomePage extends AppCompatActivity {
 
     public void openAccountPage() {
         Intent intent = new Intent(this, AccountPage.class);
+        intent.putExtra("userid", this.userid) ;
+        intent.putExtra("user", this.user) ;
         startActivity(intent);
+        finish();
     }
 
     public void openPreferencesPage() {
@@ -262,6 +266,7 @@ public class HomePage extends AppCompatActivity {
         intent.putExtra("userid", this.userid) ;
         intent.putExtra("user", this.user) ;
         startActivity(intent);
+        finish();
     }
 
     public void openListingPage() {
@@ -362,7 +367,7 @@ public class HomePage extends AppCompatActivity {
             public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, String prevChildKey) {
                 final Chat chatVal = dataSnapshot.getValue(Chat.class);
 
-                mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+                mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshotUser) {
                         for(DataSnapshot snapshot : dataSnapshotUser.getChildren()){
@@ -432,5 +437,15 @@ public class HomePage extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    // forbidding back button
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }

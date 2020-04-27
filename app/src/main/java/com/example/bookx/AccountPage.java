@@ -10,6 +10,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -52,13 +53,16 @@ public class AccountPage extends AppCompatActivity {
     TextView email_tv3;
     TextView address_tv;
     TextView listings_tv;
-    Button logout_btn;
+    Button logout_btn, btnBack;
     ImageView imgProfile ;
     Button editProfileBtn;
 
     private List<Post> currUserposts;
     private ListAdapter postAdapter ;
     private ListView lvAccountPosts ;
+
+    private User user ;
+    private String userid ;
 
     // firebase instance variables
     private FirebaseAuth mAuth;
@@ -75,6 +79,13 @@ public class AccountPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_page);
 
+        Intent intent = getIntent() ;
+        Bundle extra = intent.getExtras() ;
+        if(extra != null){
+            this.user = (User) extra.get("user") ;
+            this.userid = extra.getString("userid") ;
+        }
+
         name_tv3 = (TextView) findViewById(R.id.name_tv3);
         email_tv3 = (TextView) findViewById(R.id.email_tv3);
         address_tv = (TextView) findViewById(R.id.address_tv);
@@ -82,6 +93,7 @@ public class AccountPage extends AppCompatActivity {
         logout_btn = (Button) findViewById(R.id.logout_btn);
         imgProfile = (ImageView) findViewById(R.id.profileImage) ;
         editProfileBtn = (Button) findViewById(R.id.editProfileBtn);
+        btnBack = (Button) findViewById(R.id.btnBack) ;
         currUserposts = new ArrayList<>();
 
         storageReference = FirebaseStorage.getInstance().getReference("uploads") ;
@@ -97,6 +109,17 @@ public class AccountPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openImage() ;
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomePage.class) ;
+                intent.putExtra("user",user) ;
+                intent.putExtra("userid",userid) ;
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -156,13 +179,8 @@ public class AccountPage extends AppCompatActivity {
                         Uri downloadUri = task.getResult() ;    // store storage url to the database so user attributes will contain path to image
                         String mUri = downloadUri.toString() ;
 
-                        // get reference to this user in the database
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid()) ;
-
-                        // rewrite user information with image url
-                        HashMap<String, Object> map = new HashMap<>() ;
-                        map.put("imageurl",mUri) ;
-                        reference.updateChildren(map) ;
+                        user.setImageurl(mUri);
+                        Glide.with(getApplicationContext()).load(imageUrl).into(imgProfile) ;
 
                     }
                 }
@@ -199,7 +217,12 @@ public class AccountPage extends AppCompatActivity {
         name_tv3.setText(name);
         email_tv3.setText(email);
         address_tv.setText(location);
-        Glide.with(getApplicationContext()).load(imgurl).into(imgProfile) ;
+        if(imgurl.equals("default")){
+            imgProfile.setImageResource(R.mipmap.ic_launcher);
+        }else{
+            Glide.with(getApplicationContext()).load(imgurl).into(imgProfile) ;
+        }
+
     }
 
     // displays ueser listings using listin adapater
@@ -250,13 +273,12 @@ public class AccountPage extends AppCompatActivity {
                     // if not sold, retrieve the corresponding listing
                     if(! (boolean) listing.getValue()) {
 
-                        String lid = listing.getKey();
-
-                        mDatabase.child("listings").child(lid).addValueEventListener(new ValueEventListener() {
+                        final String lid = listing.getKey();
+                        mDatabase.child("listings").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 // check here the datasnapshot
-                                Post post = dataSnapshot.getValue(Post.class);
+                                Post post = dataSnapshot.child(lid).getValue(Post.class);
                                 currUserposts.add(post);
 
                                 updateUIListings();
@@ -284,5 +306,27 @@ public class AccountPage extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    // forbidding back button
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        // get reference to this user in the database
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid()) ;
+
+        // rewrite user information with image url
+        HashMap<String, Object> map = new HashMap<>() ;
+        map.put("imageurl",user.getImageurl()) ;
+        reference.updateChildren(map) ;
     }
 }

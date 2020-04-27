@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -39,6 +40,7 @@ public class MessageActivity extends AppCompatActivity {
     TextView txtUsername ;
     ImageButton ibtSend ;
     EditText edtMessage ;
+    Button btnBack ;
     MessageAdapter messageAdapter ;
     List<Chat> mChats ;
 
@@ -76,6 +78,7 @@ public class MessageActivity extends AppCompatActivity {
         txtUsername = findViewById(R.id.txtUsername) ;
         ibtSend = findViewById(R.id.ibtSendMessage) ;
         edtMessage = findViewById(R.id.edtSendMessage) ;
+        btnBack = findViewById(R.id.btnBack) ;
 
         intent = getIntent() ;
         final String userid = intent.getStringExtra("userid") ;
@@ -119,6 +122,13 @@ public class MessageActivity extends AppCompatActivity {
         }) ;
 
         readMessage(userid);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void readMessage(final String userid){

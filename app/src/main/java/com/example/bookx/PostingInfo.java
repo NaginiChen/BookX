@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,7 +54,7 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
     private Post currPost ;
     private String location ;
     private Button btnMessage ;
-    private ImageView imgListing;
+    private ImageView imgListing, imgProfile;
     private TextView txtBookTitle, txtPrice, txtDesc, txtSeller, txtDate , txtCourse, txtAddress, txtISBN;
 
     @Override
@@ -82,27 +84,30 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
         btnMessage = (Button) findViewById(R.id.btnInterested) ;
         txtISBN = (TextView) findViewById(R.id.txtPostISBN);
         imgListing = (ImageView) findViewById(R.id.ivListing);
+        imgProfile = findViewById(R.id.profileImage) ;
+
+        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser() ;
+        if(currPost.getUid().equals(fUser.getUid())){
+            toDeletePost() ;
+        }else{
+            btnMessage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Intent intent = new Intent(getApplicationContext(),MessageActivity.class) ;
+                    intent.putExtra("userid",currPost.getUid()) ;
+                    startActivity(intent);
+                }
+            });
+        }
+
 
 
         loadPicture();
-        txtSeller.setText(currPost.getSeller());
-        txtDate.setText(currPost.getDate().toString());
-        txtBookTitle.setText(currPost.getBookTitle());
-        txtPrice.setText("$" + currPost.getPrice());
-        txtDesc.setText(currPost.getDesc());
-        txtCourse.setText(currPost.getCourse());
-        txtISBN.setText(currPost.getIsbn());
+        loadPostInfo() ;
+
 
         Log.d(TAG, "ISBN IS" + currPost.getIsbn());
 
-        btnMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent intent = new Intent(getApplicationContext(),MessageActivity.class) ;
-                intent.putExtra("userid",currPost.getUid()) ;
-                startActivity(intent);
-            }
-        });
 
     }
 
@@ -118,6 +123,34 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
         } catch (Exception e) {
             Log.d(TAG, "FAILED TO LOAD LISTING PICTURE");
         }
+    }
+
+    private void loadPostInfo(){
+        txtSeller.setText(currPost.getSeller());
+        txtDate.setText(currPost.getDate().toString());
+        txtBookTitle.setText(currPost.getBookTitle());
+        txtPrice.setText("$" + currPost.getPrice());
+        txtDesc.setText(currPost.getDesc());
+        txtCourse.setText(currPost.getCourse());
+        txtISBN.setText(currPost.getIsbn());
+
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(currPost.getUid()) ;
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User seller = dataSnapshot.getValue(User.class) ;
+                if(seller.getImageurl().equals("default")){
+                    imgProfile.setImageResource(R.mipmap.ic_launcher);
+                }else{
+                    Glide.with(getApplicationContext()).load(seller.getImageurl()).into(imgProfile) ;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }) ;
     }
 
     // string address -> latlng coordinates
@@ -180,6 +213,48 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
                         Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    // change message button to delete post button if the viewer own this post
+    private void toDeletePost(){
+        btnMessage.setBackground(getResources().getDrawable(R.drawable.button_delete));
+        btnMessage.setTextColor(Color.WHITE);
+        btnMessage.setText(R.string.delete_post) ;
+        btnMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletePost() ;
+            }
+        });
+    }
+
+    private void deletePost(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("listings") ;
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String lid = "";
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Post post = snapshot.getValue(Post.class) ;
+                    if(post.getUid().equals(currPost.getUid()) && post.getDate().getTime() == currPost.getDate().getTime()){
+                        lid = snapshot.getKey() ;
+                        break;
+                    }
+                }
+                if(lid.equals(""))
+                    return ;
+                DatabaseReference mReference = FirebaseDatabase.getInstance().getReference("listings").child(lid) ;
+                mReference.removeValue() ;
+                mReference = FirebaseDatabase.getInstance().getReference("users").child(currPost.getUid()).child("listings").child(lid) ;
+                mReference.setValue(null) ;
+                return ;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }) ;
 
     }
 }
