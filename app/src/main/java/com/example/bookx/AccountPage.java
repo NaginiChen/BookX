@@ -179,7 +179,12 @@ public class AccountPage extends AppCompatActivity {
                         Uri downloadUri = task.getResult() ;    // store storage url to the database so user attributes will contain path to image
                         String mUri = downloadUri.toString() ;
 
-                        user.setImageurl(mUri);
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid()) ;
+
+                        // rewrite user information with image url
+                        HashMap<String, Object> map = new HashMap<>() ;
+                        map.put("imageurl",imageUrl) ;
+                        reference.updateChildren(map) ;
                         Glide.with(getApplicationContext()).load(imageUrl).into(imgProfile) ;
 
                     }
@@ -317,17 +322,5 @@ public class AccountPage extends AppCompatActivity {
         }
 
         return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
-        // get reference to this user in the database
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid()) ;
-
-        // rewrite user information with image url
-        HashMap<String, Object> map = new HashMap<>() ;
-        map.put("imageurl",user.getImageurl()) ;
-        reference.updateChildren(map) ;
     }
 }

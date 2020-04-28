@@ -65,6 +65,11 @@ public class SignInPage extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         // get the user data and pass it to next homepage activity in bundle
                                         user = dataSnapshot.getValue(User.class) ;
+                                        Intent intent = new Intent(getApplicationContext(), HomePage.class);
+                                        intent.putExtra("user",user) ;
+                                        intent.putExtra("userid",userid) ;
+                                        startActivity(intent);
+                                        finish();
 
                                     }
 
@@ -80,30 +85,17 @@ public class SignInPage extends AppCompatActivity {
                             } else { // User has not verified email
                                 Toast.makeText(getBaseContext(), "Email is not verified. Verify and try again.",
                                         Toast.LENGTH_LONG).show();
+
                             }
 
                         } else {
                             // Sign in has failed, display a message to the user
                             Toast.makeText(getBaseContext(), "Sign in failed. Please try again.",
                                     Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });
-        Handler handler = new Handler();
-
-        int delay = 1000; //milliseconds
-
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(getApplicationContext(), HomePage.class);
-                intent.putExtra("user",user) ;
-                intent.putExtra("userid",userid) ;
-                startActivity(intent);
-                finish();
-            }
-        },delay) ;
-
     }
 
 
