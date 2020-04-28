@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -131,7 +132,9 @@ public class EditProfile extends AppCompatActivity {
                     toastMsg += "Password is updated. ";
                 }
                 else{
-                    toastMsg += "Passwords do not match or are invalid. ";
+                    if (!TextUtils.isEmpty(password.getText().toString()) && !TextUtils.isEmpty(passwordRetype.getText().toString())) {
+                        toastMsg += "Passwords do not match or are invalid. ";
+                    }
                 }
 
 
