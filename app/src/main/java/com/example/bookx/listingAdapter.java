@@ -26,15 +26,10 @@ public class listingAdapter extends BaseAdapter {
     private Button btnSeePost ;
     private ImageView imgListing;
 
-    Context context;   //Creating a reference to our context object, so we only have to get it once.  Context enables access to application specific resources.
-    // Eg, spawning & receiving intents, locating the various managers.
-
-    //STEP 2: Override the Constructor, be sure to:
-    // grab the context, we will need it later, the callback gets it as a parm.
-    // load the strings and images into object references.
+    Context context;
     public listingAdapter(Context aContext, List<Post> posts) {
         //initializing our data in the constructor.
-        context = aContext;  //saving the context we'll need it again.
+        context = aContext;
 
         this.posts = posts ;
 
@@ -54,13 +49,13 @@ public class listingAdapter extends BaseAdapter {
         return position;
     }
 
+    // get certain view according to item's position in list
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        View row;  //this will refer to the row to be inflated or displayed if it's already been displayed. (listview_row.xml)
+        View row;
 
-        // Let's optimize a bit by checking to see if we need to inflate, or if it's already been inflated...
-        if (convertView == null){  //indicates this is the first time we are creating this row.
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  //Inflater's are awesome, they convert xml to Java Objects!
+        if (convertView == null){
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(R.layout.listing_row, parent, false);
         }
         else

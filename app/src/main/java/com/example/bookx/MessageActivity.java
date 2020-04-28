@@ -38,22 +38,20 @@ import java.util.List;
 public class MessageActivity extends AppCompatActivity {
 
     // local variables
-    ImageView imgProfile ;
-    TextView txtUsername ;
-    ImageButton ibtSend ;
-    EditText edtMessage ;
-    MessageAdapter messageAdapter ;
-    List<Chat> mChats ;
+    private ImageView imgProfile ;
+    private TextView txtUsername ;
+    private ImageButton ibtSend ;
+    private EditText edtMessage ;
+    private MessageAdapter messageAdapter ;
+    private List<Chat> mChats ;
 
-    RecyclerView recyclerView ;
+    private RecyclerView recyclerView ;
 
-    FirebaseUser mUser ;
-    DatabaseReference mReference ;
+    private FirebaseUser mUser ;
+    private DatabaseReference mReference ;
 
-    Intent intent ;
-    ValueEventListener readListener ;
-    ValueEventListener readListener2 ;
-    ValueEventListener userListener ;
+    private Intent intent ;
+    private ValueEventListener readListener , readListener2 , userListener ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +85,7 @@ public class MessageActivity extends AppCompatActivity {
 
         mUser = FirebaseAuth.getInstance().getCurrentUser() ;
 
+        // onclick for send message button
         ibtSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,9 +99,8 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-
+        // read receiver user info
         mReference = FirebaseDatabase.getInstance().getReference("users").child(userid) ;
-
         userListener = mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -113,14 +111,11 @@ public class MessageActivity extends AppCompatActivity {
                 }else{
                     Glide.with(getApplicationContext()).load(user.getImageurl()).into(imgProfile) ;
                 }
-
                 readMessage(mUser.getUid(),userid,user.getImageurl());
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         }) ;
 
         readMessage(userid);
@@ -149,7 +144,6 @@ public class MessageActivity extends AppCompatActivity {
         }) ;
 
     }
-
     private void readMessage(final String myid, final String userid, final String imageurl){
         mChats = new ArrayList<>() ;
 
@@ -199,6 +193,7 @@ public class MessageActivity extends AppCompatActivity {
         mReference.removeEventListener(userListener);
     }
 
+    // regulate back key
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

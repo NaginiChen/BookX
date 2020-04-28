@@ -48,6 +48,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         return new UserAdapter.ViewHolder(view) ;
     }
 
+    // holder for each single user
     @Override
     public void onBindViewHolder(@NonNull final UserAdapter.ViewHolder holder, int position) {
         final User user = mUsers.get(position) ;
@@ -78,6 +79,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             }
         }) ;
 
+        // onclick for each user list item
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,11 +101,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                             }
                         }
                     }
-
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
+                    public void onCancelled(@NonNull DatabaseError databaseError) {}
                 }) ;
             }
         });
@@ -114,10 +113,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         return mUsers.size();
     }
 
-    public User getItem(int position) {
-        return mUsers.get(position);
-    }
-
+    // UI initialization for each user item
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView txtUsername ;
@@ -134,6 +130,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }
     }
 
+    // retrieve the latest message from chat
     private void lastMessage(final String userid, final TextView txtLastMsg){
         lastMsg = "default" ;
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;

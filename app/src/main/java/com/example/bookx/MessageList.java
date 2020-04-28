@@ -30,29 +30,29 @@ import java.util.Set;
 
 public class MessageList extends AppCompatActivity {
 
+    // local variables
     private RecyclerView recyclerView ;
     private UserAdapter userAdapter ;
     private Set<User> mUsers ;
 
-    Button btnBack ;
+    private Button btnBack ;
 
-    FirebaseUser fUser ;
-    DatabaseReference reference ;
-    ValueEventListener userListener ;
-    ValueEventListener chatListener ;
+    private FirebaseUser fUser ;
+    private DatabaseReference reference ;
+    private ValueEventListener userListener , chatListener ;
 
     private List<String> userList ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_list);
 
+        // initialization
         recyclerView = findViewById(R.id.rvMessageList) ;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
         btnBack = (Button) findViewById(R.id.btnBack) ;
-
         fUser = FirebaseAuth.getInstance().getCurrentUser() ;
         userList = new ArrayList<>() ;
         reference = FirebaseDatabase.getInstance().getReference("chats") ;
@@ -72,16 +72,13 @@ public class MessageList extends AppCompatActivity {
                         userList.add(chat.getSender()) ;
                     }
                 }
-
                 readChats() ;
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError){}
         }) ;
 
+        // onclick for back button
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +87,7 @@ public class MessageList extends AppCompatActivity {
         });
     }
 
+    // load all users that you have messaged
     private void readChats(){
         mUsers = new HashSet<>() ;
 
@@ -115,15 +113,13 @@ public class MessageList extends AppCompatActivity {
                 userAdapter = new UserAdapter(getApplicationContext(),mUsersList) ;
                 recyclerView.setAdapter(userAdapter);
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         }) ;
 
     }
 
+    // remove listeners when activity is not active
     @Override
     public void onPause(){
         super.onPause();
@@ -131,12 +127,12 @@ public class MessageList extends AppCompatActivity {
         reference.removeEventListener(chatListener);
     }
 
+    // regulate back key
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish() ;
         }
-
         return super.onKeyDown(keyCode, event);
     }
 }

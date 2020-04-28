@@ -45,6 +45,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return new MessageAdapter.ViewHolder(view) ;
     }
 
+    // holder for each single chat
     @Override
     public void onBindViewHolder(@NonNull MessageAdapter.ViewHolder holder, int position) {
         Chat chat = mChats.get(position) ;
@@ -73,6 +74,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return mChats.size();
     }
 
+    // UI initialization for each chat item
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView txtShowMessage ;
@@ -89,6 +91,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
     }
 
+    // give user message and seller message different layout
     @Override
     public int getItemViewType(int postion){
         mUser = FirebaseAuth.getInstance().getCurrentUser() ;
