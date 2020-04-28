@@ -10,7 +10,7 @@
     <string name="appearances">Idioma</string>
     <string name="log_out">Cerrar Sesión</string>
     <string name="your_listings">Su Listado</string>
-    <string name="change_password">cambiar contraseña</string>
+    <string name="change_password">Cambiar Contraseña</string>
     <string name="new_listing">Nuevo Listado</string>
     <string name="cancel">Cancelar</string>
     <string name="post">Publicar</string>
@@ -35,7 +35,7 @@
     <string name="interested">¿Interesado?</string>
     <string name="sign_up_for_bookx">Regístrese en BookX</string>
     <string name="create_a_profile_connect_with_fellow_students_in_your_university_to_join_our_community">¡Crea un perfil, conéctate con otros estudiantes en tu universidad para unirte a nuestra comunidad!</string>
-    <string name="email">correo electrónico</string>
+    <string name="email">Correo Electrónico</string>
     <string name="address">Habla a</string>
     <string name="upload_your_profile_picture">¡Sube tu foto de perfil!</string>
     <string name="see_post">Ver Publicacíon</string>
@@ -44,7 +44,7 @@
     <string name="previous_page">Pagina Anterior</string>
     <string name="create_a_profile">¡Crea un perfil, conéctate con otros estudiantes en tu universidad para unirte a nuestra comunidad!</string>
     <string name="back_to_home_page">Página de Inicio</string>
-    <string name="type_message_here">Escribe un mensaje aquí</string>
+    <string name="type_message_here">Escribe Un Mensaje Aquí</string>
     <string name="messages">Mensajes</string>
     <string name="choose_a_language">Elige Un Idioma</string>
     <string name="english">Inglés</string>
@@ -53,11 +53,11 @@
     <string name="delete_post">Eliminar</string>
 
 
-    <string name="search_book">Search By Book Title</string>
-    <string name="search_seller">Search By Seller</string>
-    <string name="search_course">Search By Course</string>
-    <string name="search_desc">Search By Description</string>
-    <string name="loged_out">has cerrado la sesión</string>
+    <string name="search_book">Buscar Por Titulo de Libro</string>
+    <string name="search_seller">Búsqueda Por Vendedor</string>
+    <string name="search_course">Buscar Por Clase</string>
+    <string name="search_desc">Buscar Por Descripcíon</string>
+    <string name="loged_out">Has Cerrado La Sesión</string>
 
     <string name="filter_time_h2l">Tiempo (más reciente a menos reciente)</string>
     <string name="filter_time_l2h">Tiempo (menos reciente a más reciente)</string>
@@ -68,7 +68,7 @@
     <string name="upload_image_for_listing">Cargue una imagen para su listado!</string>
     <string name="save">Salvar</string>
     <string name="retype_password">Reescribe tu contraseña</string>
-    <string name="new_address">nueva direccion</string>
-    <string name="new_password">nueva contraseña</string>
-    <string name="upload_new_pro_pic">Subir nueva foto de perfil</string>
+    <string name="new_address">Nueva Direccion</string>
+    <string name="new_password">Nueva Contraseña</string>
+    <string name="upload_new_pro_pic">Subir Nueva Foto de Perfil</string>
 </resources>
