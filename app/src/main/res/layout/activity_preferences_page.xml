@@ -119,10 +119,14 @@
 
     <Button
         android:id="@+id/btnApplyChanges"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="100sp"
         android:text="@string/apply_changes"
+        android:background="@drawable/button"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold"
         android:layout_gravity="center"/>
 
 </LinearLayout>
