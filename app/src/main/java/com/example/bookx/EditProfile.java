@@ -1,7 +1,10 @@
 package com.example.bookx;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookx.Model.User;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,7 +35,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -121,7 +127,20 @@ public class EditProfile extends AppCompatActivity {
                     map.put("fullName", name.getText().toString());
                 }
                 if(!address.getText().toString().equals("")){
+                    String add = address.getText().toString() ;
+                    LatLng lng = null ;
+                    try{
+                        lng = getLocationFromAddress(getApplicationContext(),add) ; // check if valid address
+                    }catch (Exception e){
+                        Toast.makeText(getBaseContext(), "Please enter a valid address",
+                                Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    final Double latitude = lng.latitude;
+                    final Double longitude = lng.longitude;
                     map.put("location", address.getText().toString());
+                    map.put("latitude",latitude) ;
+                    map.put("longitude",longitude) ;
                 }
                 if(!map.isEmpty()){
                     reference.updateChildren(map);
@@ -210,6 +229,31 @@ public class EditProfile extends AppCompatActivity {
                 uploadImage();
             }
         }
+    }
+
+    // string address -> latlng coordinates
+    public LatLng getLocationFromAddress(Context context, String strAddress) {
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+            Address location = address.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
     }
 
 }

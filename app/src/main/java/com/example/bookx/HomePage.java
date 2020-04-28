@@ -266,7 +266,7 @@ public class HomePage extends AppCompatActivity {
         intent.putExtra("userid", this.userid) ;
         intent.putExtra("user", this.user) ;
         startActivity(intent);
-        finish();
+        finish() ;
     }
 
     public void openListingPage() {

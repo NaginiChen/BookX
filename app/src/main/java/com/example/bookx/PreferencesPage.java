@@ -50,9 +50,11 @@ public class PreferencesPage extends AppCompatActivity {
     Switch swLocation;
     Locale myLocale;
     String currentLanguage = "en", currentLang;
-    Button btnGoHome, btnApplyChanges;
+    Button btnGoHome ;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
+
+    DatabaseReference reference ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class PreferencesPage extends AppCompatActivity {
             this.user = (User) extra.get("user") ;
         }
 
-
+        reference = FirebaseDatabase.getInstance().getReference("users").child(userid).child("showLocation") ;
         currentLanguage = getIntent().getStringExtra(currentLang);
 
         pref = getSharedPreferences("com.example.bookx.notification", Context.MODE_PRIVATE);
@@ -85,14 +87,10 @@ public class PreferencesPage extends AppCompatActivity {
         swAlerts = (Switch) findViewById(R.id.swAlerts);
         swLocation = (Switch) findViewById(R.id.swLocation);
         btnGoHome = (Button) findViewById(R.id.btnGoHome);
-        btnApplyChanges = (Button) findViewById(R.id.btnApplyChanges) ;
         btnGoHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), HomePage.class) ;
-                intent.putExtra("user",user) ;
-                intent.putExtra("userid",userid) ;
-                startActivity(intent);
+                openHomepage() ;
                 finish();
             }
         });
@@ -101,22 +99,21 @@ public class PreferencesPage extends AppCompatActivity {
         if(pref.getBoolean("notificationIsOn", false)){
             swAlerts.setChecked(true);
         }
-        btnApplyChanges.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HomePage.class) ;
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);;
 
-                intent.putExtra("user",user) ;
-                intent.putExtra("userid",userid) ;
-                startActivity(intent);
-                finish();
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean showLocation = dataSnapshot.getValue(Boolean.class) ;
+                swLocation.setChecked(showLocation);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 
-
-        swLocation.setChecked(user.getShowLocation());
 
         spLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -162,7 +159,7 @@ public class PreferencesPage extends AppCompatActivity {
         swLocation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                user.setShowLocation(isChecked);
+                reference.setValue(isChecked) ;
             }
         });
     }
@@ -186,15 +183,10 @@ public class PreferencesPage extends AppCompatActivity {
 
     }
 
-    void updateUser(){
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(userid).child("showLocation") ;
-        reference.setValue(user.getShowLocation()) ;
-    }
 
     @Override
     public void onPause(){
         super.onPause();
-        updateUser();
         onConfigurationChanged(getResources().getConfiguration());
     }
 
@@ -206,6 +198,13 @@ public class PreferencesPage extends AppCompatActivity {
             startActivity(getIntent());
             finish();
         }
+    }
+
+    void openHomepage(){
+        Intent intent = new Intent(getApplicationContext(),HomePage.class) ;
+        intent.putExtra("user",user) ;
+        intent.putExtra("userid",userid) ;
+        startActivity(intent);
     }
 
     // forbidding back button

@@ -36,6 +36,7 @@ import java.util.List;
 
 public class MessageActivity extends AppCompatActivity {
 
+    // local variables
     ImageView imgProfile ;
     TextView txtUsername ;
     ImageButton ibtSend ;
@@ -56,6 +57,7 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
+        // UI initialization
         Toolbar toolbar = findViewById(R.id.toolBar) ;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -71,7 +73,6 @@ public class MessageActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext()) ;
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-
 
         imgProfile = findViewById(R.id.profileImage) ;
         txtUsername = findViewById(R.id.txtUsername) ;
@@ -122,6 +123,7 @@ public class MessageActivity extends AppCompatActivity {
         readMessage(userid);
     }
 
+    // read messages from database
     private void readMessage(final String userid){
         mReference = FirebaseDatabase.getInstance().getReference("chats") ;
         readListener = mReference.addValueEventListener(new ValueEventListener() {
@@ -143,19 +145,6 @@ public class MessageActivity extends AppCompatActivity {
             }
         }) ;
 
-    }
-
-    private void sendMessage(String sender, String receiver, String message){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference() ;
-
-        HashMap<String, Object> messageMap = new HashMap<>() ;
-        messageMap.put("sender",sender) ;
-        messageMap.put("receiver", receiver) ;
-        messageMap.put("message",message) ;
-        messageMap.put("read",false) ;
-        messageMap.put("sent",false) ;
-
-        reference.child("chats").push().setValue(messageMap) ;
     }
 
     private void readMessage(final String myid, final String userid, final String imageurl){
@@ -184,6 +173,21 @@ public class MessageActivity extends AppCompatActivity {
         }) ;
     }
 
+    // send message to database
+    private void sendMessage(String sender, String receiver, String message){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference() ;
+
+        HashMap<String, Object> messageMap = new HashMap<>() ;
+        messageMap.put("sender",sender) ;
+        messageMap.put("receiver", receiver) ;
+        messageMap.put("message",message) ;
+        messageMap.put("read",false) ;
+        messageMap.put("sent",false) ;
+
+        reference.child("chats").push().setValue(messageMap) ;
+    }
+
+    // remove listener on pause
     @Override
     protected void onPause() {
         super.onPause();
