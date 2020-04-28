@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +52,8 @@ public class MessageActivity extends AppCompatActivity {
 
     Intent intent ;
     ValueEventListener readListener ;
+    ValueEventListener readListener2 ;
+    ValueEventListener userListener ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +103,7 @@ public class MessageActivity extends AppCompatActivity {
 
         mReference = FirebaseDatabase.getInstance().getReference("users").child(userid) ;
 
-        mReference.addValueEventListener(new ValueEventListener() {
+        userListener = mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class) ;
@@ -151,7 +154,7 @@ public class MessageActivity extends AppCompatActivity {
         mChats = new ArrayList<>() ;
 
         mReference = FirebaseDatabase.getInstance().getReference("chats") ;
-        mReference.addValueEventListener(new ValueEventListener() {
+        readListener2 = mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mChats.clear();
@@ -192,5 +195,16 @@ public class MessageActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         mReference.removeEventListener(readListener);
+        mReference.removeEventListener(readListener2);
+        mReference.removeEventListener(userListener);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish() ;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }

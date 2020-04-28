@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -37,6 +38,8 @@ public class MessageList extends AppCompatActivity {
 
     FirebaseUser fUser ;
     DatabaseReference reference ;
+    ValueEventListener userListener ;
+    ValueEventListener chatListener ;
 
     private List<String> userList ;
     @Override
@@ -53,7 +56,7 @@ public class MessageList extends AppCompatActivity {
         fUser = FirebaseAuth.getInstance().getCurrentUser() ;
         userList = new ArrayList<>() ;
         reference = FirebaseDatabase.getInstance().getReference("chats") ;
-        reference.addValueEventListener(new ValueEventListener() {
+        chatListener = reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
@@ -92,7 +95,7 @@ public class MessageList extends AppCompatActivity {
 
         reference = FirebaseDatabase.getInstance().getReference("users") ;
 
-        reference.addValueEventListener(new ValueEventListener() {
+        userListener = reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUsers.clear();
@@ -119,5 +122,21 @@ public class MessageList extends AppCompatActivity {
             }
         }) ;
 
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        reference.removeEventListener(userListener);
+        reference.removeEventListener(chatListener);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish() ;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -95,6 +95,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                                 intent.putExtra("userid",userid) ;
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 mContext.startActivity(intent);
+                                reference.removeEventListener(this);
                             }
                         }
                     }
