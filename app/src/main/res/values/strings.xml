@@ -69,7 +69,7 @@
     <string name="new_password">New password</string>
     <string name="upload_new_pro_pic">Upload new profile picture</string>
     <string name="delete_post">Delete</string>
-
+    <string name="edit_profile">Edit Profile</string>
 
 
     <string-array name="languageOptions">
