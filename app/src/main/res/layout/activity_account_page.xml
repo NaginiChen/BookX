@@ -83,13 +83,13 @@
         android:id="@+id/editProfileBtn"
         android:layout_width="100sp"
         android:layout_height="35sp"
-        android:background="@drawable/button"
-        android:layout_marginBottom="10sp"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:fontFamily="@font/rasa_bold"
         android:layout_gravity="center"
-        android:text="Edit Profile" />
+        android:layout_marginBottom="10sp"
+        android:background="@drawable/button"
+        android:fontFamily="@font/rasa_bold"
+        android:text="@string/edit_profile"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/listings_tv"
