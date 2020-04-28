@@ -59,8 +59,8 @@ public class SignInPage extends AppCompatActivity {
 
                                 // get the user id from firebase auth and add user to firebase database
                                 userid = fuser.getUid() ;
-                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference() ; // path of where user is stored in database
-                                reference.child("users").child(fuser.getUid()).addValueEventListener(new ValueEventListener() {
+                                final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(fuser.getUid()) ; // path of where user is stored in database
+                                reference.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         // get the user data and pass it to next homepage activity in bundle
@@ -69,6 +69,7 @@ public class SignInPage extends AppCompatActivity {
                                         intent.putExtra("user",user) ;
                                         intent.putExtra("userid",userid) ;
                                         startActivity(intent);
+                                        reference.removeEventListener(this);
                                         finish();
 
                                     }

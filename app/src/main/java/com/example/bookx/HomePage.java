@@ -295,6 +295,8 @@ public class HomePage extends AppCompatActivity {
         mDatabase.child("listings").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                allPosts.clear() ;
+                posts.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     // handle the post
                     Post post = postSnapshot.getValue(Post.class);
