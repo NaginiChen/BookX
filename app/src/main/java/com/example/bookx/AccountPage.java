@@ -79,6 +79,7 @@ public class AccountPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_page);
 
+        // get the user from the home page intent to display user information
         Intent intent = getIntent() ;
         Bundle extra = intent.getExtras() ;
         if(extra != null){
@@ -105,6 +106,7 @@ public class AccountPage extends AppCompatActivity {
 
         readCurrUserData(); // get user data from the database
 
+        // when image is clicked, user can change profile picture
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +114,7 @@ public class AccountPage extends AppCompatActivity {
             }
         });
 
+        // back button brings user back to home page and passes in user information again
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,19 +126,20 @@ public class AccountPage extends AppCompatActivity {
             }
         });
 
-
+        // when log out button is clicked, user is logged out of firebase auth and is brought back to the home page
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
                 Intent intent = new Intent(getApplicationContext(),SignInPage.class) ;
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP); // close all other activities
                 startActivity(intent);
                 finish();
-                Toast.makeText(getApplicationContext(),R.string.loged_out,Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"You have successfully logged out.",Toast.LENGTH_LONG).show();
             }
         });
 
+        // when button is clicked, user is brought to the edit profile page
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +148,7 @@ public class AccountPage extends AppCompatActivity {
         });
     }
 
+    // calls an intent to open up gallery so user can select an image to upload
     private void openImage(){
         Intent intent = new Intent() ;
         intent.setType("image/*") ;
@@ -151,9 +156,10 @@ public class AccountPage extends AppCompatActivity {
         startActivityForResult(intent,IMAGE_REQUEST);
     }
 
+    // get file extension for the image uri
     private String getFileExtension(Uri uri){
         ContentResolver contentResolver = getApplicationContext().getContentResolver() ;
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton() ;
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton() ; // detects mime type of file
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
     }
 
@@ -185,14 +191,19 @@ public class AccountPage extends AppCompatActivity {
                         HashMap<String, Object> map = new HashMap<>() ;
                         map.put("imageurl",imageUrl) ;
                         reference.updateChildren(map) ;
+
+                        // Glide is a fast and efficient image loading library for Android
+                        // this just displays the image to the imgProfile view
                         Glide.with(getApplicationContext()).load(imageUrl).into(imgProfile) ;
+
 
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(getApplicationContext(),"Failed to upload image.",Toast.LENGTH_LONG).show();
                 }
             });
         }else{
@@ -230,15 +241,15 @@ public class AccountPage extends AppCompatActivity {
 
     }
 
-    // displays ueser listings using listin adapater
+    // displays user listings using listing adapater
     private void updateUIListings() {
         postAdapter = new listingAdapter(this.getBaseContext(), currUserposts) ;
         lvAccountPosts = (ListView) findViewById(R.id.lvAccountListing) ;
         lvAccountPosts.setAdapter(postAdapter);
         lvAccountPosts.setItemsCanFocus(true);
-
     }
 
+    // function is called to open edit profile activity
     private void openEditProfile(){
         Intent intent = new Intent(this, EditProfile.class);
         startActivity(intent);
@@ -275,8 +286,7 @@ public class AccountPage extends AppCompatActivity {
                 {
                     Map.Entry<String, Object> listing = iter.next();
 
-                    Log.d(TAG, "ISSOLD?" + listing.getValue());
-                    // if not sold, retrieve the corresponding listing
+                    // if listing exists, add the listing to the currUserPosts list
                     if(! (boolean) listing.getValue()) {
 
                         final String lid = listing.getKey();
@@ -287,7 +297,7 @@ public class AccountPage extends AppCompatActivity {
                                 Post post = dataSnapshot.child(lid).getValue(Post.class);
                                 currUserposts.add(post);
 
-                                updateUIListings();
+                                updateUIListings(); // display listings information
                                 Log.d(TAG, "FOUND A USER LISTING!!!");
                             }
 
