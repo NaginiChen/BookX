@@ -35,9 +35,9 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class PreferencesPage extends AppCompatActivity {
-    private static final String TAG = "myB";
+    private static final String TAG = "***PREFERENCES***";
 
-
+    // the following below declare the specific views in the activity
     private String userid ;
     private User user ;
     TextView tvPreferences;
@@ -61,18 +61,25 @@ public class PreferencesPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences_page);
 
+        // the code below sets the user value from the bundle
         Bundle extra = getIntent().getExtras() ;
         if(extra != null){
             this.userid = extra.getString("userid") ;
             this.user = (User) extra.get("user") ;
         }
 
+        // this gets the reference of the database and gets the value of the show location
+        // permission of user
         reference = FirebaseDatabase.getInstance().getReference("users").child(userid).child("showLocation") ;
         currentLanguage = getIntent().getStringExtra(currentLang);
 
+        // We used SharedPreferences to set the language and notification data so it remembers the
+        // users choices when they leave the activity and come back
         pref = getSharedPreferences("com.example.bookx.notification", Context.MODE_PRIVATE);
         editor = pref.edit();
 
+        // this receives and sets the users current value for notification on or not. the value is
+        // true and pushes it to the editor
         if(pref.getBoolean("notificationIsOn", false) != pref.getBoolean("notificationIsOn", true) ){
             editor.putBoolean("notificationIsOn", true);
             editor.apply();
@@ -94,13 +101,14 @@ public class PreferencesPage extends AppCompatActivity {
                 finish();
             }
         });
-        //changeLanguage("Spanish");
 
+        // this value sets the value of the switch what is in the SharedPreferences
         if(pref.getBoolean("notificationIsOn", false)){
             swAlerts.setChecked(true);
         }
 
-
+        // this is a value listener to receive from the database whether the user wanted the
+        // location on or off
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -110,11 +118,12 @@ public class PreferencesPage extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.d(TAG, "failed to load show location data");
             }
         });
 
-
+        // this code sets a listener for the language selection and uses switch-case statements to
+        // change language by calling changeLanguage()
         spLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -130,16 +139,17 @@ public class PreferencesPage extends AppCompatActivity {
                         changeLanguage("es");
                         Log.i("chosen: ", lang);
                         break;
-                    //changeLanguage(lang);
                 }
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+                Log.d(TAG, "nothing selected for language");
             }
         });
 
+        // this sets the value in SHaredPreferences if the user turns on or off the notifications
+        // switch and pushes the new value to the editor in the SharedPreferences
         swAlerts.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -174,8 +184,8 @@ public class PreferencesPage extends AppCompatActivity {
             Resources res = getResources();
             DisplayMetrics dm = res.getDisplayMetrics();
             Configuration conf = res.getConfiguration();
-            conf.locale = myLocale;
-            res.updateConfiguration(conf, dm);
+            conf.locale = myLocale;     // sets the configuration to new language for change
+            res.updateConfiguration(conf, dm);  // updates the new configuration settings
             onConfigurationChanged(conf);
         } else {
             Toast.makeText(PreferencesPage.this, "Language selected!", Toast.LENGTH_SHORT).show();
@@ -200,6 +210,8 @@ public class PreferencesPage extends AppCompatActivity {
         }
     }
 
+    // this sets the intent for the home page to store the user data and user id so
+    // the activity info is stored
     void openHomepage(){
         Intent intent = new Intent(getApplicationContext(),HomePage.class) ;
         intent.putExtra("user",user) ;
@@ -207,7 +219,7 @@ public class PreferencesPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // forbidding back button
+    // forbids back button
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

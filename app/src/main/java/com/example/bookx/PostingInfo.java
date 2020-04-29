@@ -206,7 +206,7 @@ public class PostingInfo extends FragmentActivity implements OnMapReadyCallback{
 
                     // add a market to the map to display the user location
                     mapAPI.addMarker(new MarkerOptions().position(add).title(seller.getLocation())) ; // shows the location when marker is clicked
-                    mapAPI.moveCamera(CameraUpdateFactory.newLatLngZoom(add,14)) ; // repositions map when user zoomz in or out
+                    mapAPI.moveCamera(CameraUpdateFactory.newLatLngZoom(add,14)) ; // repositions map when user zooms in or out
                 }else{
 
                     // user's show location is turned off so we display location at coordinates 0,0
