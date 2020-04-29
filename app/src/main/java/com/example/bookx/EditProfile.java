@@ -97,7 +97,7 @@ public class EditProfile extends AppCompatActivity {
         });
 
     }
-
+    //update the fields with what user enters in the textfield
     private void updateFields(){
         mDatabase.child("users").child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -113,7 +113,7 @@ public class EditProfile extends AppCompatActivity {
             }
         });
     }
-
+    //save the updated fields for the user and update it on the database as well
     private void saveFields(){
         mDatabase.child("users").child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -142,14 +142,17 @@ public class EditProfile extends AppCompatActivity {
                     map.put("latitude",latitude) ;
                     map.put("longitude",longitude) ;
                 }
+                //make a success toast
                 if(!map.isEmpty()){
                     reference.updateChildren(map);
                     toastMsg += "Name and/or address is updated! ";
                 }
+                //make a success toast
                 if(password.getText().toString().equals(passwordRetype.getText().toString()) && !password.getText().toString().equals("")){
                     fUser.updatePassword(password.getText().toString());
                     toastMsg += "Password is updated. ";
                 }
+                //make a failed toast
                 else{
                     if (!TextUtils.isEmpty(password.getText().toString()) && !TextUtils.isEmpty(passwordRetype.getText().toString())) {
                         toastMsg += "Passwords do not match or are invalid. ";
@@ -167,19 +170,21 @@ public class EditProfile extends AppCompatActivity {
         });
     }
 
+    //open image file function
     private void openImage(){
         Intent intent = new Intent() ;
         intent.setType("image/*") ;
         intent.setAction(Intent.ACTION_GET_CONTENT) ;
         startActivityForResult(intent,IMAGE_REQUEST);
     }
-
+    //get file for images
     private String getFileExtension(Uri uri){
         ContentResolver contentResolver = getApplicationContext().getContentResolver() ;
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton() ;
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
     }
 
+    //upload image function. opens up image storage to upload a profile image. if failed, make a toast
     private void uploadImage(){
         if(imageUrl != null){
             final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUrl));
@@ -215,7 +220,7 @@ public class EditProfile extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"No image selected", Toast.LENGTH_LONG).show();
         }
     }
-
+    //make a toast if uploading image is successful or not
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);

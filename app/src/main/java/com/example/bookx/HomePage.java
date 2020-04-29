@@ -187,6 +187,7 @@ public class HomePage extends AppCompatActivity {
         firstBootUp = true;
         listenForNewMessages();
 
+        //set onClickListener for our Search Function
         ibtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,6 +220,7 @@ public class HomePage extends AppCompatActivity {
 //            }
 //        });
 
+        //set onClickListener for our searchbar filter
         ibtFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,7 +254,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
-
+    //open account page once account_btn is clicked
     public void openAccountPage() {
         Intent intent = new Intent(this, AccountPage.class);
         intent.putExtra("userid", this.userid) ;
@@ -260,6 +262,7 @@ public class HomePage extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    //open preference page once preferences_btn is clicked
 
     public void openPreferencesPage() {
         Intent intent = new Intent(this, PreferencesPage.class);
@@ -268,11 +271,13 @@ public class HomePage extends AppCompatActivity {
         startActivity(intent);
         finish() ;
     }
+    //open account page once upload_btn is clicked
 
     public void openListingPage() {
         Intent intent = new Intent(this, ListingPage.class);
         startActivity(intent);
     }
+    //open account page once chat_btn is clicked
 
     public void openChatListPage() {
         Intent intent = new Intent(this, MessageList.class);
@@ -321,7 +326,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
-
+    //calculates distance between your address and the other users' address to show filter from nearest location to furthest
     private double distance(double lat1, double lon1, double lat2, double lon2) {
         if ((lat1 == lat2) && (lon1 == lon2)) {
             return 0;
@@ -337,6 +342,7 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
+    //display message counter for the paranthesis next to message button
     void getUnreadNum(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("chats") ;
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
@@ -404,7 +410,7 @@ public class HomePage extends AppCompatActivity {
         });
 
     }
-
+    //sending notification method
     private void sendNotification(String message, String sender){
         createNotificationChannel();
         Intent intent = new Intent(this, MessageList.class);
