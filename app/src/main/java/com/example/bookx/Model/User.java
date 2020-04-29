@@ -9,9 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Data class that captures user information for logged in users
- */
+// class model for users
 @IgnoreExtraProperties
 public class User implements Parcelable {
     private String email;
@@ -24,11 +22,12 @@ public class User implements Parcelable {
 
     // this stores the user's listings where the key is the lid and the boolean is whether the listing is active
     private Map<String, Object> listings;
-    // profile_picture?
 
+    // Parcelable methods
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
+
 
     public User(String email, String name, String location, String imageurl) {
         this.email = email;
@@ -39,6 +38,7 @@ public class User implements Parcelable {
         this.listings = new HashMap<>(); // empty by default
     }
 
+    // read from Parcel
     protected User(Parcel in) {
         email = in.readString();
         fullName = in.readString();
@@ -49,6 +49,7 @@ public class User implements Parcelable {
         showLocation = in.readByte() != 0;
     }
 
+    // write model class to Parcel
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(email);
@@ -77,6 +78,7 @@ public class User implements Parcelable {
         }
     };
 
+    // setters & getters
     public void setFullName(String name) {
         this.fullName = name;
     }

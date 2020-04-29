@@ -1,7 +1,13 @@
 package com.example.bookx.Model;
 
+// class model for chat messages
 public class Chat {
-    private String sender, receiver, message ;
+
+    // sender and receiver id
+    private String sender, receiver ;
+    // message content
+    private String message ;
+    // if the message is sent by sender and read by receiver
     private boolean isRead, isSent;
 
     public Chat(String sender, String receiver, String message, boolean isRead, boolean isSent) {
@@ -13,9 +19,10 @@ public class Chat {
     }
 
     public Chat(){
-
+        // Default constructor required for calls to DataSnapshot.getValue(Chat.class)
     }
 
+    // setters & getters
     public String getSender() {
         return sender;
     }

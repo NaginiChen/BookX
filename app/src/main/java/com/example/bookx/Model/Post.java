@@ -8,9 +8,7 @@ import androidx.annotation.NonNull;
 import com.google.firebase.database.IgnoreExtraProperties;
 import java.util.Date;
 
-/**
- * Data class that captures user information for logged in users
- */
+// class model for Posts
 @IgnoreExtraProperties
 public class Post implements Parcelable {
 
@@ -25,18 +23,6 @@ public class Post implements Parcelable {
     private String isbn;
     private String imageurl ;
     private double latitude, longitude ;
-
-    public static final Creator<Post> CREATOR = new Creator<Post>() {
-        @Override
-        public Post createFromParcel(Parcel in) {
-            return new Post(in);
-        }
-
-        @Override
-        public Post[] newArray(int size) {
-            return new Post[size];
-        }
-    };
 
     public Post(String uid, String bookTitle, String seller, String course, double price, String desc, boolean isSold, String isbn, String imageurl, double latitude, double longitude){
         this.uid = uid;
@@ -53,12 +39,25 @@ public class Post implements Parcelable {
         this.longitude = longitude ;
     }
 
+    // parcelable methods
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Post(Parcel in){
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
+        @Override
+        public Post createFromParcel(Parcel in) {
+            return new Post(in);
+        }
 
+        @Override
+        public Post[] newArray(int size) {
+            return new Post[size];
+        }
+    };
+
+    // read from Parcel
+    public Post(Parcel in){
         this.uid = in.readString() ;
         this.bookTitle = in.readString() ;
         this.seller = in.readString() ;
@@ -73,10 +72,30 @@ public class Post implements Parcelable {
         this.longitude = in.readDouble() ;
     }
 
+    // write class to Parcel
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(uid);
+        dest.writeString(bookTitle);
+        dest.writeString(seller);
+        dest.writeString(course);
+        dest.writeDouble(price);
+        dest.writeString(desc);
+        dest.writeString(Boolean.toString(isSold));
+        dest.writeLong(date.getTime());
+        dest.writeString(isbn);
+        dest.writeString(imageurl);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
     // setter & getter
-
-
-
     public String getBookTitle() {
         return bookTitle;
     }
@@ -139,28 +158,6 @@ public class Post implements Parcelable {
 
     public void setUid(String uid) {
         this.uid = uid;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(uid);
-        dest.writeString(bookTitle);
-        dest.writeString(seller);
-        dest.writeString(course);
-        dest.writeDouble(price);
-        dest.writeString(desc);
-        dest.writeString(Boolean.toString(isSold));
-        dest.writeLong(date.getTime());
-        dest.writeString(isbn);
-        dest.writeString(imageurl);
-        dest.writeDouble(latitude);
-        dest.writeDouble(longitude);
-
     }
 
     public String getIsbn() {
